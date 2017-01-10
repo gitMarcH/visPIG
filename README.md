@@ -25,7 +25,7 @@ Just copy this http link into a browser of your choice (Firefox works for sure) 
 Note:
 The R package 'shiny' needs to be installed.
 To do this, run the following command in R:
-install.packages("shiny")
+   `install.packages("shiny")`
 
 
 ############################
