@@ -1,0 +1,1810 @@
+﻿<!doctype html>
+
+<html>
+
+  <head>
+    <script src="shared/jquery.js" type="text/javascript"></script>
+    <script src="shared/shiny.js" type="text/javascript"></script>
+    <script type='text/javascript' src='shared/slider/js/jquery.slider.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    <link rel="stylesheet" type="text/css" href="styles/style1.css"/> 
+    <link rel="stylesheet" href="shared/slider/css/jquery.slider.min.css">
+    <!--<script type="text/javascript"> window.onbeforeunload = function(e) { return 'If you leave this page you will have to re-upload data files. Click cancel to stay on this page.'; }; </script>-->	
+    
+    <!-- check for SVG support in two different ways -->
+    <script>
+      if (!!(window.SVGSVGElement)){document.documentElement.className = "svg";}
+      if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id='wrapper'> <!--Wrapper-->
+      <div id='top0'>
+	<div style="height:10px">
+	</div>
+	<div style='float:left'>
+	  <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	    <img class="svg" src="./images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	    <img class="png" src="./images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	  </a>
+	</div>
+	<div style='float:right'>
+	  Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	</div>
+	<div>
+	</div>
+      </div>
+      <div id='top1'>
+	<h1>visPIG - Visual Plotting Interface for Genetics</h1>
+      </div>
+      <div id='top2' class=layout>
+	<div id='parameters_radios' class='left-border'>
+	  ﻿<b> Which parameters do you want to edit? </b>
+
+
+<div id="parameter_set" class="control-group shiny-input-radiogroup">
+
+<div class='parameter-block'>
+  <label class="control-label" for="parameter_set"></label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set1" value="files" checked="checked"/>
+  <span>Data Files</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set2" value="graphics"/>
+  <span>General Graphics</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set3" value="zoom"/>
+  <span>Zoom Parameters</span>
+  </label>   
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set4" value="legends"/>
+  <span>Legend(s)</span>
+  </label>
+</div>
+		
+
+<div class='parameter-block'>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set5" value="assoc_track"/>
+  <span>Association Track</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set6" value="dix_track"/>
+  <span>Directionality Index Track</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set7" value="feat_track"/>
+  <span>Feature Track</span>
+  </label> 
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set8" value="gene_track"/>
+  <span>Gene Track</span>
+  </label>
+</div>
+
+<div class='parameter-block'>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set9" value="gerp_track"/>
+  <span>Gerp Track</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set10" value="heat_track"/>
+  <span>Heatmap Track</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set11" value="hic_track"/>
+  <span>Interaction Track</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set12" value="int_track"/>
+  <span>Intensity Track</span>
+  </label>
+</div>
+
+<div class='parameter-block'>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set13" value="annot_track"/>
+  <span>Multi-state Track</span>
+  </label> 
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set14" value="phast_track"/>
+  <span>phastCons Track</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set15" value="snap_track"/>
+  <span>SNAP Track</span>
+  </label>
+  <label class="radio">
+  <input type="radio" name="parameter_set" id="parameter_set16" value="lines"/>
+  <span>Vertical Lines</span>
+  </label>
+</div>
+
+</div>
+
+	</div>
+	<div id='download_button' class='left-border'>
+	  ﻿<b>Preview & Download Options: </b>
+<div class='parameter-block'>
+  <label class="checkbox" for="render_all">
+  <span>Render preview image</span>
+  <input id="render_all" type="checkbox" checked="checked"/>
+  </label>
+  <br /><br />
+  
+  <a id="downloadPDF" class="btn shiny-download-link" href="" target="_blank">
+  <img class="svg" src="./images/button1_ICRcols_downloadPDF.svg" alt="download the PDF" width="350" height="32" />
+  <img class="png" src="./images/button1_ICRcols_downloadPDF.png" alt="download the PDF" width="350" height="32" />
+  </a>
+  <br />
+  
+  <a id="downloadParameters" class="btn shiny-download-link" href="" target="_blank">
+  <img class="svg" src="./images/button2_ICRcols_saveParameters.svg" alt="save the parameters" width="350" height="32" />
+  <img class="png" src="./images/button2_ICRcols_saveParameters.png" alt="save the parameters" width="350" height="32" />
+  </a>
+  <br />
+  
+  <a href="./html/download_R.html" target="_blank">
+  <img class="svg" src="./images/button3_ICRcols_downloadRCode.svg" alt="download the R Code" width="350" height="32" />
+  <img class="png" src="./images/button3_ICRcols_downloadRCode.png" alt="download the R Code" width="350" height="32" />
+  </a>
+  <br />
+  
+  <a href="./html/helpDocumentation.html" target="_blank">
+  <img class="svg" src="./images/button4_ICRcols_helpDocumentation.svg" alt="help and documentation" width="350" height="32" />
+  <img class="png" src="./images/button4_ICRcols_helpDocumentation.png" alt="help and documentation" width="350" height="32" />
+  </a>
+  <input id='initialized' type='text' value='0' style='display:none;' disabled/>
+</div>
+	</div>
+      </div> 
+      
+      <div style='overflow:visible;'>
+	<!--<div style='width:6000px;text-align:right;'>-->
+	<div style='width:auto;text-align:right;'>	  
+	  
+	  <div id='left'>
+	    <div id='div_replot'>
+	      <!--[if lte IE 8]><input id="replot" type="image" class="btn action-button" width='460px' height='34px' src='./images/button5_ICRcols_replot.png' alt='Replot'style=' margin-left:1px;'/><![endif]-->
+	      <!--[if gt IE 8]><input id="replot" type="image" class="btn action-button" width='460px' height='34px' src='./images/button5_ICRcols_replot.svg' alt='Replot'style=' margin-left:1px;'/><![endif]-->
+	      <!--[if !IE]> --><input id="replot" type="image" class="btn action-button" width='460px' height='34px' src='./images/button5_ICRcols_replot.svg' alt='Replot'style=' margin-left:1px;'/><!-- <![endif]-->	
+	    </div>
+	    <div id='parameters_options' class='layout'>
+	      <div style="text-align:right;" data-display-if="input.parameter_set=='files'">
+
+
+	<div title="Specify a region: e.g.: chr8 127800000 127900000" class="even_row">
+	region file
+	<input id="regions_file" type="file" />
+	<input id="consider_regions_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="Not required. But you can upload pre-written parameters." class="odd_row">
+	parameter file
+	<input id="parameters_file" type="file" />
+	<input id="consider_parameters_file" type="checkbox" checked="checked" />
+	</div>
+
+<hr>
+Upload your data files.<br />To omit a track or control the track order,<br />edit the track order field at the bottom.<br /><br />
+
+	<div title="Select multiple files by holding down ctrl (or cmd)" class="even_row">
+	multi-state annotation file(s) (annot)
+	<input id="annot_files" type="file" multiple="multiple" />
+	<input id="consider_annot_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	association file (assoc)
+	<input id="assoc_file" type="file" />
+	<input id="consider_assoc_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="even_row">
+	directionality index file (dix)
+	<input id="dix_file" type="file" />
+	<input id="consider_dix_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="Select multiple files by holding down ctrl (or cmd)" class="odd_row">
+	GERP file (gerp)
+	<input id="gerp_files" type="file" multiple="multiple" />
+	<input id="consider_gerp_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="even_row">
+	heatmap file (heat)
+	<input id="heat_file" type="file" />
+	<input id="consider_heat_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	interaction file(s) (hic)
+	<input id="hic_files" type="file" multiple="multiple" />
+	<input id="consider_hic_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="Select multiple files by holding down ctrl (or cmd)" class="even_row">
+	intensity file(s) (int)
+	<input id="int_files" type="file" multiple="multiple" />
+	<input id="consider_int_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="Select multiple files by holding down ctrl (or cmd)" class="odd_row">
+	phastCons file(s) (phast)
+	<input id="phast_files" type="file" multiple="multiple" />
+	<input id="consider_phast_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="Select multiple files by holding down ctrl (or cmd)" class="even_row">
+	SNAP data file (snap)
+	<input id="snap_data_files" type="file" multiple="multiple" />
+	<input id="consider_snap_data_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="Select multiple files by holding down ctrl (or cmd)" class="odd_row">
+	SNAP rate file (snap)
+	<input id="snap_rate_files" type="file" multiple="multiple" />
+	<input id="consider_snap_rate_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="Select multiple files by holding down ctrl (or cmd)" class="even_row">
+	feature file (feat)
+	<input id="feat_files" type="file" multiple="multiple" />
+	<input id="consider_feat_files" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	vertical line file
+	<input id="lines_file" type="file" />
+	<input id="consider_lines_file" type="checkbox" checked="checked" />
+	</div>
+
+<hr>
+To use default gene & chromosome sizes files,<br />leave the following two fields blank.
+
+	<div title="" class="even_row">
+	gene file (gene)
+	<input id="gene_file" type="file" />
+	<input id="consider_gene_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	chromosome sizes file
+	<input id="chrsizes_file" type="file" />
+	<input id="consider_chrsizes_file" type="checkbox" checked="checked" />
+	</div>
+
+<hr>
+Track order (top-down).<br />Leave this blank for default order.<br />You might want to know <a href='./html/track-codes.html' target='_blank'>what's what</a>.
+
+	<div title="Enter the track id's separated by a comma e.g. &#13 gene,hic,assoc" class="even_row">
+	
+	<textarea id="track_order_top_down" cols="40" rows=3 ></textarea>
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='gene_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="gene_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="gene_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="gene_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="gene_ylab_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	colour
+	<input id="gene_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="even_row">
+	minimum space between genes
+	<input id="gene_igs" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	gene name font size
+	<input id="gene_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	strand arrow size
+	<input id="gene_cex_arrows" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	line width
+	<input id="gene_lwd" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='gerp_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="gerp_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="gerp_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="gerp_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="gerp_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	line width
+	<input id="gerp_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis limits (e.g. -10,10)
+	<input id="gerp_ylim" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	is the data per base-pair?
+	<select id="gerp_noblocks"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	file with positions to be filtered out
+	<input id="gerp_filter_file" type="file" />
+	<input id="consider_gerp_filter_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	top margin (inches)
+	<input id="gerp_mai_top" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	bottom margin (inches)
+	<input id="gerp_mai_bot" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='phast_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="phast_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="phast_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="phast_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="phast_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	line width
+	<input id="phast_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis limits (e.g. 0,1)
+	<input id="phast_ylim" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	is the data per base-pair?
+	<select id="phast_noblocks"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	file with positions to be filtered out
+	<input id="phast_filter_file" type="file" />
+	<input id="consider_phast_filter_file" type="checkbox" checked="checked" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='annot_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="annot_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="annot_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="annot_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="annot_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	line width
+	<input id="annot_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	name(s) of background classes
+	<input id="annot_bgclass" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	top margin (inches)
+	<input id="annot_mai_top" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	bottom margin (inches)
+	<input id="annot_mai_bot" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='hic_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="hic_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="hic_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="hic_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="hic_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="one of "bins", "stacked", "arches" or "flatarches"; NB different input format for the interaction tracks that get plotted as arches (whether round or flat)" class="odd_row">
+	how should interactions be plotted?
+	<input id="hic_style" type="text" value="" />
+	</div>
+
+<hr>
+the parameters below are only used<br>if the interactions are to be plotted as interacting bins
+
+	<div title="" class="even_row">
+	reference bin colour
+	<input id="hic_colref" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	non-reference bin colour
+	<input id="hic_colnonref" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+<hr>
+the parameters below are only used<br>if the interactions are to be stacked
+
+	<div title="" class="even_row">
+	lower y-axis limit(s)
+	<input id="hic_stack_ylim_bot" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	upper y-axis limit(s)
+	<input id="hic_stack_ylim_top" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	plotting style(s) (one of barplot or lineplot)
+	<input id="hic_stack_style" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	plotting colour
+	<input id="hic_stack_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="even_row">
+	line width
+	<input id="hic_stack_lwd" type="text" value="" />
+	</div>
+
+<hr>
+the parameters below are only used<br>if the interactions are to be plotted as arches
+
+	<div title="" class="odd_row">
+	should the arches be twisted ribbons?
+	<select id="hic_arches_twist"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	line width used to draw the arches
+	<input id="hic_arches_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	number of segments to be used per arc
+	<input id="hic_arches_nsegments" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	should the 7th column be rescaled onto a negative log scale?
+	<select id="hic_arches_neglog10"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	lower limit(s) for the y-axis
+	<input id="hic_arches_ylim_lower" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	upper limit(s) for the y-axis
+	<input id="hic_arches_ylim_upper" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	should a y-axis scale be printed or not?
+	<select id="hic_arches_yaxis"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	colour to be used for drawing the arches
+	<input id="hic_arches_col" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	should the colour strength of each arc reflect the strength of the signal?
+	<select id="hic_arches_varicol"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+<hr>
+if you specify a capture region, this will be indicated as a background on the track
+
+	<div title="" class="even_row">
+	chr, start & end positions of the capture regions (e.g. chr:SP:EP)
+	<input id="hic_capt_region" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	colour of the capture region box
+	<input id="hic_capt_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="even_row">
+	density of the shading lines for the capture region box
+	<input id="hic_capt_density" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='int_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="int_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="int_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="int_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="int_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	line width
+	<input id="int_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	lower y-axis limit(s)
+	<input id="int_ylim_lower" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	upper y-axis limit(s)
+	<input id="int_ylim_upper" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	plotting style(s) (one of barplot or lineplot)
+	<input id="int_style" type="text" value="" />
+	</div>
+
+<hr>
+the parameters below are optional and relate<br> to primary and secondary reference bin(s)<br>that can be drawn on the intensity track(s)
+
+	<div title="" class="odd_row">
+	chr, start & end positions of reference bin(s) (e.g. chr:SP:EP)
+	<input id="int_refbox" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	colour of the reference bin(s)
+	<input id="int_refbox_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	shading line density for the reference bin(s)
+	<input id="int_refbox_density" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	chr, start & end positions of secondary reference bin(s)
+	<input id="int_ref2box" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	colour of the secondary reference bin(s)
+	<input id="int_ref2box_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="even_row">
+	shading line density for the secondary reference bin(s)
+	<input id="int_ref2box_density" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='assoc_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="assoc_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="assoc_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="assoc_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="assoc_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	colour scale
+	<input id="assoc_cols" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="even_row">
+	min and max p-value
+	<input id="assoc_pvalscale" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	line width
+	<input id="assoc_lwd_bars" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='dix_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="dix_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter(s)
+	<input id="dix_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="dix_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="dix_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	colour for positive values
+	<input id="dix_col_pos" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="even_row">
+	colour for negative values
+	<input id="dix_col_neg" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	colours specified as rgb?
+	<select id="dix_col_rgb"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	column numbers that should be plotted as separate tracks
+	<input id="dix_cols_toplot" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	lower y-axis limit(s)
+	<input id="dix_ylim_lower" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	upper y-axis limit(s)
+	<input id="dix_ylim_upper" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='feat_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="feat_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="feat_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="feat_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="feat_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	feature name font size
+	<input id="feat_cex_lab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	line width
+	<input id="feat_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	feature height
+	<input id="feat_height" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	feature colour
+	<input id="feat_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	text position (one of right,left,top)
+	<input id="feat_textpos" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	vertical offset for feature labels
+	<input id="feat_txt_vert_offset" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	horizontal offset for feature labels
+	<input id="feat_txt_hori_offset" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='zoom'">
+
+	<div title="" class="odd_row">
+	zoom in on a region?
+	<select id="zoom"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	which chromosome?
+	<input id="zoom_chr" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	start position
+	<input id="zoom_SP" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	end position
+	<input id="zoom_EP" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	track order for zoomed region (top-down)
+	<textarea id="zoom_track_order_top_down" cols="40" rows=3 ></textarea>
+	</div>
+
+
+	<div title="" class="even_row">
+	spacing between the axes
+	<input id="zoom_vertical_spacing" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	zoom line colour
+	<input id="zoom_lines_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="A value between 0 and 1" class="even_row">
+	zoom line opacity
+<span style="width:120px;"><input id="zoom_lines_alpha" type="slider" value="0.5" class="jslider" data-from="0" data-to="1" data-step="0.01" data-skin="plastic" data-round="false" data-locale="us" data-format="#,##0.#####" data-smooth="false"/> </span>	</div>
+
+
+	<div title="" class="odd_row">
+	zoom line width
+	<input id="zoom_lines_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="e.g. solid or 11 or dashed or 91 - standard R line types" class="even_row">
+	zoom line type
+	<input id="zoom_lines_lty" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	x-axis units
+<label class="control-label" for="zoom_axis_format"></label>
+<select id="zoom_axis_format">
+  <option value="Mb" selected="selected">Mb</option>
+  <option value="Kb">Kb</option>
+  <option value="bp">bp</option>
+</select>	</div>
+
+
+	<div title="" class="even_row">
+	show the units on the x-axis labels?
+	<select id="zoom_labels_show_unit"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="positive values mean the tickmarks extend above the axis line; negative values below the axis line" class="odd_row">
+	length & direction of tickmarks on the zoomed axis
+	<input id="zoom_axis_tcl" type="text" value="" />
+	</div>
+
+
+	<div title="0 = round line caps, 1 = butt line caps, 2 = square line caps" class="even_row">
+	line end style for the zoomed axis
+<label class="control-label" for="zoom_axis_lend"></label>
+<select id="zoom_axis_lend">
+  <option value="0" selected="selected">0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+</select>	</div>
+
+
+	<div title="" class="odd_row">
+	x-axis line width
+	<input id="zoom_x_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	x-axis label
+(* = default)	<input id="zoom_xlab" type="text" value="TRUE" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	place the x-axis labels above the axis?
+	<select id="zoom_x_labels_up"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='heat_track'">
+
+	<div title="" class="odd_row">
+	relative track height
+	<input id="heat_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter
+	<input id="heat_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="heat_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis label font size
+	<input id="heat_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	chromosome
+	<input id="heat_chr" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	start position
+	<input id="heat_SP" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	end position
+	<input id="heat_EP" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	heat colours
+	<input id="heat_cols" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	direction the heat map points to
+<label class="control-label" for="heat_dir"></label>
+<select id="heat_dir">
+  <option value="upwards" selected="selected">upwards</option>
+  <option value="downwards">downwards</option>
+</select>	</div>
+
+
+	<div title="" class="even_row">
+	y-axis limits (e.g. 0,900000)
+	<input id="heat_ylim" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	colour scale limits (e.g. 0,20)
+	<input id="heat_zlim" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	should the intensities be plotted on a log scale?
+	<select id="heat_logscale"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	bin size
+	<input id="heat_bw" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	show only data for which both bins lie in the plotted region(s)?
+	<select id="heat_chop_data_gaps"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='snap_track'">
+
+	<div title="The height of this track relative to the others. Default 1." class="odd_row">
+	relative track height
+	<input id="snap_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="Letter to be plotted in the upper left of this track" class="even_row">
+	track letter
+	<input id="snap_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	y-axis label
+	<input id="snap_ylab" type="text" value="" />
+	</div>
+
+
+	<div title="Text size for the y label" class="even_row">
+	y-axis label font size
+	<input id="snap_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="Text size for the 3 legends (P-value, recombination rate, r2)" class="odd_row">
+	legends font size
+	<input id="snap_cex_axis" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	reference SNP(s) label(s) font size
+	<input id="snap_snp_label_cex" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	reference SNP
+	<input id="snap_snp" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	SNP label x-offset (in plot units)
+	<input id="snap_snp_offset_x" type="text" value="" />
+	</div>
+
+
+	<div title="The units are those of the left hand axis" class="odd_row">
+	SNP label y-offset (in plot units)
+	<input id="snap_snp_offset_y" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	r2 legend text x-offset (in plot units)
+	<input id="snap_r2_legend_x_offset" type="text" value="" />
+	</div>
+
+
+	<div title="The chromosome(s) to which the positions are relative in each of the snap files. Separate entries for multiple files by a comma e.g. 8,11" class="odd_row">
+	chromosome
+	<input id="snap_chr" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	y-axis limits (e.g. 0,10)
+	<input id="snap_ylim" type="text" value="" />
+	</div>
+
+<hr>Parameters for a second reference SNP
+
+	<div title="" class="even_row">
+	data file for SNP #2
+	<input id="snap_snp2_file" type="file" />
+	<input id="consider_snap_snp2_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	reference SNP #2
+	<input id="snap_snp2_snp" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	SNP #2 label x-offset
+	<input id="snap_snp2_offset_x" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	SNP #2 label y-offset
+	<input id="snap_snp2_offset_y" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='lines'">
+
+	<div title="" class="odd_row">
+	line width(s)
+	<input id="lines_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	line type(s)
+	<input id="lines_lty" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	lines colour(s)
+	<input id="lines_col" title = "Specify colour as a name e.g. red or &#13As hex code eg #FF0000, &#13Unless there is an option below to specify colour as rgb in which case use the format 255_0_0" type="text" value="NA" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='graphics'">
+
+	<div title="width in inches" class="odd_row">
+	plot width (inches)
+	<input id="width_plot" type="text" value="" />
+	</div>
+
+
+	<div title="height in inches" class="even_row">
+	plot height (inches)
+	<input id="height_plot" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	left margin (inches)
+	<input id="left_margin" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	right margin (inches)
+	<input id="right_margin" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	top margin (for title track; inches)
+	<input id="title_top_margin" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	top margin (for axis track; inches)
+	<input id="top_margin" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	bottom margin (for axis track; inches)
+	<input id="bottom_margin" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	margin between tracks (inches)
+	<input id="sep_margin" type="text" value="" />
+	</div>
+
+<hr>
+
+	<div title="0 - vertical, 1 - horizontal" class="even_row">
+	y-axis label orientation
+<label class="control-label" for="ylab_las"></label>
+<select id="ylab_las">
+  <option value="0" selected="selected">0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+</select>	</div>
+
+
+	<div title="" class="odd_row">
+	track letter font size
+	<input id="letter_cex" type="text" value="" />
+	</div>
+
+<hr>
+
+	<div title="" class="odd_row">
+	x-axis label
+(* = default)	<input id="xlab" type="text" value="TRUE" />
+	</div>
+
+
+	<div title="" class="even_row">
+	x-axis label text size
+	<input id="xlab_cex" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	x-axis relative track height
+	<input id="axis_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	x-axis margin inset
+	<input id="axis_line" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	x-axis label margin inset
+	<input id="xlab_line" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	x-axis range labels margin inset
+	<input id="axis_range_line" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	x-axis tickmark labels margin inset
+	<input id="axis_tickmarks_line" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	over-impose vertical lines on the x-axis?
+	<select id="axis_addlines"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	x-axis line width
+	<input id="x_lwd" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	x-axis units
+<label class="control-label" for="x_axis_format"></label>
+<select id="x_axis_format">
+  <option value="Mb" selected="selected">Mb</option>
+  <option value="Kb">Kb</option>
+  <option value="bp">bp</option>
+</select>	</div>
+
+
+	<div title="" class="odd_row">
+	show the units on the x-axis labels?
+	<select id="x_labels_show_unit"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="positive values mean the tickmarks extend above the axis line; negative values below the axis line" class="even_row">
+	length & direction of axis tickmarks 
+	<input id="axis_tcl" type="text" value="" />
+	</div>
+
+
+	<div title="0 = round line caps, 1 = butt line caps, 2 = square line caps" class="odd_row">
+	line end style for the axis
+<label class="control-label" for="axis_lend"></label>
+<select id="axis_lend">
+  <option value="0" selected="selected">0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+</select>	</div>
+
+
+	<div title="" class="even_row">
+	slant the axis labels?
+	<select id="axis_labels_slanted"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	degrees of slanting (anti-clockwise)
+	<input id="axis_labels_angle" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	gap width (for gaps on x-axis)
+	<input id="gap_width" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	gap label inset
+	<input id="gaps_sizes_offset_x" type="text" value="" />
+	</div>
+
+<hr>
+
+	<div title="" class="odd_row">
+	relative height for title track
+	<input id="title_relplotheight" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	track letter for title track
+	<input id="title_letter" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	title
+	<input id="title" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	title font size
+	<input id="title_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	title position
+	<input id="title_pos" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	title chromosome
+	<input id="title_chr" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	indicate gap boundaries on title track?
+	<select id="title_showgaps"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+<hr>
+
+	<div title="" class="odd_row">
+	relative height for empty or buffer tracks
+	<input id="buffer_relplotheight" type="text" value="" />
+	</div>
+
+<hr>
+
+	<div title="NB X, Y, MT chromosomes should be encoded as numbers >22 in the input data files and the maximum chromosome number should be set accordingly here; by default they will be ignored (only chromosomes 1-22 considered)" class="odd_row">
+	maximum chromosome number
+	<input id="max_chr" type="text" value="" />
+	</div>
+
+</div>
+<div style="text-align:right;" data-display-if="input.parameter_set=='legends'">
+
+	<div title="" class="odd_row">
+	legend location
+<label class="control-label" for="legend_where"></label>
+<select id="legend_where">
+  <option value="top" selected="selected">top</option>
+  <option value="bottom">bottom</option>
+  <option value="left">left</option>
+  <option value="left_top">left_top</option>
+  <option value="left_bottom">left_bottom</option>
+  <option value="right">right</option>
+  <option value="right_top">right_top</option>
+  <option value="right_bottom">right_bottom</option>
+</select>	</div>
+
+<hr>
+these two parameters specify the width / height of the legend as a proportion of the plot. you can specify them in inches too (they should add up to the total width/height of the plot). you can either specify one value for the whole legend, or a value for each row/column of the legend.
+
+	<div title="" class="even_row">
+	width(s) of the legends
+	<input id="legend_width" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	height(s) of the legends
+	<input id="legend_height" type="text" value="" />
+	</div>
+
+<hr>
+these two parameters will not get used<br>if the legend location is 'separate'.
+
+	<div title="" class="even_row">
+	number of rows
+	<input id="legend_rows" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	number of columns
+	<input id="legend_cols" type="text" value="" />
+	</div>
+
+<hr>
+
+	<div title="" class="odd_row">
+	association track legend?
+	<select id="legend_assoc"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	interaction track legend(s)?
+	<select id="legend_hic"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	heatmap legend?
+	<select id="legend_heat"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	multi-state track legend(s)?
+	<select id="legend_annot"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	directionality track legend(s)?
+	<select id="legend_dix"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+<hr>
+
+	<div title="" class="odd_row">
+	bottom, left, top and right margin in inches
+	<input id="legend_mai" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	relative font size for legend titles
+	<input id="legend_cex_lab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	relative font size for legend labels
+	<input id="legend_cex_txt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	adjustment for the position of the legend titles
+	<input id="legend_adj" type="text" value="" />
+	</div>
+
+<hr>
+parameters for the multi-state track legend(s)
+
+	<div title="" class="odd_row">
+	title(s) for the multi-state track legend(s)
+	<input id="legend_annot_xlab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	multi-state legend file(s)
+	<input id="legend_annot_file" type="file" multiple="multiple" />
+	<input id="consider_legend_annot_file" type="checkbox" checked="checked" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	number of rows to split the states over
+	<input id="legend_annot_nrow" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	width of each column
+	<input id="legend_annot_xspace" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	are the colours in RGB format?
+	<select id="legend_annot_rgb"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	multi-state legend title margin inset
+	<input id="legend_annot_axline" type="text" value="" />
+	</div>
+
+<hr>
+parameters for the interaction track legend
+
+	<div title="" class="odd_row">
+	title(s) for the interaction track legend(s)
+	<input id="legend_hic_xlab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	reference bin label(s)
+	<input id="legend_hic_labref" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	non-reference bin label(s)
+	<input id="legend_hic_labnonref" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	interaction link label(s)
+	<input id="legend_hic_lablink" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	include the capture region in the legend?
+	<select id="legend_hic_capt"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	capture region label(s)
+	<input id="legend_hic_labcapt" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	width of text area
+	<input id="legend_hic_xlim" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	horizontal interaction legend?
+	<select id="legend_hic_hori"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	interaction legend title margin inset
+	<input id="legend_hic_axline" type="text" value="" />
+	</div>
+
+<hr>
+parameters for the heat map track legend
+
+	<div title="" class="even_row">
+	title for the heat map track legend
+	<input id="legend_heat_xlab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	horizontal heat map legend?
+	<select id="legend_heat_hori"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	heat map legend title margin inset
+	<input id="legend_heat_axline" type="text" value="" />
+	</div>
+
+<hr>
+parameters for the association track legend
+
+	<div title="" class="odd_row">
+	title for the association track legend
+	<input id="legend_assoc_xlab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	number of digits for the p-values
+	<input id="legend_assoc_pvalticksround" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	horizontal association track legend?
+	<select id="legend_assoc_hori"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="even_row">
+	association legend title margin inset
+	<input id="legend_assoc_axline" type="text" value="" />
+	</div>
+
+<hr>
+parameters for the directionality index track legend(s)
+
+	<div title="" class="odd_row">
+	title(s) for the directionality index track legend(s)
+	<input id="legend_dix_xlab" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	label for the positive value colour
+	<input id="legend_dix_labpos" type="text" value="" />
+	</div>
+
+
+	<div title="" class="odd_row">
+	label for the negative value colour
+	<input id="legend_dix_labneg" type="text" value="" />
+	</div>
+
+
+	<div title="" class="even_row">
+	horizontal directionality index track legend?
+	<select id="legend_dix_hori"><option value="TRUE"NA>Yes</option><option value="FALSE">No</option></select>
+	</div>
+
+
+	<div title="" class="odd_row">
+	directionality index legend title margin inset
+	<input id="legend_dix_axline" type="text" value="" />
+	</div>
+
+<hr>
+legend order
+
+	<div title="Enter the legend id's separated by a comma" class="even_row">
+	
+	<textarea id="legend_order" cols="40" rows=3 ></textarea>
+	</div>
+
+</div>
+ <!-- this, like those below, is a conditional panel -->
+	    </div>
+	  </div>
+	  <div id='preview' class='layout'>
+	    <input id='troubleshoot_count' type='text' value='0' style='display:none;' disabled/>				
+	    <pre id="dynamicHelp" class="shiny-text-output" style='color:green;'></pre>				
+	    Below is a preview of plot in png format:
+	    <div id="web_image" class="shiny-image-output"></div> 
+	  </div>			
+	</div>	
+      </div>
+      
+      <div id='disclaimer'>
+	<br>Disclaimer:<br><br>
+	1. The Software is provided as a service to the research community. It
+	is provided with no warranties, express or implied. In particular
+	all warranties as to satisfactory quality or fitness for a
+	particular purpose are excluded, and the user accepts that the
+	Software has not been validated.  The user also accepts that the
+	Software cannot be used to provide information suitable for
+	contributing to a medical diagnosis or assessment. ICR makes no
+	representations that the use of the Software will not infringe any
+	patent or proprietary rights of third parties.<br><br>
+	2. The user shall hold ICR harmless and shall indemnify ICR for all
+	liabilities, demands, damages, expenses and losses arising directly
+	or indirectly out of the use of the Software.<br>
+      </div>
+      
+    </div> <!--End Wrapper-->
+    
+  </body>
+  
+</html>

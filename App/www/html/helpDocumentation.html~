@@ -1,0 +1,130 @@
+<html>
+  
+  <head>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    <link rel="stylesheet" type="text/css" href="../styles/style1.css"/>
+    
+    <!-- check for SVG support -->
+    <script>
+      if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id='wrapper_basic' style="height:1000px;">
+      <div id='top0'>
+	<div style="height:10px">
+	</div>
+	<div style='float:left'>
+	  <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	    <img class="svg" src="../images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	    <img class="png" src="../images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	  </a>
+	</div>
+	<div style='float:right'>
+	  Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	</div>
+	<div>
+	</div>
+      </div>
+      <div id='top1'>
+	<h1>visPIG - Visual Plotting Interface for Genetics</h1>
+      </div>
+
+      <div style="height:50px;top:110px"></div>
+
+      <div id='quickStartGuide' class="helpButton">
+	<a href="./documentation/quickStartGuide.html">
+	  <img class="svg" src="../images/quickStartGuide.svg" alt="Quick Start Guide" width="350" height="32" />
+	  <img class="png" src="../images/quickStartGuide.png" alt="Quick Start Guide" width="350" height="32" />
+	</a>
+      </div>      
+
+      <div id='inputFormats' class="helpButton">
+	<a href="./documentation/inputFormats.html">
+	  <img class="svg" src="../images/inputFormats.svg" alt="Input Data Formats" width="350" height="32" />
+	  <img class="png" src="../images/inputFormats.png" alt="Input Data Formats" width="350" height="32" />
+	</a>
+      </div> 
+
+      <div id='parameterList' class="helpButton">
+	<a href="./documentation/parameterList.html">
+	  <img class="svg" src="../images/parameterList.svg" alt="List of Parameters" width="350" height="32" />
+	  <img class="png" src="../images/parameterList.png" alt="List of Parameters" width="350" height="32" />
+	</a>
+      </div> 
+
+      <div id='examples' class="helpButton">
+	<a href="./documentation/examples.html">
+	  <img class="svg" src="../images/examples.svg" alt="Examples" width="350" height="32" />
+	  <img class="png" src="../images/examples.png" alt="Examples" width="350" height="32" />
+	</a>
+      </div> 
+
+      <div id='FAQ' class="helpButton">
+	<a href="./documentation/FAQ.html">
+	  <img class="svg" src="../images/FAQ.svg" alt="F.A.Q." width="350" height="32" />
+	  <img class="png" src="../images/FAQ.png" alt="F.A.Q." width="350" height="32" />
+	</a>
+      </div>
+
+      <div style="font-size:10pt;font-family:Arial;color:#f00034;text-align:left;margin-left:100px;margin-right:100px;position:absolute;top:350px;">
+	<br>Note:<br>The default gene and chromosome sizes files are for the human genome, hg19.<br>They are provided purely for convenience.<br>In particular the default gene file should not be regarded as a complete or definite list of the genes in the human genome.<br>Please download a list of genes appropriate for your data from the UCSC genome browser (or write it yourself).<br>
+      </div>
+ 
+      <div class="justText" style="position:absolute;top:500px;">
+	<h1>Release History & News</h1>
+
+	<h2>v1.1 (July 2014)</h2>
+	Various parameters added to the different tracks, as well as an option to show dotted lines across a gap whenever an interaction spans a gap and support added for more general, non-triangular heatmaps.<br />
+	Also most input files can now be white-space-delimited rather than strictly tab-delimited (three exceptions being the feature track, so that feature annotations can have spaces, the multi-state annotation track(s), which could have spaces on the column with the state ids/names, and the legend file for the multi-state annotation file, which again could have spaces in the state names).
+
+	<h2>v1.0 (January 2014)</h2>
+	The first public release version of the visPIG web application.
+
+	<h1>Contact</h1>
+	Please have a good look around the documentation offered in the above help sections. If you are absolutely sure that the problem you are facing is not covered within these pages, please do contact the administrator / code author so that the bug can be fixed:<br>
+	<a href="mailto:marc.henrion@icr.ac.uk?Subject=visPIG%20bug">email</a>, <a href="http://marc-henrion.dyndns.org">personal webpage</a>.
+
+      </div>
+
+      <div id='disclaimer' style="position:absolute;top:750px;">
+	<br>Disclaimer:<br><br>
+	1. The Software is provided as a service to the research community. It
+	is provided with no warranties, express or implied. In particular
+	all warranties as to satisfactory quality or fitness for a
+	particular purpose are excluded, and the user accepts that the
+	Software has not been validated.  The user also accepts that the
+	Software cannot be used to provide information suitable for
+	contributing to a medical diagnosis or assessment. ICR makes no
+	representations that the use of the Software will not infringe any
+	patent or proprietary rights of third parties.<br><br>
+	2. The user shall hold ICR harmless and shall indemnify ICR for all
+	liabilities, demands, damages, expenses and losses arising directly
+	or indirectly out of the use of the Software.<br>
+      </div>
+      
+    </div>
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9872797; 
+var sc_invisible=1; 
+var sc_security="9aa53889"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9872797/0/9aa53889/1/"
+alt="hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+    
+  </body>
+  
+</html>

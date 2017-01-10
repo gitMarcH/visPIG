@@ -1,0 +1,1763 @@
+<html>
+  
+  <head>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../styles/style1.css"/>
+    
+    <!-- check for SVG support -->
+    <script>
+      if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id='wrapper_basic'>
+      <div id='top0'>
+	<div style="height:10px">
+	</div>
+	<div style='float:left'>
+	  <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	    <img class="svg" src="../../images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	    <img class="png" src="../../images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	  </a>
+	</div>
+	<div style='float:right'>
+	  Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	</div>
+	<div>
+	</div>
+      </div>
+      <div id='top1'>
+	<h1>visPIG - Visual Plotting Interface for Genetics</h1>
+      </div>
+      
+      <div style="height:50px"></div>
+
+      <div class="toc">
+	Below are all the parameters that can be specified directly via visPIG. The parameter name is the name of the variable that you need to specify either on the command line or the parameter file, the short description corresponds to the description in the visPIG web application panels and the long description gives further explanations what each parameter does. The type & sensible values column lists what type of input is expected and what are sensible / possible value.<br><br>
+	Jump to section:<br>
+	<a href="#files">data files</a><br>
+	<a href="#graphics">general graphics</a><br>
+	<a href="#zoom">zoom parameters</a><br>
+	<a href="#legends">legend(s)</a><br>
+	<a href="#assoc">association track</a><br>
+	<a href="#dix">directionality index track(s)</a><br>
+	<a href="#feature">feature track(s)</a><br>
+	<a href="#gene">gene track</a><br>
+	<a href="#gerp">gerp track</a><br>
+	<a href="#heatmap">heatmap track</a><br>
+	<a href="#hic">interaction track(s)</a><br>
+	<a href="#intensity">intensity track(s)</a><br>
+	<a href="#annot">multi-state annotation track(s)</a><br>
+	<a href="#phast">phastCons track</a><br>
+	<a href="#snap">SNAP track</a><br>
+	<a href="#lines">vertical lines</a><br>
+      </div>
+      
+      
+      <table class="partable", border="0", align="center", cellspacing="10px">
+	<TR class="tablehead">
+	  <TD class="uno">parameter name</TD>
+	  <TD class="dos">short description</TD>
+	  <TD class="tres">long description</TD>
+	  <TD class="cuatro">type & sensible values</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="files">
+	    <TD colspan="4">--------------------  data files  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">regions.file</TD>
+	  <TD class="dos">region file</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file specifying the regions to be plotted</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">parameters.file</TD>
+	  <TD class="dos">parameter file</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file containing the visPIG parameters</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.files</TD>
+	  <TD class="dos">multi-state annotation file(s) (annot)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the multi-state annotation data</TD>
+	  <TD class="cuatro">character; NB for multiple files, separate the different paths by commas (e.g. path1/file1,path2/file2,path3/file3 etc)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.file</TD>
+	  <TD class="dos">association file (assoc)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file containing the association data</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.file</TD>
+	  <TD class="dos">directionality index file (dix)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file containing the directionality index data</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.files</TD>
+	  <TD class="dos">GERP file (gerp)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input files containing the GERP conservation data</TD>
+	  <TD class="cuatro">character; separate multiple filenames by commas; NB multiple files do not result in multiple GERP tracks, but will simply be concatenated</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.file</TD>
+	  <TD class="dos">heatmap file (heat)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file containing the heatmap data</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.files</TD>
+	  <TD class="dos">interaction file(s) (hic)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the interaction data</TD>
+	  <TD class="cuatro">character; separate multiple filenames by commas</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.files</TD>
+	  <TD class="dos">intensity file(s) (int)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the intensity data</TD>
+	  <TD class="cuatro">character; separate multiple filenames by commas</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.files</TD>
+	  <TD class="dos">phastCons file(s) (phast)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the phastCons conservation data</TD>
+	  <TD class="cuatro">character; separate multiple filenames by commas; NB multiple files do not result in multiple phastCons tracks, but will simply be concatenated</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.data.files</TD>
+	  <TD class="dos">SNAP data file (snap)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the SNAP association data</TD>
+	  <TD class="cuatro">character; separate multiple filenames by commas</TD>
+	</TR>
+
+	<TR class="tabledata">
+	  <TD class="uno">snap.rate.files</TD>
+	  <TD class="dos">SNAP rate file (snap)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the SNAP recombination rate data</TD>
+	  <TD class="cuatro">character; separate multiple filenames by commas</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.files</TD>
+	  <TD class="dos">feature file (feat)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the feature annotation data</TD>
+	  <TD class="cuatro">character; separate multiple filenames by commmas</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">lines.file</TD>
+	  <TD class="dos">vertical line file</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the coordinates for vertical lines to overplot on all tracks</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.file</TD>
+	  <TD class="dos">gene file (gene)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the gene annotation data</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">chrsizes.file</TD>
+	  <TD class="dos">chromosome sizes files</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the lengths (in base-pairs) of chromosomes; this will be used to computed genome-wide coordinates if the regions to be plotted lie on more than one chromosome</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">track.order.top.down</TD>
+	  <TD class="dos">track order (top-down); leave blank for default order; you might want to know <a href='../track-codes.html'>what's what</a></TD>
+	  <TD class="tres">specifies the order of tracks on the resulting plot; order is top-down; track codes are given in the visPIG menu in brackets behind the filename parameters and <a href='../track-codes.html'>here</a>; leave blank for default order; multiple tracks of one type can be either plotted as a block (e.g. int) or the order of individual instances of said types can be specified by appending the number of each instance behind the type identifier (e.g. int1,int2,int3)</TD>
+	  <TD class="cuatro">character; comma-separated list of track identifier codes</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="graphics">
+	  <TD colspan="4">--------------------  general graphics  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">width.plot</TD>
+	  <TD class="dos">plot width (inches)</TD>
+	  <TD class="tres">defines the width of the png/pdf image in inches</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">height.plot</TD>
+	  <TD class="dos">plot height (inches)</TD>
+	  <TD class="tres">defines the height of the png/pdf image in inches; it is recomended not to set this parameter and let visPIG figure out (from the track specific parameters and data files) what the optimal height is; if you still decide to fix the plot height, make sure it is large enough or you can end up with a 'figure margins too large' error</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">left.margin</TD>
+	  <TD class="dos">left margin (inches)</TD>
+	  <TD class="tres">defines the size of the left figure margin in inches; increase if some of your y-axis labels do not fully print onto the figure</TD>
+	  <TD class="cuatro">numeric;<br>left.margin + right.margin < width.plot</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">right.margin</TD>
+	  <TD class="dos">right margin (inches)</TD>
+	  <TD class="tres">defines the size of the right figure margin in inches</TD>
+	  <TD class="cuatro">numeric;<br>left.margin + right.margin < width.plot</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title.top.margin</TD>
+	  <TD class="dos">top margin (for title track; inches)</TD>
+	  <TD class="tres">defines the size of top margin (in inches) used on the title track only</TD>
+	  <TD class="cuatro">numeric; NB the sum of title.top.margin and sep.margin needs to be less than the size of the plot region reserved for the title track; if unspecified the value for sep.margin gets used</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">top.margin</TD>
+	  <TD class="dos">top margin (for axis track; inches)</TD>
+	  <TD class="tres">defines the size of top margin (in inches) used on the axis track only</TD>
+	  <TD class="cuatro">numeric; NB the sum of bottom.margin and top.margin needs to be less than the size of the plot region reserved for the axis track</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">bottom.margin</TD>
+	  <TD class="dos">bottom margin (for axis track; inches)</TD>
+	  <TD class="tres">defines the size of the bottom margin (in inches) used on the axis track only; NB the axis itself gets printed into the margin, so be sure to leave some bottom margin</TD>
+	  <TD class="cuatro">numeric; NB the sum of bottom.margin and top.margin needs to be less than the size of the plot region reserved for the axis track</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">sep.margin</TD>
+	  <TD class="dos">margin between tracks (inches)</TD>
+	  <TD class="tres">defines half the size (in inches) of the margin used between plots; an amount of sep.margin inches at the top and bottom of each track gets reserved for this margin; so the actual space between two tracks in 2*sep.margin</TD>
+	  <TD class="cuatro">numeric; NB the size of the plot region reserved for each track (except axis and title tracks which have their own top and bottom margins) needs to be larger than 2*sep.margin</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">ylab.las</TD>
+	  <TD class="dos">y-axis label orientation</TD>
+	  <TD class="tres">specifies the orientation of the y-axis labels; same values as for the las graphical parameter in R; since here it is applied only to the vertical axis: 0 & 3 = vertical; 1 & 2 = horizontal</TD>
+	  <TD class="cuatro">integer in {0,1,2,3}</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">letter.cex</TD>
+	  <TD class="dos">track letter font size</TD>
+	  <TD class="tres">character expansion factor used for the track letters; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">xlab</TD>
+	  <TD class="dos">x-axis label</TD>
+	  <TD class="tres">specifies the x-axis label text</TD>
+	  <TD class="cuatro">character; NB on the web form specifying '*' will use a default label; if you save the parameter file this will be overwritten as NA and so no default will be used when that parameter file is loaded later on</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">xlab.cex</TD>
+	  <TD class="dos">x-axis label text size</TD>
+	  <TD class="tres">character expansion factor used for the x-axis label text; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.relplotheight</TD>
+	  <TD class="dos">x-axis relative track height</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric, >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.line</TD>
+	  <TD class="dos">x-axis margin inset</TD>
+	  <TD class="tres">specifies the number of lines into the margin the x-axis gets drawn; NB this can be negative and does not need to be an integer</TD>
+	  <TD class="cuatro">numeric; best to try first with value >=0, but negative non-integer values are allowed</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">xlab.line</TD>
+	  <TD class="dos">x-axis label margin inset</TD>
+	  <TD class="tres">specifies the number of lines into the margin the x-axis labels get printed; NB this can be negative and does not need to be an integer</TD>
+	  <TD class="cuatro">numeric; best to try first with value >=0, but negative non-integer values are allowed</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.range.line</TD>
+	  <TD class="dos">x-axis range labels margin inset</TD>
+	  <TD class="tres">specifies the number of lines into the margin the x-axis range labels get printed; NB this can be negative and does not need to be an integer</TD>
+	  <TD class="cuatro">numeric; best to try first with value >=0, but negative non-integer values are allowed</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.tickmarks.line</TD>
+	  <TD class="dos">x-axis tickmark labels margin inset</TD>
+	  <TD class="tres">specifies the number of lines into the margin the x-axis tickmark labels get printed; NB this can be negative and does not need to be an integer</TD>
+	  <TD class="cuatro">numeric; best to try first with value >=0, but negative non-integer values are allowed</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.addlines</TD>
+	  <TD class="dos">over-impose vertical lines on the x-axis?</TD>
+	  <TD class="tres">specifies whether the vertical lines specified in the vertical line file gets plotted on the axis track also or not</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">x.lwd</TD>
+	  <TD class="dos">x-axis line width</TD>
+	  <TD class="tres">specifies the width of x-axis line</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">x.axis.format</TD>
+	  <TD class="dos">x-axis units</TD>
+	  <TD class="tres">specifies the units of the x-axis (base pairs, kilo base pairs or mega base pairs)</TD>
+	  <TD class="cuatro">character; one of bp, Kb, Mb</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">x.labels.show.unit</TD>
+	  <TD class="dos">show the units on the x-axis labels?</TD>
+	  <TD class="tres">specifies whether the units should be displayed on the x-axis labels</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.tcl</TD>
+	  <TD class="dos">length & direction of axis tickmarks </TD>
+	  <TD class="tres">specifies both the direction (sign) and length (numerical value) of the axis tickmarks; positive values mean the tickmarks extend above the axis line whereas negative values mean they extend below the axis line; you can specify multiple, commas-separated values -- this is useful for having tickmarks protruding on both sides of the axis line (e.g. -0.5,0.5)</TD>
+	  <TD class="cuatro">numeric; between -0.5 and 0.5</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.lend</TD>
+	  <TD class="dos">line end style for the axis</TD>
+	  <TD class="tres">specifies the darwing style for the ends of the axis lines (incl. tickmarks)</TD>
+	  <TD class="cuatro">integer; 0 = round line caps, 1 = butt line caps, 2 = square line caps</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.labels.slanted</TD>
+	  <TD class="dos">slant the axis labels?</TD>
+	  <TD class="tres">specifies whether the x-axis labels should be slanted or not</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">axis.labels.angle</TD>
+	  <TD class="dos">degrees of slanting (anti-clockwise)</TD>
+	  <TD class="tres">if axis.labels.slanted==TRUE, then this specifies the anti-clockwise degree of slanting</TD>
+	  <TD class="cuatro">numeric; between 0 and 360 (but any number, even negative ones, will work)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gap_width</TD>
+	  <TD class="dos">gap width (for gaps on x-axis)</TD>
+	  <TD class="tres">specifies the width of the gaps on the x-axis (if any) as a proportion of the total range plotted on the figure; e.g. if a plot consists of a region of 1.25Mb and one region of 0.75Mb and gap_width=0.1, then the gap between the two regions will look to be 0.1*(1.25+0.75)=0.2Mb wide</TD>
+	  <TD class="cuatro">numeric, >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gaps.sizes.offset.x</TD>
+	  <TD class="dos">gap label inset</TD>
+	  <TD class="tres">specifies the number of lines into the margin the labels indicating the gap sizes get drawn; NB this can be negative and does not need to be an integer</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title.relplotheight</TD>
+	  <TD class="dos">relative height for title track</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title.letter</TD>
+	  <TD class="dos">track letter for title track</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter / number for the title track</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title</TD>
+	  <TD class="dos">title</TD>
+	  <TD class="tres">the text that should be printed as title for the plot</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title.cex.txt</TD>
+	  <TD class="dos">title font size</TD>
+	  <TD class="tres">character expansion factor used for the title; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title.pos</TD>
+	  <TD class="dos">title position</TD>
+	  <TD class="tres">specifies the position of the title on the plot; if unspecified, the title is centered along the x-axis; but you can specify a chromosome and a position (in bp) on that chromosome to print the title at that position</TD>
+	  <TD class="cuatro">numeric; between 0 and the maximum position of the chromosome specified by title.chr</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title.chr</TD>
+	  <TD class="dos">title chromosome</TD>
+	  <TD class="tres">specifies the chromosome for the position of the title on the plot; if unspecified, the title is centered along the x-axis; but you can specify a chromosome and a position (in bp) on that chromosome to print the title at that position</TD>
+	  <TD class="cuatro">integer; between 1 and the number of the last chromosome (max_chr)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">title.showgaps</TD>
+	  <TD class="dos">indicate gap boundaries on title track?</TD>
+	  <TD class="tres">gap boundaries are indicated by dotted lines; this specifies whether these lines should be also over-imposed on the title track</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">buffer.relplotheight</TD>
+	  <TD class="dos">relative height for empty or buffer tracks</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">max_chr</TD>
+	  <TD class="dos">maximum chromosome number</TD>
+	  <TD class="tres">the number of the last chromosome; defaults to 22; if X, Y, MT are used, encode them as integers</TD>
+	  <TD class="cuatro">integer; >=1</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="zoom">
+	    <TD colspan="4">--------------------  zoom parameters  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom</TD>
+	  <TD class="dos">zoom in on a region?</TD>
+	  <TD class="tres">specifies whether the plot should zoom in on a particular region; i.e. produce another set of tracks for a sub-region of the main figure</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.chr</TD>
+	  <TD class="dos">which chromosome?</TD>
+	  <TD class="tres">specifies the chromosome on which the region to zoom in on lies</TD>
+	  <TD class="cuatro">integer; >=1</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.SP</TD>
+	  <TD class="dos">start position</TD>
+	  <TD class="tres">specifies the start position (in bp) of the region to zoom in on</TD>
+	  <TD class="cuatro">integer; >=1</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.EP</TD>
+	  <TD class="dos">end position</TD>
+	  <TD class="tres">specifies the end position (in bp) of the region to zoom in on</TD>
+	  <TD class="cuatro">integer; >=1</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.track.order.top.down</TD>
+	  <TD class="dos">track order for zoomed region (top-down)</TD>
+	  <TD class="tres">specifies the order of zoomed tracks; order is top-down; track codes are given in the visPIG menu in brackets behind the filename parameters and <a href='../track-codes.html'>here</a>; leave blank for default order; multiple tracks of one type can be either plotted as a block (e.g. int) or the order of individual instances of said types can be specified by appending the number of each instance behind the type identifier (e.g. int1,int2,int3)</TD>
+	  <TD class="cuatro">character; comma-separated list of track identifier codes</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.vertical.spacing</TD>
+	  <TD class="dos">spacing between the axes</TD>
+	  <TD class="tres">specifies the amount of space left between the standard and zoomed x-axes</TD>
+	  <TD class="cuatro">numeric; >=0 (same scale as the *.relplotheight parameters; value of 1 means the space between the axes is the same as any other standard track)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.lines.col</TD>
+	  <TD class="dos">zoom line colour</TD>
+	  <TD class="tres">the colour used to display the lines indicating the change of scale</TD>
+	  <TD class="cuatro">colour (character string giving colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.lines.alpha</TD>
+	  <TD class="dos">zoom line opacity</TD>
+	  <TD class="tres">specifies the transparency value to be used for displaying the change of scale lines</TD>
+	  <TD class="cuatro">numeric; between 0 (totally transparent) and 1 (not transparent at all)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.lines.lwd</TD>
+	  <TD class="dos">zoom line width</TD>
+	  <TD class="tres">specifies the width of the change of scales lines</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.lines.lty</TD>
+	  <TD class="dos">zoom line type</TD>
+	  <TD class="tres">specifies the line type of the change of scale lines</TD>
+	  <TD class="cuatro">integer; 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.axis.format</TD>
+	  <TD class="dos">x-axis units for the zoomed axis</TD>
+	  <TD class="tres">specifies the units used for the zoomed axis</TD>
+	  <TD class="cuatro">character; one of "Mb", "Kb", "bp"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.labels.show.unit</TD>
+	  <TD class="dos">show the units on the x-axis labels?</TD>
+	  <TD class="tres">specifies whether the units should be appended to the tickmark labels</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR>
+	  <TD class="uno">zoom.axis.tcl</TD>
+	  <TD class="dos">length & direction of axis tickmarks for the zoomed axis</TD>
+	  <TD class="tres">specifies both the direction (sign) and length (numerical value) of the axis tickmarks; positive values mean the tickmarks extend above the axis line whereas negative values mean they extend below the axis line; you can specify multiple, commas-separated values -- this is useful for having tickmarks protruding on both sides of the axis line (e.g. -0.5,0.5)</TD>
+	  <TD class="cuatro">numeric; between -0.5 and 0.5</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.axis.lend</TD>
+	  <TD class="dos">line end style for the zoomed axis</TD>
+	  <TD class="tres">specifies the darwing style for the ends of the axis lines (incl. tickmarks)</TD>
+	  <TD class="cuatro">integer; 0 = round line caps, 1 = butt line caps, 2 = square line caps</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.x.lwd</TD>
+	  <TD class="dos">x-axis line width for the zoomed axis</TD>
+	  <TD class="tres">specifies the line width of the zoomed axis</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.xlab</TD>
+	  <TD class="dos">x-axis label for the zoomed axis</TD>
+	  <TD class="tres">specifies the label for the zoomed axis</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">zoom.x.labels.up</TD>
+	  <TD class="dos">place the x-axis labels above the axis?</TD>
+	  <TD class="tres">specifies whether the x-axis labels should be displayed above the axis</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="legends">
+	    <TD colspan="4">--------------------  legend(s)  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.where</TD>
+	  <TD class="dos">legend location</TD>
+	  <TD class="tres">specifies where the legend gets printed, relative to the other tracks; one of top, bottom, left (left of the tracks, centred vertically as best as possible), left_top (left, but anchored at the top), left_bottom (left, anchored at the bottom), right (vertically centered), right_top (right, anchored at the top), right_bottom (right, anchored at the bottom), separate (to allow legends to be matched with their corresponding track; not yet implemented)</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.width</TD>
+	  <TD class="dos">width(s) of the legends</TD>
+	  <TD class="tres">specifies the width of the legend as a proportion of the plot. you can specify it in inches (if the values do not sum to 1; i.e. are not proportions, visPIG will compute proportions based on the numbers provided; i.e. width_prop_i=width_i/sum_i(width_i)). you can either specify one value for the whole legend, or a value for each column of the legend.</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.height</TD>
+	  <TD class="dos">height(s) of the legends</TD>
+	  <TD class="tres">specifies the height of the legend as a proportion of the plot. you can specify it in inches (if the values do not sum to 1; i.e. are not proportions, visPIG will compute proportions based on the numbers provided; i.e. height_prop_i=height_i/sum_i(height_i)). you can either specify one value for the whole legend, or a value for each row of the legend.</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.rows</TD>
+	  <TD class="dos">number of rows</TD>
+	  <TD class="tres">a part of the plot, either on the top, bottom, right or left, will be reserved for the legends and split up into rows and columns with each legend occupying one of the cells in this matrix; this parameter specifies the number of rows the legends will be split over</TD>
+	  <TD class="cuatro">integer; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.cols</TD>
+	  <TD class="dos">number of columns</TD>
+	  <TD class="tres">a part of the plot, either on the top, bottom, right or left, will be reserved for the legends and split up into rows and columns with each legend occupying one of the cells in this matrix; this parameter specifies the number of columns the legends will be split over</TD>
+	  <TD class="cuatro">integer; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.assoc</TD>
+	  <TD class="dos">association track legend?</TD>
+	  <TD class="tres">specifies whether a legend for the association track should be printed</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic</TD>
+	  <TD class="dos">interaction track legend(s)?</TD>
+	  <TD class="tres">specifies whether legend(s) for the interaction track(s) should be printed</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.heat</TD>
+	  <TD class="dos">association track legend?</TD>
+	  <TD class="tres">specifies whether a legend for the heatmap track should be printed</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.annot</TD>
+	  <TD class="dos">multi-state track legend(s)?</TD>
+	  <TD class="tres">specifies whether legend(s) for the multi-state annotation track should be printed</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.dix</TD>
+	  <TD class="dos">directionality track legend(s)?</TD>
+	  <TD class="tres">specifies whether legend(s) for the directionality index track(s) should be printed</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.mai</TD>
+	  <TD class="dos">bottom, left, top and right margin in inches</TD>
+	  <TD class="tres">specifies the margins to be used for the legend plot(s); comma-separated list of values; order is bottom, left, top, right</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.cex.lab</TD>
+	  <TD class="dos">relative font size for legend titles</TD>
+	  <TD class="tres">specifies the character expansion factor to be used for the legend titles; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated values if different values for each legend are to be specified</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.cex.txt</TD>
+	  <TD class="dos">relative font size for legend labels</TD>
+	  <TD class="tres">specifies the character expansion factor to be used for the legend labels; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated values if different values for each legend are to be specified</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.adj</TD>
+	  <TD class="dos">adjustment for the position of the legend titles</TD>
+	  <TD class="tres">determines the way in which legend titles are justified; a value of 0 produces left-justified text, 0.5 (the default) centered text and 1 right-justified text; any value in [0,1] is allowed; comma-separated values if different values for each legend are to be specified</TD>
+	  <TD class="cuatro">numeric; between 0 and 1</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.annot.xlab</TD>
+	  <TD class="dos">title(s) for the multi-state track legend(s)</TD>
+	  <TD class="tres">specifies the title(s) for the different multi-state track legend(s); comma-separated strings of characters, one string per title</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.annot.file</TD>
+	  <TD class="dos">multi-state legend file(s)</TD>
+	  <TD class="tres">the full or relative path (incl. the filename(s)) of the input file(s) containing the multi-state annotation legend data; the number of files specified (as a comma-separated list of paths) determines the number of multi-state annotation legends that will get plotted</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.annot.nrow</TD>
+	  <TD class="dos">number of rows to split the states over</TD>
+	  <TD class="tres">the state colours and labels will be plotted on a grid; this parameters specifies the number of rows the state colours + labels get split over</TD>
+	  <TD class="cuatro">integer; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.annot.xspace</TD>
+	  <TD class="dos">width of each column</TD>
+	  <TD class="tres">in the case that the states are to be split over several columns, this specifies the widths of each column; semi-colon separated list of values for each column; comma-separated list of semi-colon spearated values for multiple multi-state annotation legends; e.g. col1_legend1;col2_legend1;col3_legend3,col1_legend2;col2_legend2</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.annot.rgb</TD>
+	  <TD class="dos">are the colours in RGB format?</TD>
+	  <TD class="tres">specifies whether the colours given in the multi-state annotation file(s) are specfied in RGB format (TRUE) or given as colour names (FALSE)</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.annot.axline</TD>
+	  <TD class="dos">multi-state legend(s) title(s) margin inset(s)</TD>
+	  <TD class="tres">number of lines that the multi-state annotation track legend(s) title(s) get printed into the margin; NB can be negative and can be non-integer; comma-separated value, one per legend
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.xlab</TD>
+	  <TD class="dos">title(s) for the interaction track legend(s)</TD>
+	  <TD class="tres">specifies the title(s) for the different interaction track legend(s); comma-separated strings of characters, one string per title</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.labref</TD>
+	  <TD class="dos">reference bin label(s)</TD>
+	  <TD class="tres">specifies the label(s) for the reference bins of the different interaction tracks; NB the number of interaction track legends is given by the number of reference bin and non-reference bin colours specified on the interaction track panel; comma-separated strings of characters, one string per label</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.labnonref</TD>
+	  <TD class="dos">non-reference bin label(s)</TD>
+	  <TD class="tres">specifies the label(s) for the non-reference bins of the different interaction tracks; NB the number of interaction track legends is given by the number of reference bin and non-reference bin colours specified on the interaction track panel; comma-separated strings of characters, one string per label</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.lablink</TD>
+	  <TD class="dos">interaction link label(s)</TD>
+	  <TD class="tres">specifies the label(s) for the non-reference bins of the different interaction tracks; NB the number of interaction track legends is given by the number of reference bin and non-reference bin colours specified on the interaction track panel; comma-separated strings of characters, one string per label</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.capt</TD>
+	  <TD class="dos">include the capture region in the legend?</TD>
+	  <TD class="tres">specifies whether or not the capture region box (if specified in the main interaction track parameter panel) should be included on the legend or not; NB if no capture region box is specified, then even if legend.hic.capt==TRUE, no box will be added to the legend</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.labcapt</TD>
+	  <TD class="dos">capture region label(s)</TD>
+	  <TD class="tres">specifies the label(s) for the capture region box on the different interaction tracks; NB the number of interaction track legends is given by the number of reference bin and non-reference bin colours specified on the interaction track panel; comma-separated strings of characters, one string per label; NB if no capture region box is specified, then even if legend.hic.capt==TRUE, no box will be added to the legend</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.xlim</TD>
+	  <TD class="dos">width of text area</TD>
+	  <TD class="tres">specifies how much horizontal space the interaction label text should fill within the plot region reserved for the interaction track legend; the reference / non-reference bins span 0.5 horizontal units with 0.15 units allocated to the space between the bins and the label text, this parameter specifies the corresponding units for the labels; comma-separated values, one for each interaction track legend</TD>
+	  <TD class="cuatro">numeric, >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.hori</TD>
+	  <TD class="dos">horizontal interaction legend?</TD>
+	  <TD class="tres">by default the interaction track legends will be arranged in one column with three rows (FALSE), but this parameters allows them to be arranged on one row of three columns (TRUE)</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.hic.axline</TD>
+	  <TD class="dos">interaction legend(s) title(s) margin inset(s)</TD>
+	  <TD class="tres">number of lines that the interaction track legend(s) title(s) get printed into the margin; NB can be negative and can be non-integer; comma-separated value, one for each legend
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.heat.xlab</TD>
+	  <TD class="dos">title for the heat map track legend</TD>
+	  <TD class="tres">specifies the title for the heat map track legend</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.heat.hori</TD>
+	  <TD class="dos">horizontal heat map legend?</TD>
+	  <TD class="tres">by default the heat map track legend will be arranged in a column (FALSE), but this parameter allows it to be arranged as a row (TRUE)</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.heatmap.axline</TD>
+	  <TD class="dos">heat map legend title margin inset</TD>
+	  <TD class="tres">number of lines that the heat map track legend title gets printed into the margin; NB can be negative and can be non-integer
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.assoc.xlab</TD>
+	  <TD class="dos">title for the association track legend</TD>
+	  <TD class="tres">specifies the title for the association track legend</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.assoc.pvalticksround</TD>
+	  <TD class="dos">number of digits for the p-values</TD>
+	  <TD class="tres">specifies the number of digits the p-values indicated on the association track legend scale are rounded to</TD>
+	  <TD class="cuatro">integer; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.assoc.hori</TD>
+	  <TD class="dos">horizontal association track legend?</TD>
+	  <TD class="tres">by default the association track legend will be arranged in a column (FALSE), but this parameter allows it to be arranged as a row (TRUE)</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.assoc.axline</TD>
+	  <TD class="dos">association legend title margin inset</TD>
+	  <TD class="tres">number of lines that the association track legend title gets printed into the margin; NB can be negative and can be non-integer
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.dix.xlab</TD>
+	  <TD class="dos">title(s) for the directionality index track legend(s)</TD>
+	  <TD class="tres">specifies the title(s) for the directionality index track legend(s); comma-separated strings of characters, one string per title</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.dix.labpos</TD>
+	  <TD class="dos">label(s) for the positive value colour</TD>
+	  <TD class="tres">specifies the colour(s) used for the positive values of the directionality index track(s)</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.dix.labneg</TD>
+	  <TD class="dos">label(s) for the negative value colour</TD>
+	  <TD class="tres">specifies the colour(s) used for the negative values of the directionality index track(s)</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.dix.hori</TD>
+	  <TD class="dos">horizontal directionality index track legend?</TD>
+	  <TD class="tres">by default the directionality index track legend(s) will be arranged in a column (FALSE), but this parameter allows it (them) to be arranged as a row (TRUE)</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.dix.axline</TD>
+	  <TD class="dos">directionality index legend(s) title(s) margin inset(s)</TD>
+	  <TD class="tres">number of lines that the directionality index track legend(s) title(s) get printed into the margin; NB can be negative and can be non-integer; comma-separated list of value, one per legend
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">legend.order</TD>
+	  <TD class="dos">order in which the legend(s) get printed</TD>
+	  <TD class="tres">comma-separated list of track codes, specifying the order (left to right and top down) in which the legend(s) get plotted</TD>
+	  <TD class="cuatro">character; comma-separated list of track identifier codes</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="assoc">
+	    <TD colspan="4">--------------------  association track  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.relplotheight</TD>
+	  <TD class="dos">relative height for the association track</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.letter</TD>
+	  <TD class="dos">track letter for the association track</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter / number for the association track</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.ylab</TD>
+	  <TD class="dos">y-axis label for the association track</TD>
+	  <TD class="tres">specifies the label that should be printed on the y-axis of the association track</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.cex.txt</TD>
+	  <TD class="dos">y-axis label font size for the association track</TD>
+	  <TD class="tres">character expansion factor used for the y-axis label; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.cols</TD>
+	  <TD class="dos">colour scale</TD>
+	  <TD class="tres">specifies the colours that should be used to represent the p-value / numeric data plotted on the association track; e.g. "yellow,red,black" will show p-values going from black for lowest p-values to yellow for the largest p-values</TD>
+	  <TD class="cuatro">character; comma-separated vector of colour names</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.pvalscale</TD>
+	  <TD class="dos">min and max p-value</TD>
+	  <TD class="tres">specifies the minimum and maximum p-value [or the range of the variable being plotted; i does not have to be a p-value] spanned by the colour scale; if </TD>
+	  <TD class="cuatro">numeric; two comma-separated numbers</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">assoc.lwd.bars</TD>
+	  <TD class="dos">line width</TD>
+	  <TD class="tres">specifies the width used to draw lines on the association track</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="dix">
+	    <TD colspan="4">--------------------  directionality index track(s)  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.relplotheight</TD>
+	  <TD class="dos">relative height(s) for the directionality index track(s)</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric, >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.letter</TD>
+	  <TD class="dos">track letter(s) for the directionality index track(s)</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter(s) / number(s) for the directionality index track(s); specify a comma-separated vector of letters for multiple directionality index tracks</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.ylab</TD>
+	  <TD class="dos">y-axis label(s) for the directionality index track(s)</TD>
+	  <TD class="tres">specifies the label(s) that should be printed on the y-axis of the directionality index track(s); comma-separated list of labels for multiple tracks</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.cex.txt</TD>
+	  <TD class="dos">y-axis label font size(s) for the directionality index track(s)</TD>
+	  <TD class="tres">character expansion factor used for the title; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.col.pos</TD>
+	  <TD class="dos">colour(s) for positive values</TD>
+	  <TD class="tres">specifies the colour(s) with which the intensity bars of positive values should be plotted; for different colours for multiple tracks, specify a comma-separated list of colour names</TD>
+	  <TD class="cuatro">character (colour name or RGB code); RGB codes should be specified as RED_BLUE_GREEN with values for each colour between 0 and 255</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.col.neg</TD>
+	  <TD class="dos">colour(s) for negative values</TD>
+	  <TD class="tres">specifies the colour(s) with which the intensity bars of negative values should be plotted; for different colours for multiple tracks, specify a comma-separated list of colour names</TD>
+	  <TD class="cuatro">character (colour name or RGB code); RGB codes should be specified as RED_BLUE_GREEN with values for each colour between 0 and 255</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.col.rgb</TD>
+	  <TD class="dos">colours specified as rgb?</TD>
+	  <TD class="tres">specifies whether the positive/negative colours are specified as rgb coordinates (TRUE) or as colour names (FALSE)</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.cols.toplot</TD>
+	  <TD class="dos">column number(s) that should be plotted as separate tracks</TD>
+	  <TD class="tres">specifies the column numbers of the input directionality index data file that should be plotted as individual tracks; by default only the 4th column is plotted</TD>
+	  <TD class="cuatro">integer; column-separated list of integers for multiple columns</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.ylim.lower</TD>
+	  <TD class="dos">lower y-axis limit(S)</TD>
+	  <TD class="tres">specifies the lower limit(s) of each directionality index track; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">dix.ylim.upper</TD>
+	  <TD class="dos">upper y-axis limit(s)</TD>
+	  <TD class="tres">specifies the upper limit(s) for each directionality index track; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+      </table>
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="feature">
+	    <TD colspan="4">--------------------  feature track(s)  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.relplotheight</TD>
+	  <TD class="dos">relative height(s) for the feature track(s)</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric, >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.letter</TD>
+	  <TD class="dos">track letter(s) for the feature track(s)</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter(s) / number(s) for the feature track(s); specify a comma-separated vector of letters for multiple tracks</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.ylab</TD>
+	  <TD class="dos">y-axis label(s) for the feature track(s)</TD>
+	  <TD class="tres">specifies the label(s) that should be printed on the y-axis of the feature track(s); comma-separated list of labels for multiple tracks</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.cex.txt</TD>
+	  <TD class="dos">y-axis label font size(s) for the feature track(s)</TD>
+	  <TD class="tres">character expansion factor used for the title; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.cex.lab</TD>
+	  <TD class="dos">feature name font size</TD>
+	  <TD class="tres">character expansion factor used for printing feature names; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.lwd.line</TD>
+	  <TD class="dos">line width</TD>
+	  <TD class="tres">specifies the width of the vertical and horizontal lines used on the feature track(s); comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.height</TD>
+	  <TD class="dos">feature height</TD>
+	  <TD class="tres">specifies the vertical width of the features; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; between 0 and 0.5</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.col</TD>
+	  <TD class="dos">feature colour</TD>
+	  <TD class="tres">specifies the colour used for each feature track; comma-separated list of colour names for multiple tracks</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.textpos</TD>
+	  <TD class="dos">text positions</TD>
+	  <TD class="tres">specifies where the text annotating each feature gets printed; one of "left", "right", "top"; for multiple tracks, specify a comma-separated list of these three options</TD>
+	  <TD class="cuatro">"left", "right" or "top"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.txt.vert.offset</TD>
+	  <TD class="dos">horizontal offset for feature labels</TD>
+	  <TD class="tres">specifies by how much each feature label gets shited to the top relative to the default text position; can take negative values; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">feat.txt.hori.offset</TD>
+	  <TD class="dos">vertical offset for feature labels</TD>
+	  <TD class="tres">specifies by how much the each feature label gets shifted to the right relative to the default text position; can take negative values; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="gene">
+	    <TD colspan="4">--------------------  gene track  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.relplotheight</TD>
+	  <TD class="dos">relative height for the gene track</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.letter</TD>
+	  <TD class="dos">track letter for the gene annotation track</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter / number for the gene track</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.ylab</TD>
+	  <TD class="dos">y-axis label for the gene track</TD>
+	  <TD class="tres">specifies the label that should be printed on the y-axis of the gene track</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.ylab.cex.txt</TD>
+	  <TD class="dos">y-axis label font size for the gene track</TD>
+	  <TD class="tres">character expansion factor used for the y-axis label; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.col</TD>
+	  <TD class="dos">colour</TD>
+	  <TD class="tres">specifies the colour that gets used for printing the genes</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.igs</TD>
+	  <TD class="dos">minimum space between genes</TD>
+	  <TD class="tres">specifies the inter-gene space, i.e. how much horizontal space as a propotion of the total x-axis plotting space should be left between two genes that get allocated to the same horizontal line; if your gene names get printed one on top of the other, increase this parameter</TD>
+	  <TD class="cuatro">numeric; between 0 and 1</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.cex.txt</TD>
+	  <TD class="dos">gene name font size</TD>
+	  <TD class="tres">character expansion factor used for printing the gene names; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.cex.arrows</TD>
+	  <TD class="dos">strand arrow size</TD>
+	  <TD class="tres">character expansion factor used for printing the strand direction arrows; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gene.lwd</TD>
+	  <TD class="dos">line width</TD>
+	  <TD class="tres">specifies the line width of the line that gets plotted to show the extent of each gene</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="gerp">
+	    <TD colspan="4">--------------------  gerp track  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.relplotheight</TD>
+	  <TD class="dos">relative height for the GERP conservation score track</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.letter</TD>
+	  <TD class="dos">track letter for the GERP track</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter / number for the GERP conservation score track</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.ylab</TD>
+	  <TD class="dos">y-axis label for the GERP track</TD>
+	  <TD class="tres">specifies the label that should be printed on the y-axis of the GERP conservation score track</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.cex.txt</TD>
+	  <TD class="dos">y-axis label font size for the GERP track</TD>
+	  <TD class="tres">character expansion factor used for the y-axis label; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.lwd</TD>
+	  <TD class="dos">line width</TD>
+	  <TD class="tres">specifies the width used to draw lines on the GERP conservation score track</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.ylim</TD>
+	  <TD class="dos">y-axis limits</TD>
+	  <TD class="tres">specifies the lower and upper limits of the y-axis as a comma-separated list of two values; e.g. "-10,10"</TD>
+	  <TD class="cuatro">numeric (comma-spearated list of 2 values)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.noblocks</TD>
+	  <TD class="dos">is the data per base-pair?</TD>
+	  <TD class="tres">specifies whether the data in the input file is given per base-pair (TRUE) or as blocks of base-pair positions (FALSE); for more information consult the file format help section</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.filter.file</TD>
+	  <TD class="dos">file witj positions to be filtered out</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file specifying the positions that should be filtered out before plotting the GERP scores</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.mai.top</TD>
+	  <TD class="dos">top margin (inches)</TD>
+	  <TD class="tres">specifies the top margin in inches for the GERP conservation score track</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">gerp.mai.bottom</TD>
+	  <TD class="dos">bottom margin (inches)</TD>
+	  <TD class="tres">specifies the bottom margin in inches for the GERP conservation score track</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="heatmap">
+	    <TD colspan="4">--------------------  heatmap track  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.relplotheight</TD>
+	  <TD class="dos">relative height for the heatmap track</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.letter</TD>
+	  <TD class="dos">track letter for the heatmap track</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter / number for the heatmap track</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.ylab</TD>
+	  <TD class="dos">y-axis label for the heatmap track</TD>
+	  <TD class="tres">specifies the label that should be printed on the y-axis of the heatmap track</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.cex.txt</TD>
+	  <TD class="dos">y-axis label font size for the heatmap track</TD>
+	  <TD class="tres">character expansion factor used for the y-axis label; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.chr</TD>
+	  <TD class="dos">chromosome</TD>
+	  <TD class="tres">if only a sub-region of the region to be plotted should be shown on the heatmap, this sub-region can be specified by giving its coordinates; this parameter sets the chromosome on wich the sub-region is located</TD>
+	  <TD class="cuatro">integer; between 1 and max_chr</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.SP</TD>
+	  <TD class="dos">start position</TD>
+	  <TD class="tres">if only a sub-region of the region to be plotted should be shown on the heatmap, this sub-region can be specified by giving its coordinates; this parameter sets the start position of the region to be plotted</TD>
+	  <TD class="cuatro">integer</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.EP</TD>
+	  <TD class="dos">end position</TD>
+	  <TD class="tres">if only a sub-region of the region to be plotted should be shown on the heatmap, this sub-region can be specified by giving its coordinates; this parameter sets the end position of the region to be plotted</TD>
+	  <TD class="cuatro">integer</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.type</TD>
+	  <TD class="dos">type of heatmap</TD>
+	  <TD class="tres">specifies the type of heatmap to be plotted; either "pos-pos" or "general"; the former are heatmaps of genomic position vs. genomic position, the latter can have any numerical scale for the y-axis; for "pos-pos" heatmaps, only one half of the symmetric heatmap will be shown</TD>
+	  <TD class="cuatro">character; one of "pos-pos", "general"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.cols</TD>
+	  <TD class="dos">heat colours</TD>
+	  <TD class="tres">specifies the range of colours to be used for the plotting the heat map intensities; e.g. "white","blue","black" means that the lowest intensities in the heatmap input files get plotted in white and the largest intensities in black, with intermediate intensities in white-blue and/or blue-black tones</TD>
+	  <TD class="cuatro">character; comma-separated vector of colour names</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.ylim</TD>
+	  <TD class="dos">y-axis limits</TD>
+	  <TD class="tres">specifies the lower and upper limits of the y-axis for the heat map; since the y-axis shows the distance between two points/bins, both limits should be positive values; comma-separated values for the lower and upper limits (e.g. "0,500000")</TD>
+	  <TD class="cuatro">integer; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.zlim</TD>
+	  <TD class="dos">colour scale limits</TD>
+	  <TD class="tres">specifies the lower and upper limits of the colour scale used on the heat map; comma-separated list of values for the lower and upper limits (e.g. "0,20")</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.logscale</TD>
+	  <TD class="dos">should the intensities be plotted on a log scale?</TD>
+	  <TD class="tres">specifies whether the z-axis (colour axis) intensity values should be first rescaled onto a log scale, then plotted or not; note that this will remove all values<=0</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.dir</TD>
+	  <TD class="dos">direction the heatmap points to</TD>
+	  <TD class="tres">specifies the 'direction' of the heatmap; the heatmap can either be a hat on top of other tracks ("upwards") or be directed so that it can be fitted below other tracks ("downwards").</TD>
+	  <TD class="cuatro">character; one of "upwards", "downwards"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.bw</TD>
+	  <TD class="dos">bin size</TD>
+	  <TD class="tres">specifies the width of the bins used for the heatmap; if a heatmap input file is specified but the heatmap track looks empty, the reason is likely to be that the bin size is a few thousand base-pairs, yet the bin size has not been specified and so a default width of 1 base-pair has been used</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.chop.data.gaps</TD>
+	  <TD class="dos">show only data for which both bins lie in the plotted region(s)?</TD>
+	  <TD class="tres">due to the way the heatmap is plotted you could see some data values which are associated with a pair of positions of which only one lies in the plotted region; this parameters specifies whether the data should be filtered to only show data points that are associated with coordinates which both lie in the plotted region</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">heat.general.yaxis</TD>
+	  <TD class="dos">show y-axis</TD>
+	  <TD class="tres">specifies whether a y-axis should be shown next to the heatmap</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="hic">
+	    <TD colspan="4">--------------------  interaction track(s)  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.relplotheight</TD>
+	  <TD class="dos">relative height(s) for the interaction track(s)</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric, >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.letter</TD>
+	  <TD class="dos">track letter(s) for the interaction track(s)</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter(s) / number(s) for the interaction track(s); specify a comma-separated vector of letters for multiple tracks</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.ylab</TD>
+	  <TD class="dos">y-axis label(s) for the interaction track(s)</TD>
+	  <TD class="tres">specifies the label(s) that should be printed on the y-axis of the interaction track(s); comma-separated list of labels for multiple tracks</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.cex.txt</TD>
+	  <TD class="dos">y-axis label font size(s) for the interaction track(s)</TD>
+	  <TD class="tres">character expansion factor used for the title; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.style</TD>
+	  <TD class="dos">how should interactions be plotted?</TD>
+	  <TD class="tres">specifies the style used to plot interactions between pairs of bins; there are 4 styles: "bins" = interactions are plotted in groups that each share a reference bin with no indication of how strong indications are, "stacked" = sums the number of bins that interact with any of the reference bins (and so simply stacks the non reference bins on top of each other), "arches" = individual interactions are shown as rounded arches between the interacting bins with the strength of the interactions given by the height (and optionally also the colour strength) of the arches, "flatarches" = same as the previous choice, but with arches being flat connection lines; NB "bins"/"stacked" use one input file format whereas "arches"/"flatarches" require another; comma-separated list of character strings for multiple tracks</TD>
+	  <TD class="cuatro">character; one of "bins", "stacked", "arches", "flatarches"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.colref</TD>
+	  <TD class="dos">reference bin colour</TD>
+	  <TD class="tres">specifies the colour that should be used to plot the reference / target / primary bin(s)</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.colnonref</TD>
+	  <TD class="dos">non-reference bin colour</TD>
+	  <TD class="tres">specifies the colour that should be used to plot the non-reference / secondary bin(s)</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.stack</TD>
+	  <TD class="dos">should interactions be stacked?</TD>
+	  <TD class="tres">specifies whether (TRUE) or not (FALSE) interactions should be shown as a bar- or lineplot of stacked counts, rather than several tracks, each with one interactome</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.stack.ylim.bot</TD>
+	  <TD class="dos">lower y-axis limit(s) (for stacked plots)</TD>
+	  <TD class="tres">in the case where hic.stack==TRUE, this specifies the lower limit of interaction counts that should be plotted on the y-axis; comma-separated list of values for multiple interaction tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.stack.ylim.top</TD>
+	  <TD class="dos">upper y-axis limit(s) (for stacked plots)</TD>
+	  <TD class="tres">in the case where hic.stack==TRUE, this specifies the upper limit of interaction counts that should be plotted on the y-axis; comma-separated list of values for multiple interaction tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.stack.style</TD>
+	  <TD class="dos">plotting style(s) (for stacked plots)</TD>
+	  <TD class="tres">specifies the drawing style to be used for stacked plots: either as a barplot (barplot) or as a curve (lineplot); comma-separated list of styles for multiple tracks</TD>
+	  <TD class="cuatro">one of "barplot","lineplot"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.stack.col</TD>
+	  <TD class="dos">plotting colour (for stacked plots)</TD>
+	  <TD class="tres">specifies the colour(s) to be used for the stacked interaction plot(s); comma-separated list of colour names for multiple tracks</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.stack.lwd</TD>
+	  <TD class="dos">line width (for stacked plots)</TD>
+	  <TD class="tres">specifies the line width(s) to be used for stacked interaction plot(s); comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.twist</TD>
+	  <TD class="dos">should the arches be twisted ribbons?</TD>
+	  <TD class="tres">only applies when hic.style=="arches" and specifies whether or not the arches twist in the middle or not; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro"><logical; TRUE/FALSE/TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.lwd</TD>
+	  <TD class="dos">line width used to draw the arches</TD>
+	  <TD class="tres">specifies the line width used to plot the borders of the polygons that make up the arches; only applies if hic.style=="arches" or "flatarches"; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.nsegments</TD>
+	  <TD class="dos">number of segments to be used per arc</TD>
+	  <TD class="tres">only applied when hic.style=="arches"; the rounded arches are approximated by a sequence of straight-line segments; this parameters specifies the number of segments used for this approximation; the larger this number the smoother the arches will be but the size of the resulting pdf file will be larger; should be at least 3; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">integer;>=3</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.neglog10</TD>
+	  <TD class="dos">should the 7th column be rescaled onto a negative log scale?</TD>
+	  <TD class="tres">the 7th column gives the strength of each interaction; this is most likely to be a p-value in which case it is preferrable to rescale the y-axis onto a negative log scale; but if the interaction strength is given by another numeric statistic, then this should be set to FALSE; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.ylim.lower</TD>
+	  <TD class="dos">lower limit(s) for the y-axis</TD>
+	  <TD class="tres">gives the lower limits for the interaction tracks; defaults to 0; applies only when hic.style=="arches" or "flatarches"; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.ylim.upper</TD>
+	  <TD class="dos">upper limit(s) for the y-axis</TD>
+	  <TD class="tres">gives the upper limits for the interaction tracks; defaults to the maximum in the data provided; applies only when hic.style=="arches" or "flatarches"; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.yaxis</TD>
+	  <TD class="dos">should a y-axis scale be printed or not?</TD>
+	  <TD class="tres">only applies when hic.style=="arches" or "flatarches"; if set to TRUE a y-axis scale will be drawn in the left margin; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.col</TD>
+	  <TD class="dos">colour to be used for drawing the arches</TD>
+	  <TD class="tres">specifies the colour used to draw arches (see also hic.arches.varicol); comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.varicol</TD>
+	  <TD class="dos">should the colour strength of each arc reflect the strength of the signal?</TD>
+	  <TD class="tres">only applies when hic.style=="arches" or "flatarches"; if set to TRUE the colour scale will be set from white to the colour given by hic.arches.col with weaker interactions having whiter colours with the strongest interactions having exactly the colour given by hic.arches.col; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.arches.dir</TD>
+	  <TD class="dos">direction of the arches</TD>
+	  <TD class="tres">specifies the 'direction' of the arches; they can either bend facing upwards or downwards</TD>
+	  <TD class="cuatro">character; one of "upwards", "downwards"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.capt.region</TD>
+	  <TD class="dos">chr, start & end positions of the capture region(s) (e.g. chr:SP:EP)</TD>
+	  <TD class="tres">if it is desired to indicate the capture region(s) on the interaction track(s) as a shaded box, the capture region(s) can be indicated here in the format chromosome:StartPosition:EndPosition; comma-separated list of capture regions for multiple tracks</TD>
+	  <TD class="cuatro">character of specific format; chr:SP:EP</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.capt.col</TD>
+	  <TD class="dos">colour of the capture region box</TD>
+	  <TD class="tres">if capture region(s) are specified, this parameter specifies the colour(s) that will be used to plot the capture region box(es); comma-separated list of colours for multiple tracks</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.capt.density</TD>
+	  <TD class="dos">density of the shading lines for the capture region box</TD>
+	  <TD class="tres">if capture region(s) are specified, this parameter specifies the density(ies) that will be used to draw the capture region box(es)</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">hic.capt.lines.lwd</TD>
+	  <TD class="dos">line width for the capture region box</TD>
+	  <TD class="tres">sets the line width used to plot the reference box</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="intensity">
+	    <TD colspan="4">--------------------  intensity track(s)  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.relplotheight</TD>
+	  <TD class="dos">relative height(s) for the intensity track(s)</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it; comma-separated values for multiple tracks</TD>
+	  <TD class="cuatro">numeric, >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.letter</TD>
+	  <TD class="dos">track letter(s) for the intensity track(s)</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter(s) / number(s) for the intensity track(s); specify a comma-separated vector of letters for multiple tracks</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.ylab</TD>
+	  <TD class="dos">y-axis label(s) for the intensity track(s)</TD>
+	  <TD class="tres">specifies the label(s) that should be printed on the y-axis of the intensity track(s); comma-separated list of labels for multiple tracks</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.cex.txt</TD>
+	  <TD class="dos">y-axis label font size(s) for the intensity track(s)</TD>
+	  <TD class="tres">character expansion factor used for the title; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.lwd</TD>
+	  <TD class="dos">line width</TD>
+	  <TD class="tres">specifies the line width(s) to be used when plotting the intensity track(s); comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.ylim.lower</TD>
+	  <TD class="dos">lower y-axis limit(s)</TD>
+	  <TD class="tres">specifies the lower limit(s) of the y-axis(es); comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.ylim.upper</TD>
+	  <TD class="dos">upper y-axis limit(s)</TD>
+	  <TD class="tres">specifies the upper limit(s) of the y-axis(es); comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.style</TD>
+	  <TD class="dos">plotting style(s) (one of barplot or lineplot)</TD>
+	  <TD class="tres">specifies the style to be used for plotting the intensity track(s); either as barplot(s) (barplot) or as curve(s) (lineplot)</TD>
+	  <TD class="cuatro">one of "barplot","lineplot"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.smooth.window</TD>
+	  <TD class="dos">size (in bp) of smoothing window</TD>
+	  <TD class="tres">if larger than 0, then intensity values will be smoothed over a window of the given size; only supported for now for intensity files that have values at equally spaced positions along the genome</TD>
+	  <TD class="cuatro">integer (bp)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.smooth.method</TD>
+	  <TD class="dos">method for smoothing intensity values</TD>
+	  <TD class="tres">specifies how intesity values are smoothed; one of "avg" (values are averaged across the window), "sum" (values are summed across the window), "min" (the minimum value in the value is taken) or "max" (the maximum is taken)</TD>
+	  <TD class="cuatro">character; one of "avg", "sum", "min", "max"</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.refbox</TD>
+	  <TD class="dos">chr, start & end positions of the reference bin(s)</TD>
+	  <TD class="tres">optional parameter specifying the coordinates (chr, start and end positions) of reference bin(s) to be shown on the intensity track(s); for multiple reference bins on the same track, use semi-colon separated lists of coordinates; for mutiple tracks, use comma-separated lists of coordinates (e.g. "1:200:300;1:400:550,8:250:300" adds two reference bins (both on chr1) to the first intensity track and one reference bin (on chr8) to the second intensity track)</TD>
+	  <TD class="cuatro">character of a specific format (chr:SP:EP); multiple bins separated by semi-colons</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.refbox.col</TD>
+	  <TD class="dos">colour of the reference bin(s)</TD>
+	  <TD class="tres">specifies the colour(s) to be used to plot reference bin(s); comma-separated list of colour names for multiple tracks</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.refbox.density</TD>
+	  <TD class="dos">shading line density for the reference bin(s)</TD>
+	  <TD class="tres">specifies the density(ies) with which the reference bin(s) are shaded; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.refbox.lines.lwd</TD>
+	  <TD class="dos">line width for the reference bin(s)</TD>
+	  <TD class="tres">sets the line width used to plot the reference bin(s)</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.refbox2</TD>
+	  <TD class="dos">chr, start & end positions of the secondary reference bin(s)</TD>
+	  <TD class="tres">optional parameter specifying the coordinates (chr, start and end positions) of secondary reference bin(s) to be shown on the intensity track(s); for multiple reference bins on the same track, use semi-colon separated lists of coordinates; for mutiple tracks, use comma-separated lists of coordinates (e.g. "1:200:300;1:400:550,8:250:300" adds two secondary reference bins (both on chr1) to the first intensity track and one secondary reference bin (on chr8) to the second intensity track)</TD>
+	  <TD class="cuatro">character of a specific format (chr:SP:EP); multiple bins separated by semi-colons</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.refbox2.col</TD>
+	  <TD class="dos">colour of the secondary reference bin(s)</TD>
+	  <TD class="tres">specifies the colour(s) to be used to plot secondary reference bin(s); comma-separated list of colour names for multiple tracks</TD>
+	  <TD class="cuatro">character (colour name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.refbox2.density</TD>
+	  <TD class="dos">shading line density for the secondary reference bin(s)</TD>
+	  <TD class="tres">specifies the density(ies) with which the secondary reference bin(s) are shaded; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">int.ref2box.lines.lwd</TD>
+	  <TD class="dos">line width for the secondary reference bin(s)</TD>
+	  <TD class="tres">sets the line width used to plot the secondary reference bin(s)</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="annot">
+	    <TD colspan="4">--------------------  multi-state annotation track(s)  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.relplotheight</TD>
+	  <TD class="dos">relative height(s) for the multi-sate annotation track(s)</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric, >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.letter</TD>
+	  <TD class="dos">track letter(s) for the multi-state annotation track(s)</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter(s) / number(s) for the multi-state annotation track(s); specify a comma-separated vector of letters for multiple tracks</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.ylab</TD>
+	  <TD class="dos">y-axis label(s) for the multi-state annotation track(s)</TD>
+	  <TD class="tres">specifies the label(s) that should be printed on the y-axis of the multi-state annotation track(s); comma-separated list of labels for multiple tracks</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.cex.txt</TD>
+	  <TD class="dos">y-axis label font size(s) for the multi-state annotation track(s)</TD>
+	  <TD class="tres">character expansion factor used for the title; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it; comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.lwd</TD>
+	  <TD class="dos">line width</TD>
+	  <TD class="tres">specifies the line width(s) to be used when plotting the multi-state annotation track(s); comma-separated list of values for multiple tracks</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.bgclass</TD>
+	  <TD class="dos">name(s) of background classes</TD>
+	  <TD class="tres">if the plotted region is large and the extent of states / classes small, the pixel width can exceed the size of individual segments of the multi-state annotation track; this can result in smaller sections to be masked; by specifying background states / classes here, these classes will be plotted first with other classes plotted on top of them; state / class names need to match the state / class names in the 4th column of the muli-state annotation input files; for multiple background states / classes for a given multi-state track, specify a colon-separated list of state / class names; for multiple tracks, specify a comma-separated list of state / class names (e.g. "state1:state2,class1" identifies two background states (named state1 and state2) on the first multi-state track and one background state (named class1) on the second annotation track)</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.mai.top</TD>
+	  <TD class="dos">top margin(s) (inches)</TD>
+	  <TD class="tres">specifies the top margin, in inches, to be used for the multi-state annotation track(s); comma-separated list of values for multiple tracks; if the values are too large this can result in a "margins-too-large" error message</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">annot.mai.bot</TD>
+	  <TD class="dos">bottom margin(s) (inches)</TD>
+	  <TD class="tres">specifies the bottom margin, in inches, to be used for the multi-state annotation track(s); comma-separated list of values for multiple tracks; if the values are too large this can result in a "margins-too-large" error message</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="phast">
+	    <TD colspan="4">--------------------  phastCons track  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.relplotheight</TD>
+	  <TD class="dos">relative height for the phastCons conservation score track</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.letter</TD>
+	  <TD class="dos">track letter for the phastCons track</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter / number for the phastCons conservation score track</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.ylab</TD>
+	  <TD class="dos">y-axis label for the phastCons track</TD>
+	  <TD class="tres">specifies the label that should be printed on the y-axis of the phastCons conservation score track</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.cex.txt</TD>
+	  <TD class="dos">y-axis label font size for the phastCons track</TD>
+	  <TD class="tres">character expansion factor used for the y-axis label; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.lwd</TD>
+	  <TD class="dos">line width</TD>
+	  <TD class="tres">specifies the width used to draw lines on the phastCons conservation score track</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.ylim</TD>
+	  <TD class="dos">y-axis limits</TD>
+	  <TD class="tres">specifies the lower and upper limits of the y-axis as a comma-separated list of two values; e.g. "-10,10"</TD>
+	  <TD class="cuatro">numeric (comma-spearated list of 2 values)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.noblocks</TD>
+	  <TD class="dos">is the data per base-pair?</TD>
+	  <TD class="tres">specifies whether the data in the input file is given per base-pair (TRUE) or as blocks of base-pair positions (FALSE); for more information consult the file format help section</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">phast.filter.file</TD>
+	  <TD class="dos">file witj positions to be filtered out</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file specifying the positions that should be filtered out before plotting the phastCons scores</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="snap">
+	    <TD colspan="4">--------------------  SNAP track  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.relplotheight</TD>
+	  <TD class="dos">relative height for the SNAP track</TD>
+	  <TD class="tres">every track (even the axis and title 'tracks') has an associated relative plot height; essentially if all tracks were to be plotted equally they will have the same relative plot height; NB this does not mean that they will take up the same amount of space on the resulting plot; tracks such as the heat map, the interaction (if not collapsed) and the gene tracks will take up more or less space depending on how wide a region is plotted, how many genes or interactions there are within the plotted regions etc.; values larger than 1 will increase the track's size relative to other plots, values less than 1 decrease it</TD>
+	  <TD class="cuatro">numeric; >0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.letter</TD>
+	  <TD class="dos">track letter for the SNAP track</TD>
+	  <TD class="tres">individual tracks can be labelled by letters / numbers (e.g. for easy reference in a caption); this specifies the letter / number for the SNAP track</TD>
+	  <TD class="cuatro">character; single characters or letters would make most sense, but you can enter whole words</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.ylab</TD>
+	  <TD class="dos">y-axis label for the SNAP track</TD>
+	  <TD class="tres">specifies the label that should be printed on the y-axis of the SNAP track</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.cex.txt</TD>
+	  <TD class="dos">y-axis label font size for the SNAP track</TD>
+	  <TD class="tres">character expansion factor used for the y-axis label; this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.cex.axis</TD>
+	  <TD class="dos">legends font size for the SNAP track</TD>
+	  <TD class="tres">character expansion factor used for the 3 legend annotations on the SNAP track (P-value scale, recombination scale, r2 scale); this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp.label.cex</TD>
+	  <TD class="dos">reference SNP(s) label(s) font size</TD>
+	  <TD class="tres">character expansion factor used for the reference SNP(s) label(s); this is relative to the default, so values larger than 1 increase the font relative to the default; values less than 1, shrink it</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp</TD>
+	  <TD class="dos">reference SNP</TD>
+	  <TD class="tres">specifies the reference SNP with respect to which the LD R-squared values and distances from the SNAP data file have been computed; this SNP will be highlighted on the SNAP track and its name printed besides it; however a SNAP plot will also be produced without this parameter having been set</TD>
+	  <TD class="cuatro">character (SNP name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp.offset.x</TD>
+	  <TD class="dos">SNP label x-offset (in plot units)</TD>
+	  <TD class="tres">specifies the amount of space the reference SNP label should be shifted to the right on the plot; this is in the plot units, i.e. base-pairs; can be negative</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp.offset.y</TD>
+	  <TD class="dos">SNP label y-offset (in plot units)</TD>
+	  <TD class="tres">specifies the amount of space the reference SNP label should be shifted to the top of the plot; this is in the plot units, i.e. on the same scale as the negative log of the association p-values; can be negative</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.r2.legend.x.offset</TD>
+	  <TD class="dos">r2 legend text x-offset (in plot units)</TD>
+	  <TD class="tres">specifies the amount of space the r2 legend text should be shifted to the right on the plot; this is in the plot units, i.e. base-pairs; can be negative</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.chr</TD>
+	  <TD class="dos">chromosome</TD>
+	  <TD class="tres">specifies the chromosome to which the positions in the SNAP input files relate to; required if the SNAP rate file does not contain a chromosome column</TD>
+	  <TD class="cuatro">integer; between 1 and max_chr</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.ylim</TD>
+	  <TD class="dos">y-axis limits</TD>
+	  <TD class="tres">specifies the y-axis limits for the SNAP plot; e.g. "0,10"</TD>
+	  <TD class="cuatro">numeric; comma-separated list of lower and upper values</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp2.file</TD>
+	  <TD class="dos">data file for SNP #2</TD>
+	  <TD class="tres">the full or relative path (incl. the filename) of the input file containing the SNAP association data for the second reference SNP; since the data file contains information (R-squared, distance) that relate to one specific SNP, if a second reference SNP is to be plotted on the graph, a second input file has to be specified</TD>
+	  <TD class="cuatro">character</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp2.snp</TD>
+	  <TD class="dos">reference SNP #2</TD>
+	  <TD class="tres">specifies the second reference SNP; this SNP will be highlighted on the SNAP track and its name printed besides it</TD>
+	  <TD class="cuatro">character (SNP name)</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp2.offset.x</TD>
+	  <TD class="dos">SNP label x-offset (in plot units) for the second reference SNP</TD>
+	  <TD class="tres">specifies the amount of space the second reference SNP label should be shifted to the right on the plot; this is in the plot units, i.e. base-pairs; can be negative</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">snap.snp2.offset.y</TD>
+	  <TD class="dos">SNP label y-offset (in plot units) for the second reference SNP</TD>
+	  <TD class="tres">specifies the amount of space the second reference SNP label should be shifted to the top of the plot; this is in the plot units, i.e. on the same scale as the negative log of the association p-values; can be negative</TD>
+	  <TD class="cuatro">numeric</TD>
+	</TR>
+      </table>
+
+      <table class="partable", border="0", align="center", cellspacing="10px">      
+	<TR class="blockname">
+	  <a name="lines">
+	    <TD colspan="4">--------------------  vertical lines  --------------------</TD>
+	  </a>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">lines.lwd</TD>
+	  <TD class="dos">line width(s)</TD>
+	  <TD class="tres">sets the width used to draw the lines specified in the lines.file input file; comma-separated list of values, one for each line</TD>
+	  <TD class="cuatro">numeric; >=0</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">lines.lty</TD>
+	  <TD class="dos">line type(s)</TD>
+	  <TD class="tres">sets the type of line used to draw the lines specified in the lines.file input file; comma-separated list of values, one for each line; 0=blank, 1=solid (default), 2=dashed, 3=dotted,4=dotdash, 5=longdash, 6=twodash</TD>
+	  <TD class="cuatro">integer; between 0 and 6</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">lines.col</TD>
+	  <TD class="dos">line colour(s)</TD>
+	  <TD class="tres">sets the colour used to draw the lines specified in the lines.file input file; comma-separated list of colour names, one for each line</TD>
+	  <TD class="cuatro">character (colour name(s))</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">lines.nonzoom</TD>
+	  <TD class="dos">show vertical lines on the main plot?</TD>
+	  <TD class="tres">determines whether the vertical lines specified in the vertical lines file should be drawn onto the main, non-zoomed, part of the plot</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+	<TR class="tabledata">
+	  <TD class="uno">lines.zoom</TD>
+	  <TD class="dos">show vertical lines on the zoomed region?</TD>
+	  <TD class="tres">determines whether the vertical lines specified in the vertical lines file should be drawn onto the zoomed part of the plot</TD>
+	  <TD class="cuatro">logical; TRUE/FALSE</TD>
+	</TR>
+      </table>
+                
+      <div style="height:50px"></div>    
+      
+      <div id='disclaimer'>
+	<br>Disclaimer:<br><br>
+	1. The Software is provided as a service to the research community. It
+	is provided with no warranties, express or implied. In particular
+	all warranties as to satisfactory quality or fitness for a
+	particular purpose are excluded, and the user accepts that the
+	Software has not been validated.  The user also accepts that the
+	Software cannot be used to provide information suitable for
+	contributing to a medical diagnosis or assessment. ICR makes no
+	representations that the use of the Software will not infringe any
+	patent or proprietary rights of third parties.<br><br>
+	2. The user shall hold ICR harmless and shall indemnify ICR for all
+	liabilities, demands, damages, expenses and losses arising directly
+	or indirectly out of the use of the Software.<br>
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>

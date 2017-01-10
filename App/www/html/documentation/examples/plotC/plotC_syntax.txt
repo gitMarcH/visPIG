@@ -1,0 +1,1 @@
+R --vanilla < visPIG.R --args pars.file=plotC_pars.txt regions.file=plotC_regions.txt hic.files=plotC_interaction_arches.txt,plotC_interaction_bins.txt chrsizes.file=chrsizes.file gene.file=gene.file outprefix=plotC plot.type=pdf

@@ -1,0 +1,276 @@
+body{
+    font-family:Arial;
+    font-size:10px;
+    background-color:#ffffff;
+}
+div{
+    padding:0px;
+    margin:0px;
+}
+div.layout{
+    border: 1px solid #cbcbcb;
+    padding:15px;
+    margin: 2px;
+    background-color:#eeeeee;
+}
+textarea{
+    font-family:Arial;
+    font-size:10px;
+}
+button{
+    font-family:Arial;
+    font-size:10px;
+}
+form{
+    font-family:Arial;
+    font-size:10px;
+}
+.parameter-block{
+    padding-top:10;
+    padding-bottom:7;
+    padding-left:10;
+    padding-right:0; 
+    margin-right:0px;
+    background-color:#eeeeee;
+
+}
+.left-border{    
+    border-left: 2px solid #000000;
+    margin: 0px;
+    padding-left:10px;
+    padding-right:10px;
+}
+a{ 
+    color: #4444ff; 
+    text-decoration: none;
+    position: relative;
+    z-index: 1; 
+}
+a:hover{
+    text-decoration:underline;
+}
+a span{
+    display: inline-block;
+}
+a object{
+    position: relative;
+    z-index: -1;
+}
+a img{
+    border:none;
+}
+h5{
+    padding-top:0px;
+    margin: 0px;
+}
+hr{
+    color: #ffffff;
+    background-color: #ffffff;
+}
+#parameters_radios{
+    float: left;
+    width: auto;
+    height: 100%;
+    line-height: 39px;
+}
+#download_button{
+    float: left;
+    height: 100%;
+    min-width:370px;
+    width: auto;
+}
+#top0{
+    height:80px;
+    color:#616365;
+    font-family:Arial;
+    font-size:12pt;
+}
+#top1{
+    text-align:left;
+    color:#616365;
+    font-family:Arial;
+}
+#top2{
+    height: 195px;
+    position: relative;
+}
+#wrapper{
+    position:relative;
+    min-width:900px;
+    width:auto;
+    height:auto;
+}
+#wrapper_basic{
+    position:relative;
+    width:auto;
+    height:auto;
+}
+#disclaimer{
+    clear:both;
+    text-align:left;
+}
+#left{
+    width:465px;
+    overflow:visible;
+    float:left;
+    clear:left;
+}
+#preview{
+    float:left;
+    text-align:left;
+    clear:none;
+    width:auto;
+    white-space:normal;
+}
+#div_replot{
+    width:100%;
+    height:32px; 
+    text-align:center;
+    margin-top:2px;
+    margin-bottom:4px;
+    }
+#parameters_options{
+    height:auto;
+    width:430px;
+    text-align:right;
+    overflow:visible;
+}
+#license{
+    font-size:10pt;
+    margin:100px;
+    margin-top:15px;
+    margin-bottom:25px
+}
+#download_R{
+    width: 100%;
+    height: 32px;
+    text-align:center;
+}
+#help{
+    font-size:10pt;
+    margin:100px;
+    margin-top:15px;
+    margin-bottom:25px
+}
+div.even_row{
+    border-top:1px solid #eeeeee;
+    font-family:Arial;
+    font-size:10px;
+}
+div.odd_row{
+    border-top:1px solid #eeeeee;
+    font-family:Arial;
+    font-size:10px;
+}
+input[type="text"]{
+    font-family:Arial;
+    font-size:10px;
+}
+input[type="file"]{
+    font-family:Arial;
+    font-size:10px;
+}
+img.svg{
+    display: none;
+}
+img.png{
+    display: inline;
+}
+html.svg img.svg{
+    display: inline;
+}
+html.svg img.png{
+    display: none;
+}
+.helpButton{
+    width:100%;
+    height:32px;
+    text-align:center;
+    padding-top:2px;
+}
+#quickStartGuide{
+    top:160px;
+    position:absolute;
+}
+#inputFormats{
+    top:194px;
+    position:absolute;
+}
+#parameterList{
+    top:228px;
+    position:absolute;
+}
+#examples{
+    top:262px;
+    position:absolute;
+}
+#FAQ{
+    top:296px;
+    position:absolute;
+}
+
+.justText{
+    height:auto;
+    text-align:left;
+    margin-left:100px;
+    margin-right:100px;
+}
+.justTextLessMargin{
+    height:auto;
+    text-align:left;
+    margin-left:25px;
+    margin-right:25px;
+}
+.inputFormatLink{
+    width:auto;
+    height:auto;
+    text-align:center;
+    margin-left:100px;
+    margin-right:100px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+table.partable{
+    font-size:inherit;
+    width:60%;
+}
+TR.tablehead{
+    align:left;
+    font-weight:normal;
+    font-style:italic;
+    font-size:inherit;
+}
+TR.blockname{
+    text-align:center;
+    font-weight:bold;
+    font-style:normal;
+    font-size:inherit;
+    COLSPAN:"3";
+}
+TR.tabledata{
+    align:left;
+    font-weight:normal;
+    font-style:normal;
+    font-size:inherit;
+}
+div.toc{
+    margin-top:0px;
+    margin-left:20%;
+    margin-right:20%;
+}
+TD.uno{
+    width:18%;
+    vertical-align:top;
+}
+TD.dos{
+    width:20%;
+    vertical-align:top;
+}
+TD.tres{
+    width:42%;
+    vertical-align:top;
+}
+TD.cuatro{
+    width:20%;
+    vertical-align:top;
+}

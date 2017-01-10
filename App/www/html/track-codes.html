@@ -1,0 +1,185 @@
+<html>
+  
+  <head>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    <link rel="stylesheet" type="text/css" href="../styles/style1.css"/>
+    
+    <!-- check for SVG support -->
+    <script>
+      if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id='wrapper_basic'>
+      <div id='top0'>
+	<div style="height:10px">
+	</div>
+	<div style='float:left'>
+	  <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	    <img class="svg" src="../images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	    <img class="png" src="../images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	  </a>
+	</div>
+	<div style='float:right'>
+	  Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	</div>
+	<div>
+	</div>
+      </div>
+      <div id='top1'>
+	<h1>visPIG - Visual Plotting Interface for Genetics</h1>
+      </div>
+      
+      <div style="height:50px"></div>
+      
+      
+      
+      <p >The 'Track Code' is the thing you write in the track order box.<br>
+	e.g. hic,assoc,assoc,axis<br>
+	It's worth noting that you can repeat tracks. e.g. axis,axis,heat,axis,heat<br>
+      </p>
+      
+      <table cellspacing="5" cellpadding="5" class="t1" style="font-size:inherit;">
+	<tbody>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>title</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Title track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>heat</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Heatmap track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>feat</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Feature track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>dix</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Directionality index track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>assoc</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Association track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>int</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Intensity track(s); NB multiple intensity tracks can optionally be referred to as int1, int2, ...</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>hic</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Interaction track(s); NB multiple intensity tracks can optionally be referred to as hic1, hic2, ...</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>annot</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Multi-state annotation track(s); NB multiple annotation tracks can be referred to as annot1, annot2, ....</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>phast</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >phastCons track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>gerp</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >GERP track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>snap</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >SNAP track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>gene</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Gene track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>axis</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >Axis track</p>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td valign="middle" class="td1">
+              <p ><b>buffer</b></p>
+	    </td>
+	    <td valign="middle" class="td2">
+              <p >empty or buffer track (just adds space)</p>
+	    </td>
+	  </tr>
+	</tbody>
+      </table>
+      
+      
+      
+      <div style="height:50px"></div>    
+      
+      <div id='disclaimer'>
+	<br>Disclaimer:<br><br>
+	1. The Software is provided as a service to the research community. It
+	is provided with no warranties, express or implied. In particular
+	all warranties as to satisfactory quality or fitness for a
+	particular purpose are excluded, and the user accepts that the
+	Software has not been validated.  The user also accepts that the
+	Software cannot be used to provide information suitable for
+	contributing to a medical diagnosis or assessment. ICR makes no
+	representations that the use of the Software will not infringe any
+	patent or proprietary rights of third parties.<br><br>
+	2. The user shall hold ICR harmless and shall indemnify ICR for all
+	liabilities, demands, damages, expenses and losses arising directly
+	or indirectly out of the use of the Software.<br>
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>

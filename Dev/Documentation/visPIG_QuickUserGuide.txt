@@ -1,0 +1,58 @@
+##########################################
+## visPIG -- QUICK USER/DEVELOPER GUIDE ##
+##########################################
+
+
+## INSTALLATION DIRECTORY
+visPIG is located in
+        i) guard2 aka W: drive aka /gtwohome
+          /home/studies/visPIG/
+        ii) vispig.icr.ac.uk server
+          /home/mhenrion/visPIG/
+
+The most up-to-date version can be found in the subfolder visPIG_vX.X/ where X.X is the current version number.
+
+Below we suppose that /path_to_visPIG/=/home/studies/visPIG/visPIG_vX.X/.
+
+
+## TO RUN IT LOCALLY
+R, Shiny and a web browser need to be installed on your system.
+This will work on most Windows, Mac and Linux systems. 
+Simply source the file "Run_the_app.R" within R:
+	source("/path_to_visPIG/Run_the_app.R",chdir=TRUE)
+This will start up the interface in the default web browser.
+
+
+## TO MODIFY the parameter R scripts and the html template:
+Edit the file:
+        /path_to_visPIG/Dev/params.csv
+If new parameters were added, edit the default parameter values file:
+        /path_to_visPIG/App/reference_files/parameters.default.txt
+Then run (i.e. source):
+        /path_to_visPIG/Dev/update_visPIG.R
+
+
+## IF CHANGES TO THE UNDERLYING R SCRIPTS NEED TO BE DONE
+This script sets up the plot: (formerly known as 'hic_plot.R'):
+	/path_to_visPIG/App/plot_visPIG.R
+The other scripts can be found in:
+	/path_to_visPIG/App/scripts/
+
+
+## SHINY SERVER FILE
+This is the file:
+	/path_to_visPIG/App/server.R
+NB since a /www/ folder is provided, there is no need for a ui.R script.
+
+
+## FURTHER DOCUMENTATION
+There is a link on the web interface with helpful information regarding file input formats and how to use the interface.
+For an overview of the script/file dependencies of visPIG, have a look at
+	/home/studies/visPIG/visPIG_file_dependencies.pdf
+A general workflow of visPIG is summarised in:
+	/home/studies/visPIG/visPIG_program_flow.pdf
+
+
+## LEGACY VERSIONS
+These can be found in:
+	/home/studies/visPIG/Archive/

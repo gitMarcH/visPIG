@@ -1,0 +1,88 @@
+<html>
+  
+  <head>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../styles/style1.css"/>
+    
+    <!-- check for SVG support -->
+    <script>
+      if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id='wrapper_basic'>
+      <div id='top0'>
+	<div style="height:10px">
+	</div>
+	<div style='float:left'>
+	  <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	    <img class="svg" src="../../images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	    <img class="png" src="../../images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	  </a>
+	</div>
+	<div style='float:right'>
+	  Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	</div>
+	<div>
+	</div>
+      </div>
+      <div id='top1'>
+	<h1>visPIG - Visual Plotting Interface for Genetics</h1>
+      </div>
+      
+      <div style="height:50px"></div>
+      
+      
+      <div class="justText">
+	<h2>Are there compatibility issues with Microsoft Internet Explorer?</h2>
+	visPIG was developed as a web application so that, except for a web browser, there were no minimum requirements for it to run.<br>
+	However visPIG has been written in R with the translation to web interface handled by an R package called <a href="http://www.rstudio.com/shiny/" target="_blank">shiny</a>. This package has some known compatibility issues with older versions of Microsoft Internet Explorer (e.g. see <a href="https://groups.google.com/forum/#!topic/shiny-discuss/tqeURyiPmFI" target="_blank">here</a>).<br>
+	So should you find that nothing happens when you click 'replot', and you are using Microsoft Internet Explorer, please consider upgrading to the latest version (IE version 10 and higher should work fine).<br>
+	Other browsers (such as Mozilla Firefox, Google Chrome, Google Chromium, GNOME Web/Epiphany,...) should work fine.
+
+	<h2>What are the default gene and chromosome sizes files?</h2>
+	The default gene and chromosome sizes files are for the human genome, hg19.<br>They are provided purely for convenience.<br>In particular the default gene file should not be regarded as a complete or definite list of the genes in the human genome.<br>Please download a list of genes appropriate for your data from the UCSC genome browser (or write it yourself).<br>If you want to inspect the default gene and chromosome sizes files, please download the <a href="../../files/gene.file" target="_blank">gene file</a> and the <a href="../../files/chrsizes.file" target="_blank">chromosome sizes file</a>. No warranty is provided for the accuracy of these two files.
+
+	<h2>Is there a limit on the size of files to be uploaded?</h2>
+	Yes; currently there is a 250MB limit on the size of file to be uploaded.<br>Any files exceeding this limit will simply be ignored by visPIG -- as if you had not specified them in the first place.<br>Should you have files exceeding this size (even by just filtering out the bits that will end up on the plot), you can <a href="../download_R.html">download the R code</a> to run it locally on your machine where the limit on file size is dictated by your computer's memory.
+
+	<h2>How can I get legends to some of the tracks, such as the association, interaction, multi-state tracks, heatmap, etc?</h2>
+	The SNAP track has its own legend and the all intensity tracks can have a y-axis. All tracks can be labelled by letters for easy reference in a figure caption. You can also add legends for the association, interaction, multi-state annotation and directionality index tracks using the parameters in the 'Legend(s)' panel from the visPIG control menu. These legends can be drawn at the top or the bottom of the plot, or on the sides, but the latter can be more tricky to configure well.
+
+	<h2>I get an error message saying that the figure margins are too large.</h2>
+	This means that either the overall plot margins are too large and there is not enough space left for the actual plot or that one of the individual tracks, or even one of the legend plots, has been assigned too little space on the plotting device. In case of the former, simply decrease the left/right/top/bottom margin parameters from the 'General Graphics' panel. For the latter, you will probably have to find out (by trial-and-error) which of the tracks has been assigned too little space, and then increase its relative size parameter in the parameter panel specific for that track (or decrease the relative size parameters for the other tracks). If the error is due to one of the legend plots you can try increasing the width or height or reducing the margins of the legends in the 'Legend(s)' panel. Note that if you fix the overall plot height and then add a legend (at the top or bottom), there will be less space for your data tracks, which could trigger the figure margin error as well. In this case either increase the overall plot height or decrease the proportional legend height. Note also that in general you will be able to solve any margin error problem by increasing the plot height and/or width parameters in the 'General Graphics' panel; but this is rarely the ideal way of solving the issue. 
+
+	<h2>visPIG refuses to plot my data</h2>
+	This could be due to either bad parameters for the track you wish to plot, or that the file(s) you wish to upload exceed(s) the file size limit (currently 250MB, see above). Unfortunately visPIG  will simply ignore too large files and not give a warning or error message. So check if your input file is below the file size limit and if it is, check the track specific parameters (e.g. for the heat map you will generally need to specify a bin width to generate a meaningful plot). Note that for files close to the file size limit, you might simply have to be patient enough for visPIG to finish uploading the files. There seems to be a bug within shiny (which handles the translation of R code to web interface) which means that sometimes the application will do the plot before having finished uploading the file. If you cannot edit your files to satisfy the file size limit, you can download the visPIG R code and run it locally on your machine (from the command line). There is no file size limit applicable then.
+
+	<h2>x-axis labels fail to be printed to the plot</h2>
+	Try increasing the amount of bottom margin and/or reducing the x-axis tickmarks label margin inset (NB you can specify negative values if needed) in the 'General Graphics' panel.
+
+      </div>
+      
+            
+      <div style="height:50px"></div>    
+      
+      <div id='disclaimer'>
+	<br>Disclaimer:<br><br>
+	1. The Software is provided as a service to the research community. It
+	is provided with no warranties, express or implied. In particular
+	all warranties as to satisfactory quality or fitness for a
+	particular purpose are excluded, and the user accepts that the
+	Software has not been validated.  The user also accepts that the
+	Software cannot be used to provide information suitable for
+	contributing to a medical diagnosis or assessment. ICR makes no
+	representations that the use of the Software will not infringe any
+	patent or proprietary rights of third parties.<br><br>
+	2. The user shall hold ICR harmless and shall indemnify ICR for all
+	liabilities, demands, damages, expenses and losses arising directly
+	or indirectly out of the use of the Software.<br>
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>

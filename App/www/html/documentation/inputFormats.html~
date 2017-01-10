@@ -1,0 +1,192 @@
+<html>
+  
+  <head>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../styles/style1.css"/>
+    
+    <!-- check for SVG support -->
+    <script>
+      if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id='wrapper_basic'>
+      <div id='top0'>
+	<div style="height:10px">
+	</div>
+	<div style='float:left'>
+	  <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	    <img class="svg" src="../../images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	    <img class="png" src="../../images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	  </a>
+	</div>
+	<div style='float:right'>
+	  Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	</div>
+	<div>
+	</div>
+      </div>
+      <div id='top1'>
+	<h1>visPIG - Visual Plotting Interface for Genetics</h1>
+      </div>
+      
+      <div style="height:50px"></div>
+      
+      <div class="justText">
+	<h2>General notes.</h2>
+	Please click on the respective links below to see examples of the various input formats.<br>Your input files should have the same number of columns and mimic the way information is summarised (e.g. 'chr8' rather than '8' etc.) and use the same field delimiters.<br>
+	The gene file should be in standard UCSC format and the SNAP files (data and rate) should be in standard format as required for the Broad Institute's SNAP plots.<br>
+	All files (except SNAP and chromosome sizes files which do not require this) should be tab separated not simply whitespace separated.<br>
+	
+	<h2>Example files.</h2>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/regions.txt">region file</a>
+	  <br>
+	  1 row per region to be plotted; 3 columns: chromosome (chr), start position (SP), end position (EP); tab delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/parameters.txt">parameter file</a>
+	  <br>
+	  1 row per region to be plotted parameter; 1 column only; row format: parameter_name=parameter_value; if starting a new parameter file, please always download either a default parameter file or one with your parameters by clicking the 'save the parameters' button on the main visPIG page; after a visPIG update you may have to add new parameters to your existing parameter files (simply download a default parameter file and check which parameters are missing from your exisiting file)
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/annot.txt">multi-state annotation file</a>
+	  <br>
+	  1 row per contiguous same-state block along the genome; the format is the output bed format of ChromHMM: the relevant columns are the first four coloumns: chr, SP, EP, state, and the ninth column: colour (in rgb coordinates); tab delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/assoc.txt">association file</a>
+	  <br>
+	  1 row per SNP / position; 3 columns: chr, position (pos), p-value (but could be any other intensity); tab-delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/dix.txt">directionality index file</a>
+	  <br>
+	  1 row per block of positions sharing one directionality index value; at least 4 columns: chr, SP, EP, dix_value1, dix_value2, ...; tab-delimited; no header row<br>
+	  NB if multiple directionality indices are to be plotted, the file needs to contain at least as many columns as the maximum column number specified in the 'column numbers' fields in the 'Directionality Index Track' panel.
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/gerpphast_blocks.txt">GERP / phastCons file with blocks</a>
+	  <br>
+	  1 row per block of positions sharing GERP / phastCons value; 4 columns: chr, SP, EP, value; tab-delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/gerpphast_noblocks.txt">GERP / phastCons file without blocks</a>
+	  <br>
+	   1 row per position; 3 columns: chr, pos, value; tab-delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/gerpphast_filter.txt">GERP / phastCons filter file</a>
+	  <br>
+	  1 row per positions, 2 columns: chr, pos; tab-delimited; no header row<br>
+	  NB only used when the GERP / phastCons data is specified without blocks
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/heat.txt">heatmap file</a>
+	  <br>
+	  1 row per cell of the heat map; 5 columns: chr1, pos1, chr2, pos2, value; tab-delimited; no header row<br>
+	  NB do not forget to specify the 'bin size' parameter on the 'Heatmap Track' panel if your heatmap has bins wider than 1bp.
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/hic.txt">interaction file (if plotting style [hic.style] is set to "bins" or "stacked")</a>
+	  <br>
+	  1 row per interacting bin; 5 columns: chr, SP, EP, reference status (0 = reference bin, 1 = non-reference), group (integers identifying the group the bin belongs to); tab-delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/hic_arches.txt">interaction file (if plotting style [hic.style] is set to "arches" or "flatarches")</a>
+	  <br>
+	  1 row per interaction / pair of bins; 7 columns: chr1, SP1, EP1, chr2, SP2, EP2, p-value (or other numeric value giving interaction strength); tab-delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/int.txt">intensity file</a>
+	  <br>
+	  1 row per block of positions sharing one intensity value; 4 columns: chr, SP, EP, value; tab-delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/snap.data.txt">SNAP data file</a>
+	  <br>
+	  1 row per SNP; standard SNAP data file format, 9 columns: SNP, proxy, distance, RSquared, chr, pos, p-value, 	pos, SNP type; tab- or space-delimited; has a header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/snap.rate.txt">SNAP rate file</a>	  
+	  <br>
+	  1 row per position; standard SNAP rate file format, though can have an optional third column, 2 or 3 coloumns: pos, recombination rate, chr (optional); tab- or space-delimited; has a header row<br>
+	  NB if the chromosome column is missing, you have to specify it in the 'SNAP Track' panel
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/feat.txt">feature file</a>
+	  <br>
+	  1 row per feature to be annotated; 4 columns: chr, SP, EP, label; tab-delimited; no header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/lines.txt">vertical line file</a>
+	  <br>
+	  1 row per vertical line; 2 columns: chr, pos; tab-delimited; no header
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/gene.txt">gene file</a>
+	  <br>
+	  1 row per gene; standard UCSC bed format: 10 columns: chr, strand, transcription SP, transcription EP, coding SP, coding EP, exon count, exon SPs, exon EPs, gene name; tab-delimited; has a header row
+	</div>
+
+	<div class="inputFormatLink">
+	  <a href="../examples/chrsizes.txt">chromosome sizes file</a>
+	  <br>
+	  1 row only; as many columns as chromosomes, each giving the length of that chromosome in base-pairs<br>
+	  NB you can safely round the sizes up or use very large sizes to make sure there is no overlap; the chromosome file provided has chromosomes 1 to 22, then X, Y, MT
+	</div>
+	
+	<div class="inputFormatLink">
+	  <a href="../examples/legend_annot_rgb.txt">multi-state annotation legend file</a>
+	  <br>
+	  1 row per state, 2 columns; the first column gives the state
+	  names, the second the corresponding colour, either as rgb
+	  values or colour name
+	</div>
+	
+
+      </div>
+
+      
+      <div style="height:50px"></div>    
+      
+      <div id='disclaimer'>
+	<br>Disclaimer:<br><br>
+	1. The Software is provided as a service to the research community. It
+	is provided with no warranties, express or implied. In particular
+	all warranties as to satisfactory quality or fitness for a
+	particular purpose are excluded, and the user accepts that the
+	Software has not been validated.  The user also accepts that the
+	Software cannot be used to provide information suitable for
+	contributing to a medical diagnosis or assessment. ICR makes no
+	representations that the use of the Software will not infringe any
+	patent or proprietary rights of third parties.<br><br>
+	2. The user shall hold ICR harmless and shall indemnify ICR for all
+	liabilities, demands, damages, expenses and losses arising directly
+	or indirectly out of the use of the Software.<br>
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>

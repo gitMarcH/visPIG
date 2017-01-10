@@ -1,0 +1,7 @@
+promoter	255,255,0
+transcribed	255,165,0
+enhancer	255,0,0
+open chromatin	0,0,255
+insulator	0,255,0
+other	190,190,190
+

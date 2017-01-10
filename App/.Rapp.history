@@ -1,0 +1,580 @@
+sum(x_hat_bin<0.1)
+sum(x_hat_bin>0.9)
+sum(x_hat_bin>0.75)
+sum(x_hat_bin<0.25)
+hist(x_hat_bin)
+hist(x_hat_bin,breaks=50)
+res_cts<-x_cts-x_hat_cts
+res_bin<-x_bin-x_hat_bin
+rs_bin
+res_bin
+plot(x_bin,res_bin)
+exemple simpliste#
+z<-runif(1000,0,2)#
+x_cts<-1.5*z+rnorm(1000,0,0.5)#
+x_bin<-rep(NA,1000)#
+for(i in 1:1000){x_bin[i]<-sample(size=1,x=0:1,prob=c(1-z[i]/2,z[i]/2),replace=T)}#
+y_cts<-rep(NA,1000)#
+for(i in 1:1000){y_cts[i]<-sample(size=1,x=0:1,prob=c(1-abs(x_cts[i])/max(x_cts),abs(x_cts[i])/max(x_cts)),replace=T)}#
+y_bin<-rep(NA,1000)#
+y_bin[x_bin==0]<-sample(size=sum(x_bin==0),x=0:1,prob=c(0.75,0.25),replace=T)#
+y_bin[x_bin==1]<-sample(size=sum(x_bin==1),x=0:1,prob=c(0.4,0.6),replace=T)#
+#
+# regression X sur Z#
+regr1_cts<-glm(x_cts ~ z,family=gaussian())#
+regr1_bin<-glm(x_bin ~ z,family=binomial(link="logit"))#
+#
+# prediction de X, i.e. X_hat (NB dans notre cas; z sera different dans cette etape qu z de l'etape precedente)#
+x_hat_cts<-summary(regr1_cts)$coefficients[1,1]+summary(regr1_cts)$coefficients[2,1]*z#
+res_cts<-x_cts-x_hat_cts#
+tmp<-exp(summary(regr1_bin)$coefficients[1,1]+summary(regr1_bin)$coefficients[2,1]*z)#
+x_hat_bin<-tmp/(1+tmp)#
+res_bin<-x_bin-x_hat_bin#
+#
+# regression de X_hat sur Y (avec et sans residus)#
+regr2_cts<-glm(y_cts ~ x_hat_cts,family=binomial(link="logit"))#
+regr2_cts_res<-glm(y_cts ~ x_hat_cts + res_cts,family=binomial(link="logit"))#
+regr2_bin<-glm(y_bin ~ x_hat_bin,family=binomial(link="logit"))#
+regr2_bin_res<-glm(y_bin ~ x_hat_bin + res_bin,family=binomial(link="logit"))
+summary(regr2_cts)$coefficients
+summary(regr2_cts_ctrl)$coefficients
+regression de X_hat sur Y (avec et sans residus)#
+regr2_cts<-glm(y_cts ~ x_hat_cts,family=binomial(link="logit"))#
+regr2_cts_ctrl<-glm(y_cts ~ x_hat_cts + res_cts,family=binomial(link="logit"))#
+regr2_bin<-glm(y_bin ~ x_hat_bin,family=binomial(link="logit"))#
+regr2_bin_ctrl<-glm(y_bin ~ x_hat_bin + res_bin,family=binomial(link="logit"))
+summary(regr2_cts_ctrl)$coefficients
+summary(regr2_bin)$coefficients
+COR estimtes:#
+COR_cts<-summary(regr2_cts)$coefficients[2,1]#
+COR_cts_ctrl<-summary(regr2_cts_ctrl)$coefficients[2,1]#
+COR_bin<-summary(regr2_bin)$coefficients[2,1]#
+COR_bin_ctrl<-summary(regr2_bin)$coefficients[2,1]
+exp(COR_cts)
+exp(COR_cts_ctrl)
+exp(COR_bin_ctrl)
+exp(COR_bin)
+fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits_selected_cols_p0-05.txt"
+datUK<-read.table(fileUK,sep="",header=T)
+datNCI<-read.table(fileNCI,sep="",header=T)
+datUK[1:10,]
+datNCI[1:10,]
+i<-1
+metagen(TE=c(datUK[i,19],datNCI[i,19]),seTE=c(datUK[i,20],datNCI[i,20]))
+library(meta)
+tt<-library(meta)
+summary(tt)
+tt<-metagen(TE=c(datUK[i,19],datNCI[i,19]),seTE=c(datUK[i,20],datNCI[i,20]))
+summary(tt)
+names(tt)
+summary(tt)$Q
+summary(tt)$I2
+summary(tt)$la
+names(tt)
+tt$I2
+names(summary(tt))
+tt<-metagen(TE=c(0.2,-0.1),seTE=c(datUK[i,20],datNCI[i,20]))
+summary(tt)
+tt<-metagen(TE=c(0.2,-0.1),seTE=c(datUK[i,20],0.12))
+summary(tt)
+tt<-metagen(TE=c(0.2,0.67),seTE=c(datUK[i,20],0.12))
+summary(tt)
+summary(tt)$I2$TE
+metaRes<-matrix(nrow=nrow(datUK),ncol=44)#
+	metaRes<-cbind(datUK[,2:6],datUK[,7:21],datNCI[,7:21])#
+	colnames(metaRes)<-c("rsid","chr","pos","allel_A","allele_B",paste("UK",colnames(datUK[,7:21]),sep="_"),paste("NCI",colnames(datUK[,7:21]),sep="_"))
+idUK<-paste(datUK[,2],datUK[,3],datUK[,4],datUK[,5],datUK[,6],sep=":")#
+	idNCI<-paste(datNCI[,2],datNCI[,3],datNCI[,4],datNCI[,5],datNCI[,6],sep=":")#
+	snplist<-intersect(idUK,idNCI)#
+	datUK<-datUK[is.element(el=idUK,set=snplist),]#
+	datNCI<-datNCI[is.element(el=idNCI,set=snplist),]
+nrow(datUK)==nrow(datNCI)
+nrow(datUK)
+sum(datUK[,5]==datNCI[,5])
+sum(as.character(datUK[,5])==as.character(datNCI[,5]))
+sum(as.character(datUK[,6])==as.character(datNCI[,6]))
+datUK[1:5,5]
+datNCI[1:10,5]
+datUK[1:10,5]
+metaRes<-matrix(nrow=nrow(datUK),ncol=44)#
+	metaRes<-cbind(datUK[,2:6],datUK[,7:21],datNCI[,7:21])#
+	colnames(metaRes)<-c("rsid","chr","pos","allel_A","allele_B",paste("UK",colnames(datUK[,7:21]),sep="_"),paste("NCI",colnames(datUK[,7:21]),sep="_"))
+metaRes[1:10,]
+datUK[1:10,]
+44-16+1
+44-36+1
+tt$Q
+tmpMeta<-tt
+c(tmpMeta$pval.fixed,tmpMeta$TE.fixed,tmpMeta$seTE.fixed,tmpMeta$pval.random,tmpMeta$TE.random,tmpMeta$seTE.random,metaRes$Q,2-1,100*summary(metaRes)$I2$TE)
+c(tmpMeta$pval.fixed,tmpMeta$TE.fixed,tmpMeta$seTE.fixed,tmpMeta$pval.random,tmpMeta$TE.random,tmpMeta$seTE.random,metaRes$Q,2-1,100*summary(tmpMeta)$I2$TE)
+metaRes<-matrix(nrow=nrow(datUK),ncol=44)#
+	metaRes<-cbind(datUK[,2:6],datUK[,7:21],datNCI[,7:21])#
+	metaRes<-cbind(metaRes,matrix(nrow=nrow(metaRes),ncol=9))#
+	colnames(metaRes)<-c("rsid","chr","pos","allele_A","allele_B",paste("UK",colnames(datUK[,7:21]),sep="_"),paste("NCI",colnames(datUK[,7:21]),sep="_"),paste("meta",c("pval.fixed","TE.fixed","seTE.fixed","pval.random","TE.random","seTE.random","Q","Q.df","I2"),sep="_"))
+metaRes[1:2,]
+i
+metaRes[i,36:44]<-c(tmpMeta$pval.fixed,tmpMeta$TE.fixed,tmpMeta$seTE.fixed,tmpMeta$pval.random,tmpMeta$TE.random,tmpMeta$seTE.random,metaRes$Q,2-1,100*summary(tmpMeta)$I2$TE)
+metaRes[i,36:44]<-c(tmpMeta$pval.fixed,tmpMeta$TE.fixed,tmpMeta$seTE.fixed,tmpMeta$pval.random,tmpMeta$TE.random,tmpMeta$seTE.random,tmpMeta$Q,2-1,100*summary(tmpMeta)$I2$TE)
+metaRes[1:2,]
+1-pchisq(tt$Q,df=1)
+summary(tt)
+-----specify data files#
+	outPrefix<-"Desktop/RCC_imputation_results/meta_table_for_EGA/metaUKNCI_p0-05"#
+	fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+#-----start log file#
+	outFile<-paste(sep="",outPrefix,".tab")	#
+	logFile<-paste(sep="",outPrefix,".log")#
+	cat("This is metaUKNCI_p0-05.R.\n\n",file=logFile,append=F)#
+	cat(paste(sep="","Input parameters:\n\toutPrefix = < ",outPrefix," >,\n\tfileUK = < ",fileUK," >,\n\tfileNCI = < ",fileNCI," >.\n\n"),file=logFile,append=T)#
+#
+#-----read data#
+	cat("Reading the input data.\n",file=logFile,append=T)#
+	cat("..UK..\n",file=logFile,append=T)#
+	datUK<-read.table(fileUK,sep="",header=T)#
+	cat("..NCI..\n",file=logFile,append=T)#
+	datNCI<-read.table(fileNCI,sep="",header=T)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----match data#
+	cat("Matching data.\n",file=logFile,append=T)#
+	idUK<-paste(datUK[,2],datUK[,3],datUK[,4],datUK[,5],datUK[,6],sep=":")#
+	idNCI<-paste(datNCI[,2],datNCI[,3],datNCI[,4],datNCI[,5],datNCI[,6],sep=":")#
+	snplist<-intersect(idUK,idNCI)#
+	datUK<-datUK[is.element(el=idUK,set=snplist),]#
+	datNCI<-datNCI[is.element(el=idNCI,set=snplist),]#
+	if(nrow(datUK)==nrow(datNCI)){#
+		cat(paste("..there are ",nrow(datUK)," matching variants.\n",sep=""),file=logFile,append=T)#
+	}else{stop("Dataset could not be matched; most likely duplicate entries to be blamed.")}#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----compute meta P-values#
+	cat("Doing the meta.\n",file=logFile,append=T)#
+	library(meta)#
+	metaRes<-matrix(nrow=nrow(datUK),ncol=44)#
+	metaRes<-cbind(datUK[,2:6],datUK[,7:21],datNCI[,7:21])#
+	metaRes<-cbind(metaRes,matrix(nrow=nrow(metaRes),ncol=10))#
+	colnames(metaRes)<-c("rsid","chr","pos","allele_A","allele_B",paste("UK",colnames(datUK[,7:21]),sep="_"),paste("NCI",colnames(datUK[,7:21]),sep="_"),paste("meta",c("pval.fixed","TE.fixed","seTE.fixed","pval.random","TE.random","seTE.random","Q","Q.df","pval.heterogeneity","I2"),sep="_"))#
+#
+	for(i in 1:nrow(datUK)){#
+		tmpMeta<-metagen(TE=c(datUK[i,19],datNCI[i,19]),seTE=c(datUK[i,20],datNCI[i,20]))#
+		metaRes[i,36:45]<-c(tmpMeta$pval.fixed,tmpMeta$TE.fixed,tmpMeta$seTE.fixed,tmpMeta$pval.random,tmpMeta$TE.random,tmpMeta$seTE.random,tmpMeta$Q,2-1,q-pchisq(tmpMeta$Q,df=2-1),100*summary(tmpMeta)$I2$TE)#
+	}#
+	cat("Done.\n\n",file=logFile,append=T)#
+#-----write the output table#
+	cat("Writing the output.\n",file=logFile,append=T)#
+	write.table(metaRes,file=outFile,sep="\t",row.names=F,col.names=T,quote=F)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----close plot & log file#
+	dev.off()#
+	cat("This is the end.\n",file=logFile,append=T)
+1-pchisq(tmpMeta$Q,df=2-1)
+-----specify data files#
+	outPrefix<-"Desktop/RCC_imputation_results/meta_table_for_EGA/metaUKNCI_p0-05"#
+	fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+#-----start log file#
+	outFile<-paste(sep="",outPrefix,".tab")	#
+	logFile<-paste(sep="",outPrefix,".log")#
+	cat("This is metaUKNCI_p0-05.R.\n\n",file=logFile,append=F)#
+	cat(paste(sep="","Input parameters:\n\toutPrefix = < ",outPrefix," >,\n\tfileUK = < ",fileUK," >,\n\tfileNCI = < ",fileNCI," >.\n\n"),file=logFile,append=T)#
+#
+#-----read data#
+	cat("Reading the input data.\n",file=logFile,append=T)#
+	cat("..UK..\n",file=logFile,append=T)#
+	datUK<-read.table(fileUK,sep="",header=T)#
+	cat("..NCI..\n",file=logFile,append=T)#
+	datNCI<-read.table(fileNCI,sep="",header=T)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----match data#
+	cat("Matching data.\n",file=logFile,append=T)#
+	idUK<-paste(datUK[,2],datUK[,3],datUK[,4],datUK[,5],datUK[,6],sep=":")#
+	idNCI<-paste(datNCI[,2],datNCI[,3],datNCI[,4],datNCI[,5],datNCI[,6],sep=":")#
+	snplist<-intersect(idUK,idNCI)#
+	datUK<-datUK[is.element(el=idUK,set=snplist),]#
+	datNCI<-datNCI[is.element(el=idNCI,set=snplist),]#
+	if(nrow(datUK)==nrow(datNCI)){#
+		cat(paste("..there are ",nrow(datUK)," matching variants.\n",sep=""),file=logFile,append=T)#
+	}else{stop("Dataset could not be matched; most likely duplicate entries to be blamed.")}#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----compute meta P-values#
+	cat("Doing the meta.\n",file=logFile,append=T)#
+	library(meta)#
+	metaRes<-matrix(nrow=nrow(datUK),ncol=44)#
+	metaRes<-cbind(datUK[,2:6],datUK[,7:21],datNCI[,7:21])#
+	metaRes<-cbind(metaRes,matrix(nrow=nrow(metaRes),ncol=10))#
+	colnames(metaRes)<-c("rsid","chr","pos","allele_A","allele_B",paste("UK",colnames(datUK[,7:21]),sep="_"),paste("NCI",colnames(datUK[,7:21]),sep="_"),paste("meta",c("pval.fixed","TE.fixed","seTE.fixed","pval.random","TE.random","seTE.random","Q","Q.df","pval.heterogeneity","I2"),sep="_"))#
+#
+	for(i in 1:nrow(datUK)){#
+		tmpMeta<-metagen(TE=c(datUK[i,19],datNCI[i,19]),seTE=c(datUK[i,20],datNCI[i,20]))#
+		metaRes[i,36:45]<-c(tmpMeta$pval.fixed,tmpMeta$TE.fixed,tmpMeta$seTE.fixed,tmpMeta$pval.random,tmpMeta$TE.random,tmpMeta$seTE.random,tmpMeta$Q,2-1,1-pchisq(tmpMeta$Q,df=2-1),100*summary(tmpMeta)$I2$TE)#
+	}#
+	cat("Done.\n\n",file=logFile,append=T)#
+#-----write the output table#
+	cat("Writing the output.\n",file=logFile,append=T)#
+	write.table(metaRes,file=outFile,sep="\t",row.names=F,col.names=T,quote=F)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----close plot & log file#
+	dev.off()#
+	cat("This is the end.\n",file=logFile,append=T)
+metaRes[1:10,]
+metaRes[1:10,-(6:35)]
+outFileRestricted<-paste(sep="",outPrefix,"_restricted.tab")
+write.table(metaRes[,-(6:35)],file=outFileRestricted,sep="\t",row.names=F,col.names=T,quote=F)
+sorce.dat<-read.table("/Volumes/santmp/studies/Transorce_RCC_GWAS/MRC_clinical_variables/GWAS_sorce.csv",header=T,sep=",",colClasses=c(rep("numeric",2),rep("character",8),rep("integer",3)))
+sorce.dat[1:10,]
+table(sorce.dat[,4])
+fam<-read.table("/santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds_cases_only.fam",sep="",header=F,colClasses="integer")
+fam<-read.table("/Volumes/santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds_cases_only.fam",sep="",header=F,colClasses="integer")
+nrow(fam)
+mani<-read.table("/Volumes/santmp/studies/Transorce_RCC_GWAS/Manifest/RENAL_GWAS_SAMPLE_MANIFEST_081111.txt",sep="",header=F)
+mani<-read.table("/Volumes/santmp/studies/Transorce_RCC_GWAS/Manifest/RENAL_GWAS_SAMPLE_MANIFEST_081111.txt",sep="",header=T,fill=T)
+mani[1:10,]
+idConvMat<-cbind(as.integer(mani[,5]),as.integer(mani[,7]),mani[,6])
+idConv[1:25,]
+idConvMat[1:25,]
+idConvMat<-cbind(as.integer(mani[,5]),as.integer(mani[,7]),as.character(mani[,6]))
+idConvMat[1:25,]
+mani<-read.table("/Volumes/santmp/studies/Transorce_RCC_GWAS/Manifest/RENAL_GWAS_SAMPLE_MANIFEST_081111.txt",sep="",header=T,fill=T,colClasses="character")
+idConvMat<-cbind(as.integer(mani[,5]),as.integer(mani[,7]),as.character(mani[,6]))
+idConvMat[1:25,]
+fam2<-fam
+fam[1:10,]
+fam2[!is.element(el=fam[,1],set=as.integer(idConvMat[,1])]<-NA
+fam2[!is.element(el=fam[,1],set=as.integer(idConvMat[,1]),1]<-NA
+fam2[!is.element(el=fam[,1],set=as.integer(idConvMat[,1])),1]<-NA
+fam2[,1]
+match(fam2[,1],idConvMat[,1])
+cbind(fam2[,1],idConvMat[,1])
+length(match(fam2[,1],idConvMat[,1]))
+fam2[,1]<-idConvMat[match(fam2[,1],idConvMat[,1]),2]
+fam2[1:20,]
+ls()
+mani[1:10,]
+sort.dat[1:10,]
+sorce.dat[1:10,]
+sum(is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]))
+sum(is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Chromophobe",1]))
+sum(is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Papillary",1]))
+table(sorce.dat[,4])
+sum(is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]))
+fam2[(is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2]
+fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2]
+fam3<-read.table("/santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds_cases_only.transorce_or_rmh",sep="",header=F,colClasses="integer")
+fam3<-read.table("/Volumes//santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds_cases_only.transorce_or_rmh",sep="",header=F,colClasses="integer")
+fam3[1:10,]
+fam3<-read.table("/Volumes//santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds_cases_only.transorce_or_rmh",sep="",header=F,colClasses="character")
+fam3[1:10,]
+fam3<-read.table("/Volumes//santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds_cases_only.transorce_or_rmh",sep="",header=F,colClasses="integer")
+fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2]
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+sum(fam3[,3]==1 & is.element(set=fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2],el=fam3[,1]))
+sum(fam3[,3]==0 & is.element(set=fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2],el=fam3[,1]))
+sum(fam3[,3]==0)
+sum(fam3[,3]==1)
+ls()
+nrow(fam)
+famCases<-fam
+fam<-read.table("/Volumes//santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds.fam",sep="",header=F,colClasses="integer")
+fam<-read.table("/Volumes//santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds.fam",sep="",header=F,colClasses=c(rep("character",2),rep("integer",4)))
+fam[1:10,]
+fam2[1:10,]
+fam2<-fam
+fam2[!is.element(el=fam2[,1],set=idConvMat[,1]),1]<-NA
+sum(!is.na(fam2[,1]))
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+fam2[,1]<-idConvMat[match(fam2[,1],idConvMat[,1]),2]
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Chromophobe",1]),2])#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Papillary",1]),2])
+sum(!is.na(fam2[,1]))#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Chromophobe",1]),2])#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Papillary",1]),2])
+fam<-read.table("/Volumes//santmp/studies/Transorce_RCC_GWAS/Data/no_standards/noKDE/clean-ca_co2-nostds.fam",sep="",header=F,colClasses=c(rep("character",2),rep("integer",4)))#
+mani<-read.table("/Volumes/santmp/studies/Transorce_RCC_GWAS/Manifest/RENAL_GWAS_SAMPLE_MANIFEST_081111.txt",sep="",header=T,fill=T,colClasses="character")#
+idConvMat<-cbind(as.integer(mani[,5]),as.integer(mani[,7]),as.character(mani[,6]))#
+fam2<-fam#
+fam2[!is.element(el=fam2[,1],set=idConvMat[,1]),1]<-NA#
+sum(!is.na(fam2[,1]))#
+fam2[,1]<-idConvMat[match(fam2[,1],idConvMat[,1]),2]#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Chromophobe",1]),2])#
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Papillary",1]),2])
+table(sorce.dat[,4])
+length(fam2[is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Other",1]),2])
+fam2[!is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2]
+length(fam2[!is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+nrow(fam2)
+nrow(fam2)-592
+fam2[fam2[,6]==2 | !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2]
+length(fam2[fam2[,6]==2 | !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+fam2[1:10,]
+sum(fam2[,6]==2)
+sum(fam2[,6]==1)
+nrow(fam2)
+length(fam2[fam2[,6]==1 | !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+length(!is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+length(fam2[,6]==1 & !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+fam2[fam2[,6]==1 | !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2]
+length(fam2[fam2[,6]==1 | !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+length(fam2[fam2[,6]==2 & !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2])
+944-592
+write.table(fam2[fam2[,6]==2 & !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2],"Desktop/RCC_Transorce_NonClearCellCases.txt",sep="",row.names=F,col.names=F)
+write.table(fam2[fam2[,6]==2 & !is.element(el=fam2[,1],set=sorce.dat[sorce.dat[,4]=="Conventional/ Clear Cell",1]),2],"Desktop/RCC_Transorce_NonClearCellCases.txt",sep="",row.names=F,col.names=F,quote=F)
+270.55+252.87+68.586
+exp(-0.14)
+1/exp(-0.14)
+1/exp(-0.11)
+outPrefix<-"Desktop/RCC_imputation_results/plots_for_paper/manhattan_metaUKNCI_p0-05"#
+	fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+datUK2<-read.table("Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits.txt",sep="",header=T)#
+datNCI2<-read.table("Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits.txt",sep="",header=T)
+datUK<-read.table(fileUK,sep="",header=T)
+datNCI<-read.table(fileNCI,sep="",header=T)
+nrow(datUK)
+nrow(datUK2)
+nrow(datNCI)
+nrow(datNCI2)
+datUK[1:10,]
+datUK2[1:10,]
+min(datUK[,21])
+max(datUK[,21])
+max(datUK2[,19])
+max(datNCI2[,19])
+max(datNCI[,21])
+min(datUK[,18])
+min(datUK2[,ncol(datUK2)])
+min(datNCI2[,ncol(datNCI2)])
+min(datNCI[,18])
+idUK<-paste(datUK[,2],datUK[,3],datUK[,4],datUK[,5],datUK[,6],sep=":")#
+	idNCI<-paste(datNCI[,2],datNCI[,3],datNCI[,4],datNCI[,5],datNCI[,6],sep=":")#
+	snplist<-intersect(idUK,idNCI)#
+	datUK<-datUK[is.element(el=idUK,set=snplist),]#
+	datNCI<-datNCI[is.element(el=idNCI,set=snplist),]
+nrow(datUK)==nrow(datNCI)
+library(meta)#
+	library(doParallel)#
+	registerDoParallel(2)#
+	metaP<-foreach(i=1:nrow(datUK)) %dopar% metagen(TE=c(datUK[i,19],datNCI[i,19]),seTE=c(datUK[i,20],datNCI[i,20]))$pval.fixed#
+	metaP<-unlist(metaP)
+tmp<-cbind(datUK[,2:4],metaP)
+tmp[tmp[,4]<1e-6]
+tmp[tmp[,4]<1e-6,]
+datUK[12321,]
+datNCI[12321,]
+tmp[12321,]
+datUK[datUK[,2]=="rs111506464",]
+datNCI[datNCI[,2]=="rs111506464",]
+datUK[1:10,21:22]
+datUK2[1:10,21:22]
+-----specify data files#
+	outPrefix<-"Desktop/RCC_imputation_results/plots_for_paper/manhattan_metaUKNCI_p0-01"#
+	#fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	#fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits.txt"#
+	fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits.txt"#
+#-----start log file#
+	pdfFile<-paste(sep="",outPrefix,".pdf")#
+	outFile<-paste(sep="",outPrefix,".tab")	#
+	logFile<-paste(sep="",outPrefix,".log")#
+	cat("This is manhattan_metaUKNCI_p0-05.R.\n\n",file=logFile,append=F)#
+	cat(paste(sep="","Input parameters:\n\toutPrefix = < ",outPrefix," >,\n\tfileUK = < ",fileUK," >,\n\tfileNCI = < ",fileNCI," >.\n\n"),file=logFile,append=T)#
+#
+#-----read data#
+	cat("Reading the input data.\n",file=logFile,append=T)#
+	cat("..UK..\n",file=logFile,append=T)#
+	datUK<-read.table(fileUK,sep="",header=T)#
+	cat("..NCI..\n",file=logFile,append=T)#
+	datNCI<-read.table(fileNCI,sep="",header=T)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----match data#
+	cat("Matching data.\n",file=logFile,append=T)#
+	idUK<-paste(datUK[,2],datUK[,3],datUK[,4],datUK[,5],datUK[,6],sep=":")#
+	idNCI<-paste(datNCI[,2],datNCI[,3],datNCI[,4],datNCI[,5],datNCI[,6],sep=":")#
+	snplist<-intersect(idUK,idNCI)#
+	datUK<-datUK[is.element(el=idUK,set=snplist),]#
+	datNCI<-datNCI[is.element(el=idNCI,set=snplist),]#
+	if(nrow(datUK)==nrow(datNCI)){#
+		cat(paste("..there are ",nrow(datUK)," matching variants.\n",sep=""),file=logFile,append=T)#
+	}else{stop("Dataset could not be matched; most likely duplicate entries to be blamed.")}#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----compute meta P-values#
+	cat("Doing the meta.\n",file=logFile,append=T)#
+	library(meta)#
+	library(doParallel)#
+	registerDoParallel(2)#
+	#metaP<-foreach(i=1:nrow(datUK)) %dopar% metagen(TE=c(datUK[i,19],datNCI[i,19]),seTE=c(datUK[i,20],datNCI[i,20]))$pval.fixed#
+	metaP<-foreach(i=1:nrow(datUK)) %dopar% metagen(TE=c(datUK[i,21],datNCI[i,21]),seTE=c(datUK[i,22],datNCI[i,22]))$pval.fixed#
+	metaP<-unlist(metaP)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#-----do the manhattan plot#
+	cat("Doing the plot.\n",file=logFile,append=T)#
+	#--set-up a few things#
+	idxCols<-c(36,33,645,642,598,595,593,590,12,8,51,47,89,86,656,652,414,411,151,148,94,90)#
+	colVect<-colors()[idxCols]#
+	chrSizes<-c(0,249250621,243199373,198022430,191154276,180915260,171115067,159138663,146364022,141213431,135534747,135006516,133851895,115169878,107349540,102531392,90354753,81195210,78077248,59128983,63025520,48129895,51304566)#
+	for(i in 2:length(chrSizes)){#
+		chrSizes[i]<-chrSizes[i-1]+chrSizes[i]#
+	}#
+	gwPos<-chrSizes[datUK[,3]]+datUK[,4]#
+	#--start the plot#
+	pdf(pdfFile,width=30,height=8)#
+	cex.txt<-1.7#
+	par(mai=c(1,1.25,0.05,0.05))#
+	plot(gwPos,-log10(metaP),pch=".",cex=2,col=colVect[datUK[,3]],xlab="",ylab=expression(-log[10](P)),axes=F,ylim=c(2,10),type="n",cex.axis=cex.txt,cex.lab=cex.txt)#
+	axis(side=2)#
+	#axis(side=1,at=(chrSizes[1:(length(chrSizes)-1)]+chrSizes[2:length(chrSizes)])/2,labels=paste("chr",1:22,sep=""),hadj=0.5)#
+	axis(side=1,at=(chrSizes[1:(length(chrSizes)-1)]+chrSizes[2:length(chrSizes)])/2,labels=as.vector(rbind(paste("chr",seq(1,21,by=2),sep=""),rep("",11))),hadj=0.5,line=0,cex.axis=cex.txt,cex.lab=cex.txt)#
+	axis(side=1,at=(chrSizes[seq(2,22,by=2)]+chrSizes[seq(3,23,by=2)])/2,labels=paste("chr",seq(2,22,by=2),sep=""),hadj=0.5,line=2,lty="blank",cex.axis=cex.txt,cex.lab=cex.txt)#
+	abline(h=(-log10(1e-6)),col="darkgrey",lty=2,lwd=1.5)#
+	#--annotate previous loci#
+	abline(v=chrSizes[2]+46537604,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[2]+46537604,y=(-log10(6e-10)),labels="2p21",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[2]+145208193,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[2]+145208193,y=(-log10(4e-8)),labels="2q22.3",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[8]+28889371,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[8]+28889371,y=(-log10(4e-8)),labels="8q24.21",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[11]+69239741,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[11]+69239741,y=(-log10(1.4e-10)),labels="11q13.3",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[12]+26453283,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[12]+26453283,y=(-log10(4e-8)),labels="12p11.23",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[12]+125320850,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[12]+125320850,y=(-log10(1.1e-7)),labels="12q24.31",adj=c(0.5,0),cex=cex.txt)#
+	#--add the meta results#
+	points(gwPos,-log10(metaP),pch="+",cex=0.75,col=colVect[datUK[,3]])#
+	cat("Done.\n\n",file=logFile,append=T)#
+#-----write table#
+	out<-cbind(datUK,datNCI,metaP)#
+	colnames(out)<-c(paste("UK",colnames(datUK),sep="_"),paste("NCI",colnames(datNCI),sep="_"),"meta_P_fixed")#
+	write.table(cbind)#
+#
+#-----close plot & log file#
+	dev.off()#
+	cat("This is the end.\n",file=logFile,append=T)
+out[1:10,]
+write.table(out,file=outFile,sep="\t",row.names=F,col.names=T,quote=F)
+nrow(out)
+-----specify data files#
+	outPrefix<-"Desktop/RCC_imputation_results/plots_for_paper/manhattan_metaUKNCI_p0-05"#
+	fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits_selected_cols_p0-05.txt"#
+	#fileUK<-"Desktop/RCC_imputation_results/UK/UKGWAS_RCC_results_tophits.txt"#
+	#fileNCI<-"Desktop/RCC_imputation_results/NCI/NCIGWAS_RCC_results_tophits.txt"#
+#-----start log file#
+	pdfFile<-paste(sep="",outPrefix,".pdf")#
+	outFile<-paste(sep="",outPrefix,".tab")	#
+	logFile<-paste(sep="",outPrefix,".log")#
+	cat("This is manhattan_metaUKNCI_p0-05.R.\n\n",file=logFile,append=F)#
+	cat(paste(sep="","Input parameters:\n\toutPrefix = < ",outPrefix," >,\n\tfileUK = < ",fileUK," >,\n\tfileNCI = < ",fileNCI," >.\n\n"),file=logFile,append=T)#
+#
+#-----read data#
+	cat("Reading the input data.\n",file=logFile,append=T)#
+	cat("..UK..\n",file=logFile,append=T)#
+	datUK<-read.table(fileUK,sep="",header=T)#
+	cat("..NCI..\n",file=logFile,append=T)#
+	datNCI<-read.table(fileNCI,sep="",header=T)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----match data#
+	cat("Matching data.\n",file=logFile,append=T)#
+	idUK<-paste(datUK[,2],datUK[,3],datUK[,4],datUK[,5],datUK[,6],sep=":")#
+	idNCI<-paste(datNCI[,2],datNCI[,3],datNCI[,4],datNCI[,5],datNCI[,6],sep=":")#
+	snplist<-intersect(idUK,idNCI)#
+	datUK<-datUK[is.element(el=idUK,set=snplist),]#
+	datNCI<-datNCI[is.element(el=idNCI,set=snplist),]#
+	if(nrow(datUK)==nrow(datNCI)){#
+		cat(paste("..there are ",nrow(datUK)," matching variants.\n",sep=""),file=logFile,append=T)#
+	}else{stop("Dataset could not be matched; most likely duplicate entries to be blamed.")}#
+	cat("Done.\n\n",file=logFile,append=T)#
+#
+#-----compute meta P-values#
+	cat("Doing the meta.\n",file=logFile,append=T)#
+	library(meta)#
+	library(doParallel)#
+	registerDoParallel(2)#
+	metaP<-foreach(i=1:nrow(datUK)) %dopar% metagen(TE=c(datUK[i,19],datNCI[i,19]),seTE=c(datUK[i,20],datNCI[i,20]))$pval.fixed#
+	#metaP<-foreach(i=1:nrow(datUK)) %dopar% metagen(TE=c(datUK[i,21],datNCI[i,21]),seTE=c(datUK[i,22],datNCI[i,22]))$pval.fixed#
+	metaP<-unlist(metaP)#
+	cat("Done.\n\n",file=logFile,append=T)#
+#-----do the manhattan plot#
+	cat("Doing the plot.\n",file=logFile,append=T)#
+	#--set-up a few things#
+	idxCols<-c(36,33,645,642,598,595,593,590,12,8,51,47,89,86,656,652,414,411,151,148,94,90)#
+	colVect<-colors()[idxCols]#
+	chrSizes<-c(0,249250621,243199373,198022430,191154276,180915260,171115067,159138663,146364022,141213431,135534747,135006516,133851895,115169878,107349540,102531392,90354753,81195210,78077248,59128983,63025520,48129895,51304566)#
+	for(i in 2:length(chrSizes)){#
+		chrSizes[i]<-chrSizes[i-1]+chrSizes[i]#
+	}#
+	gwPos<-chrSizes[datUK[,3]]+datUK[,4]#
+	#--start the plot#
+	pdf(pdfFile,width=30,height=8)#
+	cex.txt<-1.7#
+	par(mai=c(1,1.25,0.05,0.05))#
+	plot(gwPos,-log10(metaP),pch=".",cex=2,col=colVect[datUK[,3]],xlab="",ylab=expression(-log[10](P)),axes=F,ylim=c(2,10),type="n",cex.axis=cex.txt,cex.lab=cex.txt)#
+	axis(side=2)#
+	#axis(side=1,at=(chrSizes[1:(length(chrSizes)-1)]+chrSizes[2:length(chrSizes)])/2,labels=paste("chr",1:22,sep=""),hadj=0.5)#
+	axis(side=1,at=(chrSizes[1:(length(chrSizes)-1)]+chrSizes[2:length(chrSizes)])/2,labels=as.vector(rbind(paste("chr",seq(1,21,by=2),sep=""),rep("",11))),hadj=0.5,line=0,cex.axis=cex.txt,cex.lab=cex.txt)#
+	axis(side=1,at=(chrSizes[seq(2,22,by=2)]+chrSizes[seq(3,23,by=2)])/2,labels=paste("chr",seq(2,22,by=2),sep=""),hadj=0.5,line=2,lty="blank",cex.axis=cex.txt,cex.lab=cex.txt)#
+	abline(h=(-log10(1e-6)),col="darkgrey",lty=2,lwd=1.5)#
+	#--annotate previous loci#
+	abline(v=chrSizes[2]+46537604,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[2]+46537604,y=(-log10(6e-10)),labels="2p21",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[2]+145208193,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[2]+145208193,y=(-log10(4e-8)),labels="2q22.3",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[8]+28889371,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[8]+28889371,y=(-log10(4e-8)),labels="8q24.21",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[11]+69239741,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[11]+69239741,y=(-log10(1.4e-10)),labels="11q13.3",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[12]+26453283,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[12]+26453283,y=(-log10(4e-8)),labels="12p11.23",adj=c(0.5,0),cex=cex.txt)#
+	abline(v=chrSizes[12]+125320850,col="darkgrey",lty=2,lwd=2); text(x=chrSizes[12]+125320850,y=(-log10(1.1e-7)),labels="12q24.31",adj=c(0.5,0),cex=cex.txt)#
+	#--add the meta results#
+	points(gwPos,-log10(metaP),pch="+",cex=0.75,col=colVect[datUK[,3]])#
+	cat("Done.\n\n",file=logFile,append=T)#
+#-----write table#
+	out<-cbind(datUK,datNCI,metaP)#
+	colnames(out)<-c(paste("UK",colnames(datUK),sep="_"),paste("NCI",colnames(datNCI),sep="_"),"meta_P_fixed")#
+	write.table(out,file=outFile,sep="\t",row.names=F,col.names=T,quote=F)#
+#
+#-----close plot & log file#
+	dev.off()#
+	cat("This is the end.\n",file=logFile,append=T)
+nrow(out)
+tt<-read.table("Desktop/RCC_imputation_results/meta_table_for_EGA/metaUKNCI_p0-05.tab",sep="\t",header=T,colClasses="character")
+nrow(tt)
+tt[1:10,]
+tt[tt[,2]=="rs6743376",]
+tt[tt[,2]=="rs1542176",]
+tt[tt[,2]=="rs11687782",]
+1045-3-1-24-14-62
+2501+2699
+944+1271
+5197+3369
+578.9+572.31+119.79
+1284.1+1600.2+484.71
+metagen(TE=c(0.046423,0.12571),seTE=c(0.052155,0.053007))
+tt<-metagen(TE=c(0.046423,0.12571),seTE=c(0.052155,0.053007))
+tt$seTE.fixed
+tt$TE.fixed
+tt<-metagen(TE=c(0.092822,-0.015777),seTE=c(0.050298,0.050415))
+summary(tt)
+tt$TE.fixed
+tt$seTE.fixed
+tt<-metagen(TE=c(0.092992,-0.01889),seTE=c(0.050301,0.050435))
+summary(tt)
+tt$TE.fixed
+tt$seTE.fixed
+q()
+9.4*6.2
+0.8*1.5
+1.6*6.2
+9/60
+9/61.2
+q()
+825.17*0.25
+825.17*0.2
+825.17*0.4
+206.29+206.29+165.03+330.06
+825.17*0.3
+206.29+206.29+165.03+247.55
+23.50 - (27.58/2)
+source(chdir=T,"Desktop/visPIG_v1.0/Run_the_app.R")

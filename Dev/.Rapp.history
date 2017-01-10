@@ -1,0 +1,2040 @@
+ttt<-tt[,1]
+ttt<-dat[,1]
+ttt
+dat
+colnames(ttt)
+colnames(ttt)<-"position"
+ttt<-dat[,c(1,1)]
+ttt
+colnames(tt)
+colnames(ttt)
+P<-c(1e-10,1e-15,1e-6)
+X2<-sum(-2*log(P))
+X2
+1-pchisq(X2,df=6)
+pchisq(X2,df=6)
+NB this is really useful for ADDING large numbers#
+# multiplication, division, logarithm is easy anyway if you just work on the lof scale...#
+#
+as.big<-function(x){#
+	if(sum(x==0)>0){#
+		idx.zero<-(1:length(x))[x==0]#
+		x[-idx.zero]<-log10(x[-idx.zero])#
+		x[idx.zero]<-"zero"#
+	}else{#
+		x<-log10(x)#
+	}#
+	return(x)#
+}#
+#
+as.num<-function(bx){#
+	bx[bx=="zero"]<-0#
+	bx[bx!="zero"]<-10^(bx[bx!="zero"])#
+	return(bx)#
+}#
+#
+add<-function(bx,by){#
+	if(length(bx)==1 & length(by)>1){#
+		bx<-rep(bx,length(by))#
+	}else if(length(bx)>1 & length(by)==1){#
+		by<-rep(by,length(bx))#
+	}else if(length(bx)!=length(by)){#
+		stop("bx and by need to be of the same length or one of them has to be of length 1.")#
+	}#
+	l<-length(bx)#
+	res<-rep(NA,l)#
+	idx.bxzero<-(1:l)[bx=="zero"]#
+	idx.byzero<-(1:l)[by=="zero"]#
+	if(sum(bx=="zero" & by=="zero")>0){res[intersect(idx.bxzero,idx.byzero)]<-"zero"}#
+	if(length(setdiff(idx.bxzero,idx.byzero))>0){res[setdiff(idx.bxzero,idx.byzero)]<-by[setdiff(idx.bxzero,idx.byzero)]}#
+	if(length(setdiff(idx.byzero,idx.bxzero))>0){res[setdiff(idx.byzero,idx.bxzero)]<-bx[setdiff(idx.byzero,idx.bxzero)]}#
+#
+	idx.bxgtby<-(1:l)[bx!="zero" & by!="zero" & bx>=by]#
+	if(length(idx.bxgtby)>0){#
+		kx<-floor(bx[idx.bxgtby])#
+		ky<-floor(by[idx.bxgtby])#
+		rx<-(bx[idx.bxgtby] %% 1)#
+		ry<-(by[idx.bxgtby] %% 1)#
+		res[idx.bxgtby]<-log10(10^rx+10^(ky+ry-kx))+kx#
+	}#
+	idx.bxltby<-(1:l)[bx!="zero" & by!="zero" & bx<by]#
+	if(length(idx.bxltby)>0){#
+		kx<-floor(bx[idx.bxltby])#
+		ky<-floor(by[idx.bxltby])#
+		rx<-(bx[idx.bxltby] %% 1)#
+		ry<-(by[idx.bxltby] %% 1)#
+		res[idx.bxltby]<-log10(10^ry+10^(kx+rx-ky))+ky#
+	}#
+	return(res)#
+}#
+#
+mul<-function(bx,by){#
+	if(length(bx)==1 & length(by)>1){#
+		bx<-rep(bx,length(by))#
+	}else if(length(bx)>1 & length(by)==1){#
+		by<-rep(by,length(bx))#
+	}else if(length(bx)!=length(by)){#
+		stop("bx and by need to be of the same length or one of them has to be of length 1.")#
+	}#
+	l<-length(bx)#
+	res<-rep(NA,l)#
+	idx.zero<-(1:l)[bx=="zero" | by=="zero"]#
+	if(length(idx.zero)>0){#
+		res[idx.zero]<-"zero"#
+		res[-idx.zero]<-bx[-idx.zero]+by[-idx.zero]#
+	}else{#
+		res<-bx+by#
+	}#
+	return(res)#
+}#
+#
+div<-function(bx,by){#
+	if(length(bx)==1 & length(by)>1){#
+		bx<-rep(bx,length(by))#
+	}else if(length(bx)>1 & length(by)==1){#
+		by<-rep(by,length(bx))#
+	}else if(length(bx)!=length(by)){#
+		stop("bx and by need to be of the same length or one of them has to be of length 1.")#
+	}#
+	l<-length(bx)#
+	res<-rep(NA,l)#
+	idx.zero<-(1:l)[bx=="zero" & by=="zero"]#
+	if(length(idx.zero)>0){#
+		res[idx.zero]<-"zero"#
+		res[-idx.zero]<-bx[-idx.zero]-by[-idx.zero]#
+		res[by=="zero"]<-NA#
+	}else{#
+		res<-bx-by#
+	}#
+	return(res)#
+}#
+#
+sum_big<-function(bx){#
+	bx<-bx[bx!="zero"]#
+	k<-floor(bx)#
+	r<-(bx %% 1)#
+	res<-log10( sum(10^(k+r-max(k))) ) + max(k)#
+	return(res)#
+}#
+#
+b_log<-function(b,bx,by){#
+	return(by/log10(b))#
+}
+pchisqu
+pchisq
+exit
+q()
+4.5 %% 4
+?operator
+?operators
+?readLines
+plot(1:5,1:5,type="l")
+plot(c(1,2,NA,4,5),c(1,2,NA,4,5),type="l")
+plot(1:5,1:5,type="n")
+lines(c(1,2,NA,4,5),c(1,2,NA,4,5))
+plot_with_breaks<-function(x,y,side=NULL,gaps=NULL,gap_width=0.05,xlim=NULL,ylim=NULL,plot.axes="xy",plot.bars=FALSE,plot.bars.outsideplot=FALSE,break.style="doublebar",lty.bar=2,col.bar="gray",lwd.bar=0.5,gaps.sizes.x=NULL,gaps.sizes.y=NULL,gaps.sizes.offset.x=0,xlab="",ylab="",col="black",range_labels_x=NULL,range_labels_y=NULL,range_labels_fact_x=0.1,range_labels_fact_y=0.1,lwd=1,x.axis.bp=FALSE,mai=c(1.02,0.82,0.82,0.42),cex.annot=1,axis.labels.slanted=FALSE,axis.labels.angle=300,tickmark_labels_x=NULL,axis.pos.x=NA,axis.side.x=1,axis.side.y=2,tcl.axis=-0.5,lwd.axis=1,lwd.ticks.axis=1,line.axis=NA,lend=1,ylab.las=0,...){#
+	# will call the R plot() function as specified with parameters by ..., but will add gaps in the axes on side specified by the vector side and at positions specified the list gaps#
+	# input arguments#
+	#	x,y = data vectors to be plotted againts each other#
+	#	side = which axis should have gaps (1 = x-axis (below), 2 = y-axis (left); anything else results in no gaps being included); this can be a vector if both axes should have gaps#
+	#	gaps = a list containing the intervals on each axes that should be left out; first element of the list refers to x-axis, second to y-axis; for each axis a two-column matrix is required with the gaps on rows and start and end positions on columns; if only one axis should have gaps, then this parameter can be a matrix#
+	#	gap_width = width of each gap relative to the (plotted) range of the data#
+	#	xlim, ylim = similar to the xlim and ylim in the standard R plot() function#
+	#	plot.axes = which of the axes should be plotted, none ("n"), x-axis only ("x"), y-axis only ("y") or both ("xy")? (defaults to "xy")#
+	#	plot.bars = logical; should bars indicating the gap be drawn on the plot? (defaults to FALSE)#
+	#	plot.bars.outsideplot = logical; should the bars (if drawn) be allowed to continue into the figure margins? (defaults to FALSE)#
+	#	break.style = style of how a break is indicated on an axis; options are "slanted" (a slanted line at both start and end of each gap) or "doublebar" (a double bar at both start and end of each gap; default); anything else will result in breaks not being indicated except for a gap in the axis#
+	#	lty.bar, col.bar = line type, width and colour arguments for the bars that indicated the gap limits#
+	#	gaps.sizes.x, gaps.sizes.y = if a character vector is specified, then within each gap on the corresponding axis, this will be indicated as the corresponding gap sizes; by default no gaps sizes are printed; the length of each vector must match the number of gaps on that axis#
+	#	gaps.sizes.offset.x = by how much should the gap size indication be printed above the x-axis (below if negative number specified); defaults to 0#
+	#	xlab, ylab = identical to their plot() counterparts#
+	#	col = identical to its plot() counterpart#
+	#	range_labels_x/y = labels for each range to annotate on the plot#
+	#	range_labels_fact_x/y = what proportion of the y/x total range should the x/y range labels be drawn below / left of the x/y axis?#
+	#	lwd = identical to its plot() counterpart#
+	#	x.axis.bp = logical; is the x-axis in base-pairs? if TRUE then x-axis labels will be drawn as "x.xxxMb" rather than xxxxxxx#
+	#	mai = mai as in par()#
+	#	cex.annot = cex for labelling the axes#
+	#	axis.labels.slanted = logical; should the x-axis labels be slanted (TRUE) or horizontal (FALSE)#
+	#	axis.labels.angle = if angle.labels.slanted==TRUE, then this give the angle by which to rotate the label (default = 300)#
+	#	tickmark_labels_x = matrix with alternative ranges to use for annotating the x-axis#
+	#	axis.side.x/y = side that the x/y axis should be plotted; x-axis is either 1 (bottom; default) or 3 (top), y-axis is either 2 (left; default) or 4 (right)#
+  # axis.pos.x = the position of the x axis, i.e. where it intercepts the y-axis. Default NA, means use the automatic positioning.#
+	#	tcl.axis = same as tcl used in axis() & par()#
+	#	lwd.axis = same as lwd used in axis()#
+	#	ylab.las = las parameter for ylab annotation (set ylab to 1 or 2 for ylab label to be horizontal / perpendicular to the y-axis)#
+	#	lend as in par()#
+	#	... = further input arguments for the plot() function; note that none of the parameters relating to any axis will have any effect; #
+#
+	# convert gaps argument into list if given as matrix#
+	if(is.null(gaps)){side<-NULL}#
+	if(is.null(side)){#
+		gaps<-NULL#
+	}else if(sum(side==1)==0 & sum(side==2)==0){#
+		gaps<-NULL#
+	}#
+	if(length(side)==1 & !is.list(gaps)){#
+		if(side==1){gaps_tmp<-list(); gaps_tmp[[1]]<-gaps; gaps<-gaps_tmp; rm(gaps_tmp)}#
+		if(side==2){gaps_tmp<-list(); gaps_tmp[[2]]<-gaps; gaps<-gaps_tmp; rm(gaps_tmp)}#
+	}else if(length(side)==1 & is.list(gaps)){#
+		if(side==1){gaps[[2]]<-numeric(0)}#
+		if(side==2){gaps[[1]]<-numeric(0)}#
+	}#
+	# set xlim and ylim if unspecified#
+	if(is.null(xlim)){xlim<-c(min(x[!is.na(x)]),max(x[!is.na(x)]))}#
+	if(is.null(ylim)){ylim<-c(min(y[!is.na(y)]),max(y[!is.na(y)]))}#
+#
+	#count number of gaps	#
+	if(is.element(el=1,set=side)){n_gapsx<-nrow(gaps[[1]])}else{n_gapsx<-NULL}#
+	if(is.element(el=2,set=side)){n_gapsy<-nrow(gaps[[2]])}else{n_gapsy<-NULL}#
+	# define the ranges that will be plotted and assign x- and y-axis interval numbers for each data point to be plotted#
+	ranges_x<-matrix(nrow=0,ncol=2)#
+	ranges_y<-matrix(nrow=0,ncol=2)#
+	x_int<-rep(-9,length(x))#
+	y_int<-rep(-9,length(y))#
+	if(!is.null(n_gapsx)){#
+		ranges_x<-rbind(ranges_x,c(xlim[1],(gaps[[1]])[1,1]))#
+		x_int[x>=ranges_x[1,1] & x<=ranges_x[1,2]]<-1#
+		if(n_gapsx>1){#
+			for(i in 2:n_gapsx){#
+				ranges_x<-rbind(ranges_x,c((gaps[[1]])[i-1,2],(gaps[[1]])[i,1]))#
+				x_int[x>=ranges_x[i,1] & x<=ranges_x[i,2]]<-i#
+			}#
+			ranges_x<-rbind(ranges_x,c((gaps[[1]])[n_gapsx,2],xlim[2]))#
+			x_int[x>=ranges_x[n_gapsx+1,1] & x<=ranges_x[n_gapsx+1,2]]<-n_gapsx+1#
+		}else{#
+			ranges_x<-rbind(ranges_x,c((gaps[[1]])[1,2],xlim[2]))#
+			x_int[x>=ranges_x[2,1] & x<=ranges_x[2,2]]<-2#
+		}#
+	}else{#
+		ranges_x<-rbind(ranges_x,xlim)#
+		x_int<-rep(1,length(x))#
+	}#
+	if(!is.null(n_gapsy)){#
+		ranges_y<-rbind(ranges_y,c(ylim[1],(gaps[[2]])[1,1]))#
+		y_int[y>=ranges_y[1,1] & y<=ranges_y[1,2]]<-1#
+		if(n_gapsy>1){#
+			for(i in 2:n_gapsy){#
+				ranges_y<-rbind(ranges_y,c((gaps[[2]])[i-1,2],(gaps[[2]])[i,1]))#
+				y_int[y>=ranges_y[i,1] & y<=ranges_y[i,2]]<-i#
+			}#
+			ranges_y<-rbind(ranges_y,c((gaps[[2]])[n_gapsy,2],ylim[2]))#
+			y_int[y>=ranges_y[n_gapsy+1,1] & y<=ranges_y[n_gapsy+1,2]]<-n_gapsy+1#
+		}else{#
+			ranges_y<-rbind(ranges_y,c((gaps[[2]])[1,2],ylim[2]))#
+			y_int[y>=ranges_y[2,1] & y<=ranges_y[2,2]]<-2#
+		}#
+	}else{#
+		ranges_y<-rbind(ranges_y,ylim)#
+		y_int<-rep(1,length(y))#
+	}#
+#
+	# compute the width of the gaps#
+	if(!is.null(n_gapsx)){gap_width_x<-sum(ranges_x[,2]-ranges_x[,1])*gap_width}else{gap_width_x<-0}#
+	if(!is.null(n_gapsy)){gap_width_y<-sum(ranges_y[,2]-ranges_y[,1])*gap_width}else{gap_width_y<-0}#
+#
+	# convert the data and the ranges matrices into new coordinate system#
+	idx.retain<-(1:length(x))[x_int>0 & y_int>0]#
+	if(length(idx.retain)<length(x)){warning(paste("There were ",length(x)-length(idx.retain)," data points that were within the removed gaps and will now no longer be plotted.",sep=""))}#; print(cbind(x,y)[-idx.retain,])}#
+#
+	if(!is.null(n_gapsx)){#
+		x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+		ranges_x_new<-convert2gaps(z=ranges_x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+		xlim_new<-convert2gaps(z=xlim,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+	}else{#
+		x_new<-x#
+		ranges_x_new<-ranges_x#
+		xlim_new<-xlim#
+	}#
+	if(!is.null(n_gapsy)){#
+		y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+		ranges_y_new<-convert2gaps(z=ranges_y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+		ylim_new<-convert2gaps(z=ylim,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+	}else{#
+		y_new<-y#
+		ranges_y_new<-ranges_y#
+		ylim_new<-ylim#
+	}#
+	# check direction of y-axis annotation#
+	if(ylab.las==1 | ylab.las==2){#
+		ylab.txt<-ylab#
+		ylab<-""#
+	}#
+	# plot the data without axes#
+	par(xpd=TRUE,mai=mai,lend=lend)#
+	if(axis.side.x!=1 & !is.na(xlab) & axis.side.y!=2 & !is.na(ylab)){#
+		plot(x_new,y_new,axes=FALSE,xlim=xlim_new,ylim=ylim_new,xlab="",ylab="",col=col,lwd=lwd,cex.axis=cex.annot,cex.lab=cex.annot,...)#
+		axis_info<-par("usr")#
+		axis_info2<-par("mgp")#
+		if(is.na(line.axis)){axis_lines<-sum(axis_info2[2:3])+1}else{axis_lines<-sum(axis_info2[2:3])+line.axis+1}#
+		axis(side=axis.side.x,at=sum(axis_info[1:2])/2,tick=FALSE,labels=xlab,line=axis_lines,cex.axis=cex.annot)#
+		axis(side=axis.side.y,at=sum(axis_info[3:4])/2,tick=FALSE,labels=ylab,line=axis_lines,cex.axis=cex.annot)#
+	}else if(axis.side.x!=1 & !is.na(xlab)){#
+		plot(x_new,y_new,axes=FALSE,xlim=xlim_new,ylim=ylim_new,xlab="",ylab=ylab,col=col,lwd=lwd,cex.axis=cex.annot,cex.lab=cex.annot,...)#
+		axis_info<-par("usr")#
+		axis_info2<-par("mgp")#
+		if(is.na(line.axis)){axis_lines<-sum(axis_info2[2:3])+1}else{axis_lines<-sum(axis_info2[2:3])+line.axis+1}#
+		axis(side=axis.side.x,at=sum(axis_info[1:2])/2,tick=FALSE,labels=xlab,line=axis_lines,cex.axis=cex.annot)#
+	}else if(axis.side.y!=2 & !is.na(ylab)){#
+		plot(x_new,y_new,axes=FALSE,xlim=xlim_new,ylim=ylim_new,xlab=xlab,ylab="",col=col,lwd=lwd,cex.axis=cex.annot,cex.lab=cex.annot,...)#
+		axis_info<-par("usr")#
+		axis_info2<-par("mgp")#
+		if(is.na(line.axis)){axis_lines<-sum(axis_info2[2:3])+1}else{axis_lines<-sum(axis_info2[2:3])+line.axis+1}#
+		axis(side=axis.side.y,at=sum(axis_info[3:4])/2,tick=FALSE,labels=ylab,line=axis_lines,cex.axis=cex.annot)#
+	}else{#
+    if(axis.labels.slanted==TRUE) { par(mgp=c(4,1,0)) }#
+		plot(x_new,y_new,axes=FALSE,xlim=xlim_new,ylim=ylim_new,xlab=xlab,ylab=ylab,col=col,lwd=lwd,cex.axis=cex.annot,cex.lab=cex.annot,...)#
+	}#
+#
+	# add ylab if ylab is desired to be horizontal#
+	if(ylab.las==1 | ylab.las==2){#
+		mtext(ylab.txt,las=ylab.las,side=2,line=3,adj=1,cex=cex.annot)#
+	}#
+	# add axes#
+	if(plot.axes!="n"){#
+		axis_info<-par("usr")#
+		if(plot.axes=="x" | plot.axes=="xy"){#
+			if(is.null(n_gapsx)){#
+				axis(side=axis.side.x,pos=axis.pos.x,cex.axis=cex.annot,lwd=lwd.axis,lwd.ticks=0,at=xlim_new,labels=rep("",2),line=line.axis)#
+				tmp.labels<-axis(side=axis.side.x,lwd=0,labels=FALSE)#
+        if(x.axis.bp==TRUE){#
+          tmp.labels.formatted<-paste(sprintf("%.2f",round(tmp.labels/1e6,digits=2)),rep("Mb",length(tmp.labels)),sep="")#
+        } else {#
+          tmp.labels.formatted<-format(tmp.labels,big.mark=',',scientific=FALSE)#
+        }#
+				for(j in 1:length(tcl.axis)){axis(side=axis.side.x,pos=axis.pos.x,cex.axis=cex.annot,lwd=0,lwd.ticks=lwd.ticks.axis,tcl=tcl.axis[j],line=line.axis,at=tmp.labels,label=tmp.labels.formatted)}#
+			}else{#
+				for(i in 1:nrow(ranges_x_new)){#
+					if(is.null(tickmark_labels_x)){#
+						range.tmp<-ranges_x[i,]#
+					}else{#
+						range.tmp<-tickmark_labels_x[i,]#
+					}#
+					if(x.axis.bp){#
+						tmp.labels<-paste(sprintf("%.2f",round(range.tmp/1e6,digits=2)),rep("Mb",length(range.tmp)),sep="")#
+					}else{#
+						tmp.labels<-format(range.tmp,big.mark=',',scientific=FALSE)#
+					}#
+					for(j in 1:length(tcl.axis)){axis(side=axis.side.x,at=ranges_x_new[i,],labels=rep("",2),cex.axis=cex.annot,lwd=lwd.axis,lwd.ticks=lwd.ticks.axis,tcl=tcl.axis[j],line=line.axis)}#
+					if(axis.labels.slanted){#
+            if(axis.side.x==3){#
+              tmp.y <- axis_info[3]+(axis_info[4]-axis_info[3])*range_labels_fact_x*1.5#
+              tmp.adj <- 1                 #
+            } else {#
+              tmp.y <- axis_info[3]-(axis_info[4]-axis_info[3])*range_labels_fact_x#
+              tmp.adj<-0}#
+						text(x=ranges_x_new[i,],y=tmp.y,labels=tmp.labels,cex=cex.annot,srt=axis.labels.angle,adj=tmp.adj)#
+					}else{#
+						axis(side=axis.side.x,at=ranges_x_new[i,1],labels=tmp.labels[1],hadj=0,cex.axis=cex.annot,lwd=lwd.axis,lwd.ticks=lwd.ticks.axis,line=line.axis)#
+						axis(side=axis.side.x,at=ranges_x_new[i,2],labels=tmp.labels[2],hadj=1,cex.axis=cex.annot,lwd=lwd.axis,lwd.ticks=lwd.ticks.axis,line=line.axis)#
+					}#
+					if(!is.null(range_labels_x)){#
+						if(axis.side.x==1){text(x=(ranges_x_new[i,1]+ranges_x_new[i,2])/2,y=axis_info[3]-(axis_info[4]-axis_info[3])*range_labels_fact_x,labels=range_labels_x[i],cex=cex.annot)}#
+						if(axis.side.x==3){text(x=(ranges_x_new[i,1]+ranges_x_new[i,2])/2,y=axis_info[4]+(axis_info[4]-axis_info[3])*range_labels_fact_x,labels=range_labels_x[i],cex=cex.annot)}#
+					}#
+					#segments(x0=ranges_x_new[i,1],y0=axis_info[3],x1=ranges_x_new[i,2],y1=axis_info[3])#
+				}#
+				for(i in 1:n_gapsx){#
+					if(break.style=="doublebar"){#
+						if(axis.side.x==1){#
+							segments(x0=ranges_x_new[i,2],y0=axis_info[3]-gap_width_y/2,x1=ranges_x_new[i,2],y1=axis_info[3]+gap_width_y/2)#
+							segments(x0=ranges_x_new[i,2]+gap_width_x/15,y0=axis_info[3]-gap_width_y/2,x1=ranges_x_new[i,2]+gap_width_x/15,y1=axis_info[3]+gap_width_y/2)#
+							segments(x0=ranges_x_new[i+1,1],y0=axis_info[3]-gap_width_y/2,x1=ranges_x_new[i+1,1],y1=axis_info[3]+gap_width_y/2)#
+							segments(x0=ranges_x_new[i+1,1]-gap_width_x/15,y0=axis_info[3]-gap_width_y/2,x1=ranges_x_new[i+1,1]-gap_width_x/15,y1=axis_info[3]+gap_width_y/2)#
+						}else if(axis.side.x==3){#
+							segments(x0=ranges_x_new[i,2],y0=axis_info[4]+gap_width_y/2,x1=ranges_x_new[i,2],y1=axis_info[4]-gap_width_y/2)#
+							segments(x0=ranges_x_new[i,2]+gap_width_x/15,y0=axis_info[4]+gap_width_y/2,x1=ranges_x_new[i,2]+gap_width_x/15,y1=axis_info[4]-gap_width_y/2)#
+							segments(x0=ranges_x_new[i+1,1],y0=axis_info[4]+gap_width_y/2,x1=ranges_x_new[i+1,1],y1=axis_info[4]-gap_width_y/2)#
+							segments(x0=ranges_x_new[i+1,1]-gap_width_x/15,y0=axis_info[4]+gap_width_y/2,x1=ranges_x_new[i+1,1]-gap_width_x/15,y1=axis_info[4]-gap_width_y/2)#
+						}#
+					}else if(break.style=="slanted"){#
+						if(axis.side.x==1){#
+							segments(x0=ranges_x_new[i,2]-gap_width_x/8,y0=axis_info[3]-gap_width_y/2,x1=ranges_x_new[i,2]+gap_width_x/8,y1=axis_info[3]+gap_width_y/2)#
+							segments(x0=ranges_x_new[i+1,1]-gap_width_x/8,y0=axis_info[3]-gap_width_y/2,x1=ranges_x_new[i+1,1]+gap_width_x/8,y1=axis_info[3]+gap_width_y/2)#
+						}else if(axis.side.x==3){#
+							segments(x0=ranges_x_new[i,2]-gap_width_x/8,y0=axis_info[4]+gap_width_y/2,x1=ranges_x_new[i,2]+gap_width_x/8,y1=axis_info[4]-gap_width_y/2)#
+							segments(x0=ranges_x_new[i+1,1]-gap_width_x/8,y0=axis_info[4]+gap_width_y/2,x1=ranges_x_new[i+1,1]+gap_width_x/8,y1=axis_info[4]-gap_width_y/2)#
+						}#
+					}#
+					if(!is.null(gaps.sizes.x) & length(gaps.sizes.x)==n_gapsx){#
+						if(axis.side.x==1){text(x=(ranges_x_new[i,2]+ranges_x_new[i+1,1])/2,y=axis_info[3]+gaps.sizes.offset.x,labels=gaps.sizes.x[i],cex=cex.annot)}#
+						if(axis.side.x==3){text(x=(ranges_x_new[i,2]+ranges_x_new[i+1,1])/2,y=axis_info[4]+gaps.sizes.offset.x,labels=gaps.sizes.x[i],cex=cex.annot)}#
+					}#
+				}#
+			}#
+		}#
+		if(plot.axes=="y" | plot.axes=="xy"){#
+			if(is.null(n_gapsy)){#
+				axis(side=axis.side.y,cex.axis=cex.annot,lwd=lwd.axis,lwd.ticks=0,at=ylim_new,labels=rep("",2),line=line.axis)#
+				for(j in 1:length(tcl.axis)){axis(side=axis.side.y,cex.axis=cex.annot,lwd=lwd.axis,lwd.ticks=lwd.ticks.axis,tcl=tcl.axis[j],line=line.axis)}#
+			}else{#
+				for(i in 1:nrow(ranges_y_new)){#
+					for(j in 1:length(tcl.axis)){axis(side=axis.side.y,at=ranges_y_new[i,],labels=ranges_y[i,],cex.axis=cex.annot,cex.axis=cex.annot,lwd=lwd.axis,lwd.ticks=lwd.ticks.axis,tcl=tcl.axis[j],line=line.axis)}#
+					if(!is.null(range_labels_y)){#
+						if(axis.side.y==2){text(x=axis_info[1]-(axis_info[2]-axis_info[1])*range_labels_fact_y,y=(ranges_y_new[i,1]+ranges_y_new[i,2])/2,labels=range_labels_y[i],cex=cex.annot)}#
+						if(axis.side.y==4){text(x=axis_info[2]+(axis_info[2]-axis_info[1])*range_labels_fact_y,y=(ranges_y_new[i,1]+ranges_y_new[i,2])/2,labels=range_labels_y[i],cex=cex.annot)}#
+					}#
+					#segments(y0=ranges_y_new[i,1],x0=axis_info[1],y1=ranges_y_new[i,2],x1=axis_info[1])#
+				}#
+				for(i in 1:n_gapsy){#
+					if(break.style=="doublebar"){#
+						if(axis.side.y==2){#
+							segments(x0=axis_info[1]-gap_width_x/2,y0=ranges_y_new[i,2],x1=axis_info[1]+gap_width_x/2,y1=ranges_y_new[i,2])#
+							segments(x0=axis_info[1]-gap_width_x/2,y0=ranges_y_new[i,2]+gap_width_y/15,x1=axis_info[1]+gap_width_x/2,y1=ranges_y_new[i,2]+gap_width_y/15)#
+							segments(x0=axis_info[1]-gap_width_x/2,y0=ranges_y_new[i+1,1],x1=axis_info[1]+gap_width_x/2,y1=ranges_y_new[i+1,1])#
+							segments(x0=axis_info[1]-gap_width_x/2,y0=ranges_y_new[i+1,1]-gap_width_y/15,x1=axis_info[1]+gap_width_x/2,y1=ranges_y_new[i+1,1]-gap_width_y/15)#
+						}else if(axis.side.y==4){#
+							segments(x0=axis_info[2]+gap_width_x/2,y0=ranges_y_new[i,2],x1=axis_info[2]-gap_width_x/2,y1=ranges_y_new[i,2])#
+							segments(x0=axis_info[2]+gap_width_x/2,y0=ranges_y_new[i,2]+gap_width_y/15,x1=axis_info[2]-gap_width_x/2,y1=ranges_y_new[i,2]+gap_width_y/15)#
+							segments(x0=axis_info[2]+gap_width_x/2,y0=ranges_y_new[i+1,1],x1=axis_info[2]-gap_width_x/2,y1=ranges_y_new[i+1,1])#
+							segments(x0=axis_info[2]+gap_width_x/2,y0=ranges_y_new[i+1,1]-gap_width_y/15,x1=axis_info[2]-gap_width_x/2,y1=ranges_y_new[i+1,1]-gap_width_y/15)#
+						}#
+					}else if(break.style=="slanted"){#
+						if(axis.side.y==2){#
+							segments(x0=axis_info[1]+gap_width_x/2,y0=ranges_y_new[i,2]-gap_width_y/8,x1=axis_info[1]-gap_width_x/2,y1=ranges_y_new[i,2]+gap_width_y/8)#
+							segments(x0=axis_info[1]+gap_width_x/2,y0=ranges_y_new[i+1,1]-gap_width_y/8,x1=axis_info[1]-gap_width_x/2,y1=ranges_y_new[i+1,1]+gap_width_y/8)#
+						}else if(axis.side.y==4){#
+							segments(x0=axis_info[2]-gap_width_x/2,y0=ranges_y_new[i,2]-gap_width_y/8,x1=axis_info[2]+gap_width_x/2,y1=ranges_y_new[i,2]+gap_width_y/8)#
+							segments(x0=axis_info[2]-gap_width_x/2,y0=ranges_y_new[i+1,1]-gap_width_y/8,x1=axis_info[2]+gap_width_x/2,y1=ranges_y_new[i+1,1]+gap_width_y/8)#
+						}#
+					}#
+					if(!is.null(gaps.sizes.y) & length(gaps.sizes.y)==n_gapsy){#
+						if(axis.side.y==2){text(y=(ranges_y_new[i,2]+ranges_y_new[i+1,1])/2,x=axis_info[1],labels=gaps.sizes.y[i],cex=cex.annot)}#
+						if(axis.side.y==4){text(y=(ranges_y_new[i,2]+ranges_y_new[i+1,1])/2,x=axis_info[2],labels=gaps.sizes.y[i],cex=cex.annot)}#
+					}#
+				}#
+			}#
+		}#
+	}#
+	par(xpd=FALSE)#
+	# add bars at break points#
+	if(plot.bars){#
+		par(xpd=TRUE)#
+		if(!is.null(n_gapsx)){#
+			for(i in 1:n_gapsx){#
+				if(plot.bars.outsideplot){#
+					abline(v=ranges_x_new[i,2],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+					abline(v=ranges_x_new[i+1,1],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+				}else{#
+					segments(x0=ranges_x_new[i,2],y0=axis_info[3],x1=ranges_x_new[i,2],y1=axis_info[4],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+					segments(x0=ranges_x_new[i+1,1],y0=axis_info[3],x1=ranges_x_new[i+1,1],y1=axis_info[4],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+				}#
+			}#
+		}#
+		if(!is.null(n_gapsy)){#
+			for(i in 1:n_gapsy){#
+				if(plot.bars.outsideplot){#
+					abline(v=ranges_y_new[i,2],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+					abline(v=ranges_y_new[i+1,1],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+				}else{#
+					segments(y0=ranges_y_new[i,2],x0=axis_info[1],y1=ranges_y_new[i,2],x1=axis_info[2],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+					segments(y0=ranges_y_new[i+1,1],x0=axis_info[1],y1=ranges_y_new[i+1,1],x1=axis_info[2],lty=lty.bar,lwd=lwd.bar,col=col.bar)#
+				}#
+			}#
+		}#
+		par(xpd=FALSE)#
+	}#
+	# output ranges matrices for conversion of later data points or curves to be added to the plot#
+	res<-list(ranges_x,ranges_y,gap_width_x,gap_width_y)#
+	names(res)<-c("ranges_x","ranges_y","gap_width_x","gap_width_y")#
+	return(res)#
+}#
+#
+text_with_breaks<-function(x,y,ranges_x,ranges_y,gap_width_x,gap_width_y,...){#
+	x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+	y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+	text(x=x_new,y=y_new,...)#
+}#
+#
+lines_with_breaks<-function(x,y,ranges_x,ranges_y,gap_width_x,gap_width_y,...){#
+	x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+	y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+	lines(x_new,y_new,...)#
+}#
+#
+points_with_breaks<-function(x,y,ranges_x,ranges_y,gap_width_x,gap_width_y,...){#
+	x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+	y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+	points(x_new,y_new,...)#
+}#
+#
+split_segments_one_axis_only<-function(x0,y0,x1,y1,ranges_z,axis){#
+	segments_to_plot<-list()#
+	range_id_z<-c(0,0)#
+	check.noplot<-0#
+	# check that at least one end lies within the extremes of ranges_z#
+	if(axis=="x"){#
+		if((x0<ranges_z[1,1] & x1<ranges_z[1,1]) | (x0>ranges_z[nrow(ranges_z),2] & x1>ranges_z[nrow(ranges_z),2])){#
+			check.noplot<-1#
+		}else{#
+			if(x0<ranges_z[1,1]){x0<-ranges_z[1,1]}#
+			if(x1>ranges_z[nrow(ranges_z),2]){x1<-ranges_z[nrow(ranges_z),2]}#
+		}#
+	}#
+	if(axis=="y"){#
+		if((y0<ranges_z[1,1] & y1<ranges_z[1,1]) | (y0>ranges_z[nrow(ranges_z),2] & y1>ranges_z[nrow(ranges_z),2])){#
+			check.noplot<-1#
+		}else{#
+			if(y0<ranges_z[1,1]){y0<-ranges_z[1,1]}#
+			if(y1>ranges_z[nrow(ranges_z),2]){y1<-ranges_z[nrow(ranges_z),2]}#
+		}#
+	}#
+#
+	if(check.noplot==0){#
+		if(axis=="x"){#
+			direction_z<-sign(x1-x0)#
+		}else if(axis=="y"){#
+			direction_z<-sign(y1-y0)#
+		}#
+		for(i in 1:nrow(ranges_z)){#
+			if(axis=="x"){#
+				if(x0>=ranges_z[i,1] & x0<=ranges_z[i,2]){range_id_z[1]<-i}#
+				if(x1>=ranges_z[i,1] & x1<=ranges_z[i,2]){range_id_z[2]<-i}#
+			}else if(axis=="y"){#
+				if(y0>=ranges_z[i,1] & y0<=ranges_z[i,2]){range_id_z[1]<-i}#
+				if(y1>=ranges_z[i,1] & y1<=ranges_z[i,2]){range_id_z[2]<-i}#
+			}#
+		}#
+		# case where both ends lie in a gap, possibly the same#
+		check<-1#
+		if(range_id_z[1]==0 & range_id_z[2]==0){#
+			for(i in 2:nrow(ranges_z)){#
+				if(axis=="x"){#
+					if(x0>ranges_z[i-1,2] & x0<ranges_z[i,1] & x1>ranges_z[i-1,2] & x1<ranges_z[i,1]){#
+						check<-0#
+						segments_to_plot<-NULL#
+					}#
+				}else if(axis=="y"){#
+					if(y0>ranges_z[i-1,2] & y0<ranges_z[i,1] & y1>ranges_z[i-1,2] & y1<ranges_z[i,1]){#
+						check<-0#
+						segments_to_plot<-NULL#
+					}#
+				}#
+			}#
+		}#
+		# case where (x0,y0) lies in a gap#
+		if(range_id_z[1]==0 & check==1){#
+			if(axis=="x"){#
+				a<-(y1-y0)/(x1-x0) # since we already made sure that x0 an x1 are not both in the same gap, x1!=x0#
+				b<-y0-a*x0#
+				if(direction_z>0){#
+					for(i in 2:nrow(ranges_z)){#
+						if(x0>ranges_z[i-1,2] & x0<ranges_z[i,1]){#
+							range_id_z[1]<-i#
+							x0<-ranges_z[i,1]#
+							y0<-a*x0+b#
+						}#
+					}#
+				}else{#
+					for(i in 2:nrow(ranges_z)){#
+						if(x0>ranges_z[i-1,2] & x0<ranges_z[i,1]){#
+							range_id_z[1]<-(i-1)#
+							x0<-ranges_z[i-1,2]#
+							y0<-a*x0+b#
+						}#
+					}#
+				}#
+			}else if(axis=="y"){#
+				a<-(x1-x0)/(y1-y0) # since we already made sure that y0 an y1 are not both in the same gap, y1!=y0#
+				b<-x0-a*y0#
+				if(direction_z>0){#
+					for(i in 2:nrow(ranges_z)){#
+						if(y0>ranges_z[i-1,2] & y0<ranges_z[i,1]){#
+							range_id_z[1]<-i#
+							y0<-ranges_z[i,1]#
+							x0<-a*y0+b#
+						}#
+					}#
+				}else{#
+					for(i in 2:nrow(ranges_z)){#
+						if(y0>ranges_z[i-1,2] & y0<ranges_z[i,1]){#
+							range_id_z[1]<-(i-1)#
+							y0<-ranges_z[i-1,2]#
+							x0<-a*y0+b#
+						}#
+					}#
+				}#
+			}	#
+		}#
+		# case where (x1,y1) lies in a gap#
+		if(range_id_z[2]==0 & check==1){#
+			if(axis=="x"){#
+				a<-(y1-y0)/(x1-x0) # since we already made sure that x0 an x1 are not both in the same gap, x1!=x0#
+				b<-y0-a*x0#
+				if(direction_z>0){#
+					for(i in 2:nrow(ranges_z)){#
+						if(x1>ranges_z[i-1,2] & x1<ranges_z[i,1]){#
+							range_id_z[2]<-(i-1)#
+							x1<-ranges_z[i-1,2]#
+							y1<-a*x1+b#
+						}#
+					}#
+				}else{#
+					for(i in 2:nrow(ranges_z)){#
+						if(x1>ranges_z[i-1,2] & x1<ranges_z[i,1]){#
+							range_id_z[2]<-i#
+							x1<-ranges_z[i,1]#
+							y1<-a*x1+b#
+						}#
+					}#
+				}#
+			}else if(axis=="y"){#
+				a<-(x1-x0)/(y1-y0) # since we already made sure that y0 an y1 are not both in the same gap, y1!=y0#
+				b<-x0-a*y0#
+				if(direction_z>0){#
+					for(i in 2:nrow(ranges_z)){#
+						if(y1>ranges_z[i-1,2] & y1<ranges_z[i,1]){#
+							range_id_z[2]<-(i-1)#
+							y1<-ranges_z[i-1,2]#
+							x1<-a*y1+b#
+						}#
+					}#
+				}else{#
+					for(i in 2:nrow(ranges_z)){#
+						if(y1>ranges_z[i,2] & y1<ranges_z[i,1]){#
+							range_id_z[2]<-i#
+							y1<-ranges_z[i,1]#
+							x1<-a*y1+b#
+						}#
+					}#
+				}#
+			}#
+		}#
+		# case where both ends lie outside gaps#
+		if(range_id_z[1]==range_id_z[2]){ # NB no else-if statement here so that we can also process the cases where one end of the segment was lying in a gap#
+			segments_to_plot[[1]]<-matrix(c(x0,y0,x1,y1),byrow=T,ncol=2)#
+		}else{#
+			if(axis=="x"){#
+				a<-(y1-y0)/(x1-x0) # since we already made sure that x0 an x1 are in different ranges, x1!=x0#
+				b<-y0-a*x0#
+				if(direction_z>0){#
+					x1_alt<-ranges_z[range_id_z[1],2]#
+				}else{#
+					x1_alt<-ranges_z[range_id_z[1],1]#
+				}#
+				y1_alt<-a*x1_alt+b#
+			}else if(axis=="y"){#
+				a<-(x1-x0)/(y1-y0) # since we already made sure that y0 an y1 are in different ranges, y1!=y0#
+				b<-x0-a*y0#
+				if(direction_z>0){#
+					y1_alt<-ranges_z[range_id_z[1],2]#
+				}else{#
+					y1_alt<-ranges_z[range_id_z[1],1]#
+				}#
+				x1_alt<-a*y1_alt+b#
+			}#
+			segments_to_plot[[1]]<-matrix(c(x0,y0,x1_alt,y1_alt),byrow=T,ncol=2)#
+			diff<-(range_id_z[2]-range_id_z[1])#
+			if(abs(diff)>1){#
+				#states<-seq(range_id_z[1],range_id_z[2],by=direction_z)#
+				states<-range_id_z[1]:range_id_z[2]#
+				states<-states[-c(1,length(states))]#
+				for(state in states){#
+					if(axis=="x"){#
+						if(direction_z>0){#
+							x0_alt<-ranges_z[state,1]#
+							x1_alt<-ranges_z[state,2]#
+						}else{#
+							x0_alt<-ranges_z[state,2]#
+							x1_alt<-ranges_z[state,1]#
+						}#
+						y0_alt<-a*x0_alt+b#
+						y1_alt<-a*x1_alt+b#
+					}else if(axis=="y"){#
+						if(direction_z>0){#
+							y0_alt<-ranges_z[state,1]#
+							y1_alt<-ranges_z[state,2]#
+						}else{#
+							y0_alt<-ranges_z[state,2]#
+							y1_alt<-ranges_z[state,1]#
+						}#
+						x0_alt<-a*y0_alt+b#
+						x1_alt<-a*y1_alt+b#
+					}#
+					segments_to_plot[[length(segments_to_plot)+1]]<-matrix(c(x0_alt,y0_alt,x1_alt,y1_alt),byrow=T,ncol=2)#
+				}#
+			}#
+			if(axis=="x"){#
+				if(direction_z>0){#
+					x0_alt<-ranges_z[range_id_z[2],1]#
+				}else{#
+					x0_alt<-ranges_z[range_id_z[2],2]#
+				}#
+				y0_alt<-a*x0_alt+b#
+			}else if(axis=="y"){#
+				if(direction_z>0){#
+					y0_alt<-ranges_z[range_id_z[2],1]#
+				}else{#
+					y0_alt<-ranges_z[range_id_z[2],2]#
+				}#
+				x0_alt<-a*y0_alt+b#
+			}#
+			segments_to_plot[[length(segments_to_plot)+1]]<-matrix(c(x0_alt,y0_alt,x1,y1),byrow=T,ncol=2)#
+		}#
+	}else{#
+		segments_to_plot<-NULL#
+	}#
+	return(segments_to_plot)#
+}#
+#
+segments_with_breaks<-function(x0,y0,x1,y1,ranges_x,ranges_y,gap_width_x,gap_width_y,...){	#
+	## accommodating x-axis gaps#
+	segments_to_plot<-split_segments_one_axis_only(x0=x0,y0=y0,x1=x1,y1=y1,ranges_z=ranges_x,axis="x")#
+	## accommodating y-axis gaps and plotting the resulting segments#
+	if(!is.null(segments_to_plot)){#
+		for(i in 1:length(segments_to_plot)){#
+			segments_to_plot2<-split_segments_one_axis_only(x0=(segments_to_plot[[i]])[1,1],y0=(segments_to_plot[[i]])[1,2],x1=(segments_to_plot[[i]])[2,1],y1=(segments_to_plot[[i]])[2,2],ranges_z=ranges_y,axis="y")#
+			if(!is.null(segments_to_plot2)){#
+				for(j in 1:length(segments_to_plot2)){#
+					x<-(segments_to_plot2[[j]])[,1]#
+					x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+					y<-(segments_to_plot2[[j]])[,2]#
+					y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+#
+					segments(x0=x_new[1],y0=y_new[1],x1=x_new[2],y1=y_new[2],...)#
+				}#
+			}#
+		}#
+	}#
+}#
+#
+polygon_with_breaks<-function(x,y,ranges_x,ranges_y,gap_width_x,gap_width_y,col="black",is.rectangle=FALSE,...){#
+	# any polygon with at least one vertex in a gap, or which is spanning across a gap, is not plotted at all#
+#
+	# remove double NAs and NAs at the start and end of the x and y vectors#
+	idx.na<-(1:length(x))[is.na(x) | is.na(y)]#
+	if(length(idx.na)>0){#
+		x<-c(NA,x,NA)#
+		y<-c(NA,y,NA)#
+		idx.na<-(1:length(x))[is.na(x) | is.na(y)]#
+		if(sum(diff(idx.na,1)==1)>0){#
+			x<-x[-idx.na[diff(idx.na,1)==1]]#
+			y<-y[-idx.na[diff(idx.na,1)==1]]#
+		}#
+		idx.na<-(1:length(x))[is.na(x) | is.na(y)]#
+		# x and y both start and end with NA if x or y had at least one NA within them#
+	}#
+	# check one polygon at a time whether it lies entirely within one region or not, then plot all polygons#
+	if(length(idx.na)==0){#
+		if(is.rectangle){#
+			x<-sort(x)#
+			y<-c(min(y),max(y),max(y),min(y))#
+		}#
+		check.x<-rep(0,length(x))#
+		check.y<-rep(0,length(y))#
+		for(i in 1:nrow(ranges_x)){check.x[x>=ranges_x[i,1] & x<=ranges_x[i,2]]<-i}#
+		for(i in 1:nrow(ranges_y)){check.y[y>=ranges_y[i,1] & y<=ranges_y[i,2]]<-i}#
+		if(is.rectangle){#
+			if(length(unique(check.x[check.x>0]))==1 & length(unique(x[check.x>0]))==1){#
+				if(sum(check.x[1:2]==0)==2){#
+					x[1:2]<-ranges_x[(ranges_x[,1]-x[1])>0 & (ranges_x[,1]-x[1])==min((ranges_x[,1]-x[1])[(ranges_x[,1]-x[1])>0]),1]#
+					check.x[1:2]<-which(ranges_x[,1]==x[1])#
+				}#
+				if(sum(check.x[3:4]==0)==2){#
+					x[3:4]<-ranges_x[(ranges_x[,2]-x[3])<0 & (ranges_x[,2]-x[3])==max((ranges_x[,2]-x[3])[(ranges_x[,2]-x[3])<0]),2]#
+					check.x[3:4]<-which(ranges_x[,2]==x[3])#
+				}#
+			}#
+			if(length(unique(check.y[check.y>0]))==1 & length(unique(y[check.y>0]))==1){#
+				if(sum(check.y[c(1,4)]==0)==2){#
+					y[c(1,4)]<-ranges_y[(ranges_y[,1]-y[1])>0 & (ranges_y[,1]-y[1])==min((ranges_y[,1]-y[1])[(ranges_y[,1]-y[1])>0]),1]#
+					check.y[c(1,4)]<-which(ranges_y[,1]==y[1])#
+				}#
+				if(sum(check.y[2:3]==0)==2){#
+					y[2:3]<-ranges_y[(ranges_y[,2]-y[2])<0 & (ranges_y[,2]-y[2])==max((ranges_y[,2]-y[2])[(ranges_y[,2]-y[2])<0]),2]#
+					check.y[2:3]<-which(ranges_y[,2]==y[2])#
+				}#
+			}#
+			if(sum(check.x==0)==4 & min(x)<=max(ranges_x[,2]) & max(x)>=min(ranges_x[,1])){#
+				check.gap.x<-rep(0,length(x))#
+				if(nrow(ranges_x)>1){for(k in 2:nrow(ranges_x)){check.gap.x[x>=ranges_x[k-1,2] & x<=ranges_x[k,1]]<-k-1}}#
+				if(length(unique(check.gap.x))>1 | sum(check.gap.x==0)==4){#
+					x[1:2]<-ranges_x[(ranges_x[,1]-x[1])>0 & (ranges_x[,1]-x[1])==min((ranges_x[,1]-x[1])[(ranges_x[,1]-x[1])>0]),1]#
+					x[3:4]<-ranges_x[(ranges_x[,2]-x[3])<0 & (ranges_x[,2]-x[3])==max((ranges_x[,2]-x[3])[(ranges_x[,2]-x[3])<0]),2]#
+					check.x[1:2]<-which(ranges_x[,1]==x[1])#
+					check.x[3:4]<-which(ranges_x[,2]==x[3])#
+				}#
+			}#
+			if(sum(check.y==0)==4 & min(y)<=max(ranges_y[,2]) & max(y)>=min(ranges_y[,1])){#
+				check.gap.y<-rep(0,length(y))#
+				if(nrow(ranges_y)>1){for(k in 2:nrow(ranges_y)){check.gap.y[y>=ranges_y[k-1,2] & y<=ranges_y[k,1]]<-k-1}}#
+				if(length(unique(check.gap.y))>1 | sum(check.gap.y==0)==4){#
+					y[c(1,4)]<-ranges_y[(ranges_y[,1]-y[1])>0 & (ranges_y[,1]-y[1])==min((ranges_y[,1]-y[1])[(ranges_y[,1]-y[1])>0]),1]#
+					y[2:3]<-ranges_y[(ranges_y[,2]-y[2])<0 & (ranges_y[,2]-y[2])==max((ranges_y[,2]-y[2])[(ranges_y[,2]-y[2])<0]),2]#
+					check.y[c(1,4)]<-which(ranges_y[,1]==y[1])#
+					check.y[2:3]<-which(ranges_y[,2]==y[2])#
+				}#
+			}#
+			if((check.x[3]-check.x[1])>0){#
+				for(i in check.x[1]:(check.x[3]-1)){#
+					x<-c(x[-c(length(x)-1,length(x))],ranges_x[i,2],ranges_x[i,2],NA,ranges_x[i+1,1],ranges_x[i+1,1],x[c(length(x)-1,length(x))])#
+					y<-c(y[-c(length(y)-1,length(y))],y[c(2,1)],NA,y[c(1,2)],y[c(length(y)-1,length(y))])#
+				}#
+			}#
+			if((check.y[2]-check.y[1])>0){#
+				for(i in check.y[1]:(check.y[2]-1)){#
+					y<-c(y[-c((length(y)-2):length(y))],ranges_y[i,2],ranges_y[i,2],y[length(y)],NA,ranges_y[i+1,1],y[c(length(y)-2,length(y)-1)],ranges_y[i+1,1])#
+					x<-c(x,NA,x[1:4])#
+				}#
+			}#
+			if(sum(check.x==0)==0 & sum(check.y==0)==0){#
+				x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+				y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+				polygon(x_new,y_new,col=col,...)#
+			}#
+		}else{#
+			if(sum(check.x==0)==0 & sum(check.y==0)==0){#
+				x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+				y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+				polygon(x_new,y_new,col=col,...)#
+			}#
+		}#
+	}else{#
+		for(i in 2:length(idx.na)){#
+			x.tmp<-x[(idx.na[i-1]+1):(idx.na[i]-1)]#
+			y.tmp<-y[(idx.na[i-1]+1):(idx.na[i]-1)]#
+			if(is.rectangle){#
+				x.tmp<-sort(x.tmp)#
+				y.tmp<-c(min(y.tmp),max(y.tmp),max(y.tmp),min(y.tmp))#
+			}#
+			check.x<-rep(0,length(x.tmp))#
+			check.y<-rep(0,length(y.tmp))#
+			for(k in 1:nrow(ranges_x)){check.x[x.tmp>=ranges_x[k,1] & x.tmp<=ranges_x[k,2]]<-k}#
+			for(k in 1:nrow(ranges_y)){check.y[y.tmp>=ranges_y[k,1] & y.tmp<=ranges_y[k,2]]<-k}#
+			if(is.rectangle){#
+				if(length(unique(check.x[check.x>0]))==1 & length(unique(x.tmp[check.x>0]))==1){#
+					if(sum(check.x[1:2]==0)==2){#
+						x.tmp[1:2]<-ranges_x[(ranges_x[,1]-x.tmp[1])>0 & (ranges_x[,1]-x.tmp[1])==min((ranges_x[,1]-x.tmp[1])[(ranges_x[,1]-x.tmp[1])>0]),1]#
+						check.x[1:2]<-which(ranges_x[,1]==x.tmp[1])#
+					}#
+					if(sum(check.x[3:4]==0)==2){#
+						x.tmp[3:4]<-ranges_x[(ranges_x[,2]-x.tmp[3])<0 & (ranges_x[,2]-x.tmp[3])==max((ranges_x[,2]-x.tmp[3])[(ranges_x[,2]-x.tmp[3])<0]),2]#
+						check.x[3:4]<-which(ranges_x[,2]==x.tmp[3])#
+					}#
+				}#
+				if(length(unique(check.y[check.y>0]))==1 & length(unique(y.tmp[check.y>0]))==1){#
+					if(sum(check.y[c(1,4)]==0)==2){#
+						y.tmp[c(1,4)]<-ranges_y[(ranges_y[,1]-y.tmp[1])>0 & (ranges_y[,1]-y.tmp[1])==min((ranges_y[,1]-y.tmp[1])[(ranges_y[,1]-y.tmp[1])>0]),1]#
+						check.y[c(1,4)]<-which(ranges_y[,1]==y.tmp[1])#
+					}#
+					if(sum(check.y[2:3]==0)==2){#
+						y.tmp[2:3]<-ranges_y[(ranges_y[,2]-y.tmp[2])<0 & (ranges_y[,2]-y.tmp[2])==max((ranges_y[,2]-y.tmp[2])[(ranges_y[,2]-y.tmp[2])<0]),2]#
+						check.y[2:3]<-which(ranges_y[,2]==y.tmp[2])#
+					}#
+				}#
+				if(sum(check.x==0)==4 & min(x.tmp)<=max(ranges_x[,2]) & max(x.tmp)>=min(ranges_x[,1])){#
+					check.gap.x<-rep(0,length(x.tmp))#
+					if(nrow(ranges_x)>1){for(k in 2:nrow(ranges_x)){check.gap.x[x.tmp>=ranges_x[k-1,2] & x.tmp<=ranges_x[k,1]]<-k-1}}#
+					if(length(unique(check.gap.x))>1 | sum(check.gap.x==0)==4){#
+						x.tmp[1:2]<-ranges_x[(ranges_x[,1]-x.tmp[1])>0 & (ranges_x[,1]-x.tmp[1])==min((ranges_x[,1]-x.tmp[1])[(ranges_x[,1]-x.tmp[1])>0]),1]#
+						x.tmp[3:4]<-ranges_x[(ranges_x[,2]-x.tmp[3])<0 & (ranges_x[,2]-x.tmp[3])==max((ranges_x[,2]-x.tmp[3])[(ranges_x[,2]-x.tmp[3])<0]),2]#
+						check.x[1:2]<-which(ranges_x[,1]==x.tmp[1])#
+						check.x[3:4]<-which(ranges_x[,2]==x.tmp[3])#
+					}#
+				}#
+				if(sum(check.y==0)==4 & min(y.tmp)<=max(ranges_y[,2]) & max(y.tmp)>=min(ranges_y[,1])){#
+					check.gap.y<-rep(0,length(y.tmp))#
+					if(nrow(ranges_y)>1){for(k in 2:nrow(ranges_y)){check.gap.y[y.tmp>=ranges_y[k-1,2] & y.tmp<=ranges_y[k,1]]<-k-1}}#
+					if(length(unique(check.gap.y))>1 | sum(check.gap.y==0)==4){#
+						y.tmp[c(1,4)]<-ranges_y[(ranges_y[,1]-y.tmp[1])>0 & (ranges_y[,1]-y.tmp[1])==min((ranges_y[,1]-y.tmp[1])[(ranges_y[,1]-y.tmp[1])>0]),1]#
+						y.tmp[2:3]<-ranges_y[(ranges_y[,2]-y.tmp[2])<0 & (ranges_y[,2]-y.tmp[2])==max((ranges_y[,2]-y.tmp[2])[(ranges_y[,2]-y.tmp[2])<0]),2]#
+						check.y[c(1,4)]<-which(ranges_y[,1]==y.tmp[1])#
+						check.y[2:3]<-which(ranges_y[,2]==y.tmp[2])#
+					}#
+				}#
+				if((check.x[3]-check.x[1])>0){#
+					for(i in check.x[1]:(check.x[3]-1)){#
+						x.tmp<-c(x.tmp[-c(length(x.tmp)-1,length(x.tmp))],ranges_x[i,2],ranges_x[i,2],NA,ranges_x[i+1,1],ranges_x[i+1,1],x.tmp[c(length(x.tmp)-1,length(x.tmp))])#
+						y.tmp<-c(y.tmp[-c(length(y.tmp)-1,length(y.tmp))],y.tmp[c(2,1)],NA,y.tmp[c(1,2)],y.tmp[c(length(y.tmp)-1,length(y.tmp))])#
+					}#
+				}#
+				if((check.y[2]-check.y[1])>0){#
+					for(i in check.y[1]:(check.y[2]-1)){#
+						y.tmp<-c(y.tmp[-c((length(y.tmp)-2):length(y.tmp))],ranges_y[i,2],ranges_y[i,2],y.tmp[length(y.tmp)],NA,ranges_y[i+1,1],y.tmp[c(length(y.tmp)-2,length(y.tmp)-1)],ranges_y[i+1,1])#
+						x.tmp<-c(x.tmp,NA,x.tmp[1:4])#
+					}#
+				}#
+				if(sum(check.x==0)==0 & sum(check.y==0)==0){#
+					x_new<-convert2gaps(z=x.tmp,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+					y_new<-convert2gaps(z=y.tmp,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+					polygon(x_new,y_new,col=col[i-1],...)#
+				}#
+			}else{#
+				if(length(unique(check.x))==1 & sum(check.x==0)==0 & length(unique(check.y))==1 & sum(check.y==0)==0){#
+					x_new<-convert2gaps(z=x.tmp,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+					y_new<-convert2gaps(z=y.tmp,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+					polygon(x_new,y_new,col=col[i-1],...)#
+				}#
+			}#
+		}#
+	}#
+}#
+#
+# required sub-routines#
+convert2gaps<-function(z,ranges_z,gap_width_z){#
+	# converts input data z so that it can be plotted on a plot with gaps specified implicitly by ranges_z#
+	# input arguments:#
+	#	z = data to be converted (a vector or a matrix)#
+	#	ranges_z = a matrix with the range of values that will be plotted#
+	#	gap_width_z = the width of the gaps on the plot#
+#
+	n_gapsz<-nrow(ranges_z)-1#
+	z_new<-z	#
+#
+	if(is.vector(z)){#
+		z_int<-rep(-9,length(z))#
+		if(!is.null(n_gapsz) & n_gapsz>0){#
+			z_int[z>=ranges_z[1,1] & z<=ranges_z[1,2]]<-1#
+			for(i in 2:nrow(ranges_z)){#
+				z_int[z>=ranges_z[i,1] & z<=ranges_z[i,2]]<-i#
+				z_new[z_int==i]<-z_new[z_int==i]-sum((ranges_z[2:i,1]-ranges_z[(2:i)-1,2]))+(i-1)*gap_width_z#
+			}#
+			z_new[z_int==(-9)]<-NA#
+		}#
+	}else if(is.matrix(z)){#
+		for(j in 1:nrow(z)){#
+			z_int<-rep(-9,length(z[j,]))#
+			if(!is.null(n_gapsz) & n_gapsz>0){#
+				z_int[z[j,]>=ranges_z[1,1] & z[j,]<=ranges_z[1,2]]<-1#
+				for(i in 2:nrow(ranges_z)){#
+					z_int[z[j,]>=ranges_z[i,1] & z[j,]<=ranges_z[i,2]]<-i#
+					z_new[j,z_int==i]<-z_new[j,z_int==i]-sum((ranges_z[2:i,1]-ranges_z[(2:i)-1,2]))+(i-1)*gap_width_z#
+				}#
+				z_new[j,z_int==(-9)]<-NA#
+			}#
+		}#
+	}#
+	return(z_new)#
+}#
+#
+convert2gaps_alt<-function(z,SP,EP,gaps,gap_width=0.05,side){#
+	# converts input data vector z so that it can be plotted on a plot with gaps specified by gaps#
+	# input arguments:#
+	#	z = data to be converted (a vector)#
+	#	SP / EP = start and end position of the interval of interest#
+	#	gaps = a list with gaps; gaps[[1]] list the gaps on the x-axis, gaps[[2]] those on the y-axis#
+	#	gap_width = width of each gap relative to the (plotted) range of the data#
+	#	side = which axis is z on? (1=x,2=y)#
+	# convert gaps argument into list if given as matrix#
+	if(is.null(gaps)){side<-NULL}#
+	if(is.null(side)){#
+		gaps<-NULL#
+	}else if(!is.element(el=side,set=c(1,2))){#
+		gaps<-NULL#
+	}#
+	if(is.list(gaps)){#
+		if(side==1){gaps<-gaps[[1]]}#
+		if(side==2){gaps<-gaps[[2]]}#
+	}#
+	# set zlim & n_gapsz#
+	zlim<-c(SP,EP)#
+	n_gapsz<-nrow(gaps)#
+#
+	# define the ranges that will be plotted and assign x- and y-axis interval numbers for each data point to be plotted#
+	ranges_z<-matrix(nrow=0,ncol=2)#
+	z_int<-rep(-9,length(z))#
+#
+	if(!is.null(n_gapsz)){#
+		ranges_z<-rbind(ranges_z,c(zlim[1],gaps[1,1]))#
+		z_int[z>=ranges_z[1,1] & z<=ranges_z[1,2]]<-1#
+		if(n_gapsz>1){#
+			for(i in 2:n_gapsz){#
+				ranges_z<-rbind(ranges_z,c(gaps[i-1,2],gaps[i,1]))#
+				z_int[z>=ranges_z[i,1] & z<=ranges_z[i,2]]<-i#
+			}#
+			ranges_z<-rbind(ranges_z,c(gaps[n_gapsz,2],zlim[2]))#
+			z_int[z>=ranges_z[n_gapsz+1,1] & z<=ranges_z[n_gapsz+1,2]]<-n_gapsz+1#
+		}else{#
+			ranges_z<-rbind(ranges_z,c(gaps[1,2],zlim[2]))#
+			z_int[z>=ranges_z[2,1] & z<=ranges_z[2,2]]<-2#
+		}#
+	}else{#
+		ranges_z<-rbind(ranges_z,zlim)#
+		z_int<-rep(1,length(z))#
+	}#
+#
+	# compute the width of the gaps#
+	if(!is.null(n_gapsz)){gap_width_z<-sum(ranges_z[,2]-ranges_z[,1])*gap_width}else{gap_width_z<-0}#
+#
+	# convert#
+	z_new<-convert2gaps(z,ranges_z=ranges_z,gap_width_z=gap_width_z)#
+	#export#
+	return(z_new)#
+}#
+#x<-rnorm(100,mean=3)#
+#x<-c(x,rnorm(150,mean=17))#
+#y<-2*x+rnorm(250,sd=0.8)#
+#x_extra<-rnorm(10,mean=8.5,sd=3)#
+#y_extra<-rnorm(10,mean=35,sd=3)#
+#x.poly<-c(15,18,19,16,NA,6,10,14,NA,1,3,2,NA,5,7,15,14,6); y.poly<-c(6,8,7,5,NA,13,14,10,NA,14,24,10,NA,40,35,45,40,30)#
+#par(mfrow=c(2,2))#
+#plot(x,y,pch="+",xlim=c(0,21),ylim=c(0,45))#
+#polygon(x.poly,y.poly,col="orange",border="orange")#
+#lines(x=seq(0,20,length=1000),y=2*seq(0,20,length=1000),col="red")#
+#points(x=x_extra,y=y_extra,pch=5,col="green")#
+#segments(x1=0,y1=2,x0=13.1,y0=45,col="blue")#
+#tt<-plot_with_breaks(x,y,side=c(1,2),gaps=list(rbind(c(7,13)),rbind(c(13,25))),plot.bars=T,pch="+",xlim=c(0,21),ylim=c(0,45),range_labels_y=c("reg1","reg2"))#
+#polygon_with_breaks(x=x.poly,y=y.poly,col="orange",border="orange",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#lines_with_breaks(x=seq(0,20,length=1000),y=2*seq(0,20,length=1000),col="red",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#points_with_breaks(x=x_extra,y=y_extra,pch=5,col="green",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#segments_with_breaks(x1=0,y1=2,x0=13.1,y0=45,ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y,col="blue")#
+#tt<-plot_with_breaks(x,y,side=c(1),gaps=list(rbind(c(7,8),c(9,13))),plot.bars=T,pch="+",xlim=c(0,21),ylim=c(0,45),range_labels_x=c("reg1","reg2","reg3"))#
+#polygon_with_breaks(x.poly,y.poly,col="orange",border="orange",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#lines_with_breaks(x=seq(0,20,length=1000),y=2*seq(0,20,length=1000),col="red",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#points_with_breaks(x=x_extra,y=y_extra,pch=5,col="green",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#segments_with_breaks(x1=0,y1=2,x0=13.1,y0=45,ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y,col="blue")#
+#tt<-plot_with_breaks(x,y,side=c(1),gaps=list(rbind(c(6,14))),plot.bars=T,pch="+",xlim=c(0,21),ylim=c(0,45))#
+#polygon_with_breaks(x.poly,y.poly,col="orange",border="orange",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#lines_with_breaks(x=seq(0,20,length=1000),y=2*seq(0,20,length=1000),col="red",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#points_with_breaks(x=x_extra,y=y_extra,pch=5,col="green",ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)#
+#segments_with_breaks(x1=0,y1=2,x0=13.1,y0=45,ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y,col="blue")
+plot_with_breaks(x=1:5,y=1:5,gaps=matrix(c(2.5,3.5),ncol=2),side=1)
+tt<-plot_with_breaks(x=1:5,y=1:5,gaps=matrix(c(2.5,3.5),ncol=2),side=1)
+lines_with_breaks(1:5,1:5,ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_with_y=tt$gap_width_y)
+lines_with_breaks(1:5,1:5,ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)
+tt<-plot_with_breaks(x=1:5,y=1:5,gaps=matrix(c(2.5,3.5),ncol=2),side=1)
+lines_with_breaks(c(1,2,4,5),c(1,2,4,5),ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)
+lines_with_breaks<-function(x,y,ranges_x,ranges_y,gap_width_x,gap_width_y,...){#
+	x_new<-convert2gaps(z=x,ranges_z=ranges_x,gap_width_z=gap_width_x)#
+	y_new<-convert2gaps(z=y,ranges_z=ranges_y,gap_width_z=gap_width_y)#
+	if(nrow(ranges_x)>1){#
+		for(i in 2:nrow(ranges_x)){#
+			x_new<-c(x_new[x<=ranges_x[i-1,2]],NA,x_new[x>=ranges_x[i,1]])#
+			y_new<-c(y_new[x<=ranges_x[i-1,2]],NA,y_new[x>=ranges_x[i,1]])#
+		}#
+	}#
+	if(nrow(ranges_y)>1){#
+		for(i in 2:nrow(ranges_y)){#
+			x_new<-c(x_new[y<=ranges_y[i-1,2]],NA,x_new[y>=ranges_y[i,1]])#
+			y_new<-c(y_new[y<=ranges_y[i-1,2]],NA,y_new[y>=ranges_y[i,1]])#
+		}#
+	}#
+	lines(x_new,y_new,...)#
+}
+tt<-plot_with_breaks(x=1:5,y=1:5,gaps=matrix(c(2.5,3.5),ncol=2),side=1)
+lines_with_breaks(c(1,2,4,5),c(1,2,4,5),ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)
+tt<-plot_with_breaks(x=1:5,y=1:5,gaps=matrix(c(2.5,3.5),ncol=2),side=1)
+lines_with_breaks(1:5,1:5,ranges_x=tt$ranges_x,ranges_y=tt$ranges_y,gap_width_x=tt$gap_width_x,gap_width_y=tt$gap_width_y)
+set parameters#
+#	dat.file<-"/Volumes/cancgene-mp-m-data/studies/Hic/File_sharing/UCSC_genes_hg19_2"#
+#	chr<-8#
+#	SP<-127900174#
+#	EP<-128884622#
+##SP<-128740000#
+##EP<-128760000#
+#	space_between_intron_arrows<-1e4 # in bp#
+#	col.genes<-"darkblue"#
+#	utr.height<-0.4#
+#	dat<-read.table(dat.file,sep="\t",header=T,colClasses=c(rep("character",2),rep("integer",5),rep("character",3)))#
+#
+gene_track<-function(dat,chr,SP,EP,space_between_intron_arrows=1e4,col.genes="darkblue",utr.height=0.4,compute_ntracks_only=FALSE,convert.gw=FALSE,convert.chrstarts=NULL){#
+	# plots a gene track#
+	# INPUT arguments:#
+	#	dat = UCSC data file for genes; columns are chr, strand, txStart, tcEnd, cdsStart, cdsEnd, exonCount, exStarts, exonEnds, geneSymbol#
+	#	chr = chromosome to plot (can be 0 of conversion to genome-wide coordinates is used; SP and EP should be gw-positions in that case)#
+	#	SP = starting position of the region to plot#
+	#	EP = end position of the region to plot#
+	#	space_between_intron_arrows, col.genes, utr.height = graphical parameters determining spaces between intron arrows, the colour of the genes and the height of the exon, resp. utr boxes#
+	#	compute_ntracks_only = logical; should only the number of required tracks be computed and no plot produced? (defaults to FALSE)#
+	#	convert.gw = logical; should the positions all be converted to genome-wide positions or not#
+	#	convert.chrstarts = (if convert.gw==TRUE) the ends of each chromosome in genome-wide position#
+	# read in data#
+	if(!convert.gw){#
+		dat<-dat[dat[,1]==paste("chr",chr,sep="") & ( (dat[,3]>=SP & dat[,3]<=EP) | (dat[,4]>=SP & dat[,4]<=EP) ),]#
+	}else{#
+		dat[,1]<-as.integer(matrix(unlist(strsplit(dat[,1],split="chr")),byrow=T,ncol=2)[,2])#
+		dat[,3]<-convert.chrstarts[dat[,1]]+dat[,3]#
+		dat[,4]<-convert.chrstarts[dat[,1]]+dat[,4]#
+		dat[,5]<-convert.chrstarts[dat[,1]]+dat[,5]#
+		dat[,6]<-convert.chrstarts[dat[,1]]+dat[,6]#
+		dat<-dat[(dat[,3]>=SP & dat[,3]<=EP) | (dat[,4]>=SP & dat[,4]<=EP),]#
+	}#
+#
+	# set up tracks on which to plot the different genes (and splicing variants of a given gene)#
+	minpos<-min(c(SP,dat[,3])-(EP-SP)/25)#
+	maxpos<-max(c(EP,dat[,4])+(EP-SP)/25)#
+	tracks<-matrix(rep(0,maxpos-minpos+1),nrow=1,ncol=maxpos-minpos+1)#
+	track.gene<-rep(NA,nrow(dat))#
+#
+	for(i in 1:nrow(dat)){#
+		check.tmp<-0#
+		j<-1#
+		while(check.tmp==0){#
+			if(sum(tracks[j,(dat[i,3]-(EP-SP)/25):(dat[i,4]+(EP-SP)/25)-minpos])==0){#
+				track.gene[i]<-j#
+				tracks[j,dat[i,3]:dat[i,4]-minpos]<-rep(1,dat[i,4]-dat[i,3]+1)#
+				check.tmp<-1#
+			}else{#
+				j<-j+1#
+				if(nrow(tracks)<j){tracks<-rbind(tracks,rep(0,maxpos-minpos+1))}#
+			}#
+		}#
+	}#
+	ntracks<-nrow(tracks)#
+	rm(tracks)#
+	track.gene<-max(track.gene)-(track.gene-1)#
+#
+	if(!compute_ntracks_only){#
+	# plot#
+		if(chr!=0 & !convert.gw){#
+			plot(x=c(SP,EP),y=c(1,ntracks),type="n",yaxt="n",xlim=c(SP,EP),ylim=c(0.5,ntracks+0.5),xlab=paste("chromosome ",chr," (bp, hg19)",sep=""),col=col.genes)#
+		}else{#
+			plot(x=c(SP,EP),y=c(1,ntracks),type="n",yaxt="n",xlim=c(SP,EP),ylim=c(0.5,ntracks+0.5),xlab=paste("genome-wide position (bp, hg19)",sep=""),col=col.genes)#
+		}#
+		for(i in 1:nrow(dat)){#
+			exon_start<-as.integer(unlist(strsplit(dat[i,8],split=",")))#
+			exon_end<-as.integer(unlist(strsplit(dat[i,9],split=",")))#
+			utr_start<-integer(0); utr_end<-integer(0)#
+			cexon_start<-integer(0); cexon_end<-integer(0)#
+			processed_exons<-rep(0,dat[i,7])#
+			if(convert.gw){#
+				exon_start<-convert.chrstarts[dat[i,1]]+exon_start#
+				exon_end<-convert.chrstarts[dat[i,1]]+exon_end#
+			}#
+			for(j in 1:length(exon_start)){#
+				if(exon_start[j]<dat[i,5] & exon_end[j]<dat[i,5]){ # exon starts and finishes to the left of the coding sequence (CS)#
+					utr_start<-c(utr_start,exon_start[j])#
+					utr_end<-c(utr_end,exon_end[j])#
+					processed_exons[j]<-1#
+				}else if(exon_start[j]<dat[i,5] & exon_end[j]>=dat[i,5] & exon_end[j]<=dat[i,6]){ # exon starts to the left of CS, finishes within it#
+					utr_start<-c(utr_start,exon_start[j])#
+					utr_end<-c(utr_end,dat[i,5])#
+					cexon_start<-c(cexon_start,dat[i,5])#
+					cexon_end<-c(cexon_end,exon_end[j])#
+					processed_exons[j]<-1#
+				}else if(exon_start[j]>=dat[i,5] & exon_end[j]<=dat[i,6]){ # exon starts within CS, finishes within it#
+					cexon_start<-c(cexon_start,exon_start[j])#
+					cexon_end<-c(cexon_end,exon_end[j])#
+					processed_exons[j]<-1#
+				}else if(exon_start[j]>=dat[i,5] & exon_start[j]<=dat[i,6] & exon_end[j]>dat[i,6]){ # exon starts within CS, finishes to the right of CS#
+					utr_start<-c(utr_start,dat[i,6])#
+					utr_end<-c(utr_end,exon_end[j])#
+					cexon_start<-c(cexon_start,exon_start[j])#
+					cexon_end<-c(cexon_end,dat[i,6])#
+					processed_exons[j]<-1#
+				}else if(exon_start[j]>dat[i,6] & exon_end[j]>dat[i,6]){ # exon starts & finishes to the right of CS#
+					utr_start<-c(utr_start,exon_start[j])#
+					utr_end<-c(utr_end,exon_end[j])#
+					processed_exons[j]<-1#
+				}else if(exon_start[j]<dat[i,5] & exon_end[j]>dat[i,6]){ # exon starts to the left of CS, finishes to the right of CS#
+					utr_start<-c(utr_start,exon_start[j],dat[i,6])#
+					utr_end<-c(utr_end,dat[i,5],exon_end[j])#
+					cexon_start<-c(cexon_start,dat[i,5])#
+					cexon_end<-c(cexon_end,dat[i,6])#
+					processed_exons[j]<-1#
+				}#
+			}#
+			if(sum(processed_exons==0)>0){warning("Not all exons processed!")}#
+			# extent of the gene & print gene name#
+			lines(dat[i,3:4],rep(track.gene[i],2),col=col.genes)#
+			if(dat[i,3]>=SP){#
+				text(x=dat[i,3]-(EP-SP)/70,y=track.gene[i],label=paste(dat[i,10],sep=""),col=col.genes,cex=0.5)#
+			}else{#
+				text(x=dat[i,4]+(EP-SP)/70,y=track.gene[i],label=paste(dat[i,10],sep=""),col=col.genes,cex=0.5)#
+			}#
+			# add arrows in direction of strand (+ to the right, - to the left) to mark introns#
+			if(dat[i,2]=="+"){pch.arrow<-">"}else if(dat[i,2]=="-"){pch.arrow<-"<"}#
+			if((dat[i,4]-dat[i,3])>1.5*space_between_intron_arrows){#
+				points((dat[i,3]:dat[i,4])[(dat[i,3]:dat[i,4] %% space_between_intron_arrows) == 0],rep(track.gene[i],sum((dat[i,3]:dat[i,4] %% space_between_intron_arrows) == 0)),pch=pch.arrow,cex=0.5,col=col.genes)#
+			}else{#
+				points((dat[i,3]+dat[i,4])/2,track.gene[i],pch=pch.arrow,cex=0.1*ntracks,col=col.genes)#
+			}#
+			# exons (or part of exons) within coding sequence as high boxes#
+			if(length(cexon_start)>0){#
+				poly.x<-rbind(cexon_start,cexon_start,cexon_end,cexon_end,rep(NA,length(cexon_start)))#
+				poly.y<-rbind(track.gene[i]-utr.height,track.gene[i]+utr.height,track.gene[i]+utr.height,track.gene[i]-utr.height,rep(NA,length(cexon_start)))#
+				polygon(x=as.vector(poly.x),y=as.vector(poly.y),col=col.genes,border=col.genes,lwd=0.5)#
+			}#
+			# exons (or part of exons) outside coding sequence (UTRs) as not so high boxes#
+			if(length(utr_start)>0){#
+				poly.x<-rbind(utr_start,utr_start,utr_end,utr_end,rep(NA,length(utr_start)))#
+				poly.y<-rbind(track.gene[i]-utr.height/2,track.gene[i]+utr.height/2,track.gene[i]+utr.height/2,track.gene[i]-utr.height/2,rep(NA,length(utr_start)))#
+				polygon(x=as.vector(poly.x),y=as.vector(poly.y),col=col.genes,border=col.genes,lwd=0.5)#
+			}#
+		}#
+	}else{#
+		return(ntracks)#
+	}#
+}#
+gene_track_with_breaks<-function(dat,chr,SP,EP,col.genes="darkblue",utr.height=0.4,compute_ntracks_only=FALSE,convert.gw=FALSE,convert.chrstarts=NULL,gaps,lwd.line=1,cex.txt=1.15,cex.arrows=NULL,track.gene=NULL,gene.ylab="",axis.side.x=1,axis.side.y=2,gene.axis.tcl=-0.5,gene.axis.lwd=1,gene.axis.lwd.ticks=1,gene.axis.line=NA,gene.igs=0.1,...){#
+	# plots a gene track with breaks on the x-axis#
+	# INPUT arguments:#
+	#	dat = UCSC data file for genes; columns are chr, strand, txStart, tcEnd, cdsStart, cdsEnd, exonCount, exStarts, exonEnds, geneSymbol#
+	#	chr = chromosome to plot#
+	#	SP = starting position of the region to plot#
+	#	EP = end position of the region to plot#
+	#	col.genes = colour used to plot the genes#
+	#	compute_ntracks_only = logical; should only the number of required tracks be computed and no plot produced? (defaults to FALSE)#
+	#	convert.gw = logical; should the positions all be converted to genome-wide positions or not#
+	#	convert.chrstarts = (if convert.gw==TRUE) the ends of each chromosome in genome-wide position#
+	#	gaps = a list specifying the gaps on the x-axis; see documentation of axis_breaks.R#
+	#	lwd.line = width of line showing the extent of each gene#
+	#	cex.txt = cex for printing the gene names#
+	#	cex.arrows = cex for printing the gene strand arrows (NULL by default which will result in a cex.arrows value of 1 or slightly less, but can be set explicitly)#
+	#	track.gene = vector indicating on which track to plot which gene; NB this must be specified for the cleaned gene list (<= the genes in dat); i.e. ideally you've run the got this info by tunning the function with compute_ntracks_only=TRUE first  #
+	#	gene.ylab = label for the y-axis of the gene plot#
+	#	axis.side.x/y = side that the x/y axis should be plotted; x-axis is either 1 (bottom; default) or 3 (top), y-axis is either 2 (left; default) or 4 (right) #
+	#	gene.axis.tcl = tcl to be used for axis tickmarks#
+	#	gene.axis.lwd = lwd to be used for plotting the axes#
+	#	gene.axis.lwd.ticks = lwd.ticks to be used for plotting the axes#
+	#	gene.axis.line = line as in axis()#
+	#	gene.igs = inter-gene space; i.e. what proportion of the extent of the x-axis should left free on each side of each gene (this is where the gene name will go, e.g.; so increase this if gene names overlap)#
+	#	... = further parameters for plot_with_breaks()#
+#
+	# read in data#
+	if(!convert.gw){#
+		dat<-dat[dat[,1]==paste("chr",chr,sep="") & ( (dat[,3]>=SP & dat[,3]<=EP) | (dat[,4]>=SP & dat[,4]<=EP) ),]#
+	}else{#
+		dat[,1]<-as.integer(matrix(unlist(strsplit(dat[,1],split="chr")),byrow=T,ncol=2)[,2])#
+		dat[,3]<-convert.chrstarts[dat[,1]]+dat[,3]#
+		dat[,4]<-convert.chrstarts[dat[,1]]+dat[,4]#
+		dat[,5]<-convert.chrstarts[dat[,1]]+dat[,5]#
+		dat[,6]<-convert.chrstarts[dat[,1]]+dat[,6]#
+		dat<-dat[(dat[,3]>=SP & dat[,3]<=EP) | (dat[,4]>=SP & dat[,4]<=EP),]#
+	}#
+	if(!is.null(gaps) & !is.null(gaps[[1]])){#
+		if(nrow(gaps[[1]])>=1){#
+				for(i in 1:nrow(gaps[[1]])){#
+					dat<-dat[!(dat[,3]>=gaps[[1]][i,1] & dat[,4]<=gaps[[1]][i,2]),]#
+				}#
+		}#
+	}#
+#
+	# set up tracks on which to plot the different genes (and splicing variants of a given gene)#
+	if(!is.null(gaps) & !is.null(gaps[[1]])){#
+		pos.tmp<-SP:((gaps[[1]])[1,1])#
+		if(nrow(gaps[[1]])>1){#
+			for(i in 2:nrow(gaps[[1]])){#
+				pos.tmp<-c(pos.tmp,(gaps[[1]])[i-1,2]:(gaps[[1]])[i,1])#
+			}#
+		}#
+		pos.tmp<-c(pos.tmp,((gaps[[1]])[nrow(gaps[[1]]),2]):EP)#
+	}else{#
+		pos.tmp<-SP:EP#
+	}#
+	minpos<-round(min(c(SP,dat[,3])-length(pos.tmp)/25))#
+	maxpos<-round(max(c(EP,dat[,4])+length(pos.tmp)/25))#
+#
+	if(is.null(track.gene)){	#
+		tracks.list<-list()#
+		tracks.list[[1]]<-numeric(0)#
+		track.gene<-rep(NA,nrow(dat))#
+#
+		for(i in 1:nrow(dat)){#
+			check.tmp<-0#
+			j<-1#
+			while(check.tmp==0){#
+				check.track<-0#
+				if(!is.null(nrow(tracks.list[[j]]))){#
+					check.vect.tmp<-rep(0,nrow(tracks.list[[j]]))#
+					check.vect.tmp[(dat[i,3]-length(pos.tmp)*gene.igs-minpos)>=tracks.list[[j]][,1] & (dat[i,3]-length(pos.tmp)*gene.igs-minpos)<=tracks.list[[j]][,2]]<-1#
+					check.vect.tmp[(dat[i,4]+length(pos.tmp)*gene.igs-minpos)>=tracks.list[[j]][,1] & (dat[i,4]+length(pos.tmp)*gene.igs-minpos)<=tracks.list[[j]][,2]]<-1#
+					check.vect.tmp[tracks.list[[j]][,1]>=(dat[i,3]-length(pos.tmp)*gene.igs-minpos) & tracks.list[[j]][,1]<=(dat[i,4]+length(pos.tmp)*gene.igs-minpos)]<-1#
+					check.vect.tmp[tracks.list[[j]][,2]>=(dat[i,3]-length(pos.tmp)*gene.igs-minpos) & tracks.list[[j]][,2]<=(dat[i,4]+length(pos.tmp)*gene.igs-minpos)]<-1#
+					if(sum(check.vect.tmp==1)>0){#
+						check.track<-1#
+					}#
+				}#
+				if(check.track==0){#
+					track.gene[i]<-j#
+					tracks.list[[j]]<-rbind(tracks.list[[j]],c(dat[i,3]-minpos,dat[i,4]-minpos))#
+					check.tmp<-1#
+				}else{#
+					j<-j+1#
+					if(length(tracks.list)<j){tracks.list[[j]]<-numeric(0)}#
+				}#
+			}#
+		}#
+		ntracks<-length(tracks.list)#
+		rm(tracks.list)#
+		track.gene<-max(track.gene)-(track.gene-1)#
+	}else{#
+		ntracks<-max(track.gene)#
+	}#
+#
+	if(!compute_ntracks_only){#
+	# plot#
+		breaks.info<-plot_with_breaks(x=c(SP,EP),y=c(1,ntracks),type="n",yaxt="n",xlim=c(SP,EP),ylim=c(0.5,ntracks+0.5),gaps=gaps,ylab=gene.ylab,axis.side.x=axis.side.x,axis.side.y=axis.side.y,tcl.axis=gene.axis.tcl,lwd.axis=gene.axis.lwd,lwd.ticks.axis=gene.axis.lwd.ticks,line.axis=gene.axis.line,...)#
+		if(nrow(dat)>0){#
+			for(i in 1:nrow(dat)){#
+				exon_start<-as.integer(unlist(strsplit(dat[i,8],split=",")))#
+				exon_end<-as.integer(unlist(strsplit(dat[i,9],split=",")))#
+				utr_start<-integer(0); utr_end<-integer(0)#
+				cexon_start<-integer(0); cexon_end<-integer(0)#
+				processed_exons<-rep(0,dat[i,7])#
+				if(convert.gw){#
+					exon_start<-convert.chrstarts[dat[i,1]]+exon_start#
+					exon_end<-convert.chrstarts[dat[i,1]]+exon_end#
+				}#
+				for(j in 1:length(exon_start)){#
+					if(exon_start[j]<dat[i,5] & exon_end[j]<dat[i,5]){ # exon starts and finishes to the left of the coding sequence (CS)#
+						utr_start<-c(utr_start,exon_start[j])#
+						utr_end<-c(utr_end,exon_end[j])#
+						processed_exons[j]<-1#
+					}else if(exon_start[j]<dat[i,5] & exon_end[j]>=dat[i,5] & exon_end[j]<=dat[i,6]){ # exon starts to the left of CS, finishes within it#
+						utr_start<-c(utr_start,exon_start[j])#
+						utr_end<-c(utr_end,dat[i,5])#
+						cexon_start<-c(cexon_start,dat[i,5])#
+						cexon_end<-c(cexon_end,exon_end[j])#
+						processed_exons[j]<-1#
+					}else if(exon_start[j]>=dat[i,5] & exon_end[j]<=dat[i,6]){ # exon starts within CS, finishes within it#
+						cexon_start<-c(cexon_start,exon_start[j])#
+						cexon_end<-c(cexon_end,exon_end[j])#
+						processed_exons[j]<-1#
+					}else if(exon_start[j]>=dat[i,5] & exon_start[j]<=dat[i,6] & exon_end[j]>dat[i,6]){ # exon starts within CS, finishes to the right of CS#
+						utr_start<-c(utr_start,dat[i,6])#
+						utr_end<-c(utr_end,exon_end[j])#
+						cexon_start<-c(cexon_start,exon_start[j])#
+						cexon_end<-c(cexon_end,dat[i,6])#
+						processed_exons[j]<-1#
+					}else if(exon_start[j]>dat[i,6] & exon_end[j]>dat[i,6]){ # exon starts & finishes to the right of CS#
+						utr_start<-c(utr_start,exon_start[j])#
+						utr_end<-c(utr_end,exon_end[j])#
+						processed_exons[j]<-1#
+					}else if(exon_start[j]<dat[i,5] & exon_end[j]>dat[i,6]){ # exon starts to the left of CS, finishes to the right of CS#
+						utr_start<-c(utr_start,exon_start[j],dat[i,6])#
+						utr_end<-c(utr_end,dat[i,5],exon_end[j])#
+						cexon_start<-c(cexon_start,dat[i,5])#
+						cexon_end<-c(cexon_end,dat[i,6])#
+						processed_exons[j]<-1#
+					}#
+				}#
+				if(sum(processed_exons==0)>0){warning("Not all exons processed!")}#
+				# extent of the gene & print gene name#
+				if(dat[i,3]>=SP & dat[i,4]<=EP){#
+					lines_with_breaks(x=c(dat[i,3],dat[i,4]),y=rep(track.gene[i],2),col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,lwd=lwd.line)#
+				}else if(dat[i,3]<SP & dat[i,4]<=EP){#
+					lines_with_breaks(x=c(SP,dat[i,4]),y=rep(track.gene[i],2),col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,lwd=lwd.line)#
+				}else if(dat[i,3]>=SP & dat[i,4]>EP){#
+					lines_with_breaks(x=c(dat[i,3],EP),y=rep(track.gene[i],2),col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,lwd=lwd.line)#
+				}else if(dat[i,3]<SP & dat[i,4]>EP){#
+					lines_with_breaks(x=c(SP,EP),y=rep(track.gene[i],2),col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,lwd=lwd.line)#
+				}#
+				if(!is.null(gaps) & !is.null(gaps[[1]])){#
+					if(nrow(gaps[[1]]>=1)){#
+						for(k in 1:nrow(gaps[[1]])){#
+							if(dat[i,3]>=gaps[[1]][k,1] & dat[i,3]<gaps[[1]][k,2] & dat[i,4]>gaps[[1]][k,2]){#
+								lines_with_breaks(x=c(gaps[[1]][k,2],dat[i,4]),y=rep(track.gene[i],2),col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,lwd=lwd.line)#
+							}else if(dat[i,3]<gaps[[1]][k,1] & dat[i,4]<=gaps[[1]][k,2] & dat[i,4]>gaps[[1]][k,1]){#
+								lines_with_breaks(x=c(dat[i,3],gaps[[1]][k,1]),y=rep(track.gene[i],2),col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,lwd=lwd.line)#
+							}#
+						}#
+					}#
+				}#
+				check.text<-0#
+				if(dat[i,3]<=SP+length(pos.tmp)/50){check.text<-1}#
+				for(k in 1:nrow(breaks.info$ranges_x)){#
+					#if(abs(dat[i,3]-breaks.info$ranges_x[k,1])<length(pos.tmp)/50){check.text<-1}#
+					if(k<nrow(breaks.info$ranges_x)){#
+						if(dat[i,3]>breaks.info$ranges_x[k,2] & dat[i,3]<breaks.info$ranges_x[k+1,1]+length(pos.tmp)/50){check.text<-1}#
+					}#
+				}#
+				par(xpd=TRUE)#
+				if(check.text==0){#
+					text_with_breaks(x=dat[i,3]-cex.txt*length(pos.tmp)/200,y=track.gene[i],label=paste(dat[i,10],sep=""),cex=cex.txt,col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,adj=1)#
+				}else{#
+					text_with_breaks(x=dat[i,4]+cex.txt*length(pos.tmp)/200,y=track.gene[i],label=paste(dat[i,10],sep=""),cex=cex.txt,col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,adj=0)#
+				}#
+				par(xpd=FALSE)#
+				# add arrows in direction of strand (+ to the right, - to the left) to mark introns#
+				if(is.null(cex.arrows)){cex.arrows<-min(c(1,0.6+0.02*ntracks))}#
+				space_between_intron_arrows<-round(length(pos.tmp)/1e4)*1e2#
+				if((dat[i,4]-dat[i,3])>0.2*space_between_intron_arrows){#
+					if(dat[i,2]=="+"){pch.arrow<-">"}else if(dat[i,2]=="-"){pch.arrow<-"<"}#
+					if((dat[i,4]-dat[i,3])>2*space_between_intron_arrows){#
+						if(dat[i,3]>=SP & dat[i,4]<=EP){#
+							arrow.pos.tmp<-(dat[i,3]+space_between_intron_arrows/2):(dat[i,4]-space_between_intron_arrows/2)#
+						}else if(dat[i,3]<SP & dat[i,4]<=EP){#
+							arrow.pos.tmp<-SP:(dat[i,4]-space_between_intron_arrows/2)#
+						}else if(dat[i,3]>=SP & dat[i,4]>EP){#
+							arrow.pos.tmp<-(dat[i,3]+space_between_intron_arrows/2):EP#
+						}else if(dat[i,3]<SP & dat[i,4]>EP){#
+							arrow.pos.tmp<-SP:EP#
+						}#
+						points_with_breaks(arrow.pos.tmp[(arrow.pos.tmp %% space_between_intron_arrows) == 0],rep(track.gene[i],sum((arrow.pos.tmp %% space_between_intron_arrows) == 0)),pch=pch.arrow,cex=cex.arrows,col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y)#
+					}else{#
+						points_with_breaks((dat[i,3]+dat[i,4])/2,track.gene[i],pch=pch.arrow,cex=cex.arrows,col=col.genes,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y)#
+					}#
+				}#
+				# exons (or part of exons) within coding sequence as high boxes#
+				if(length(cexon_start)>0){#
+					poly.x<-rbind(cexon_start,cexon_start,cexon_end,cexon_end,rep(NA,length(cexon_start)))#
+					poly.y<-rbind(track.gene[i]-utr.height,track.gene[i]+utr.height,track.gene[i]+utr.height,track.gene[i]-utr.height,rep(NA,length(cexon_start)))#
+					polygon_with_breaks(x=as.vector(poly.x),y=as.vector(poly.y),col=rep(col.genes,length(poly.x)),border=col.genes,lwd=0.5,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,is.rectangle=TRUE)#
+				}#
+				# exons (or part of exons) outside coding sequence (UTRs) as not so high boxes#
+				if(length(utr_start)>0){#
+					poly.x<-rbind(utr_start,utr_start,utr_end,utr_end,rep(NA,length(utr_start)))#
+					poly.y<-rbind(track.gene[i]-utr.height/2,track.gene[i]+utr.height/2,track.gene[i]+utr.height/2,track.gene[i]-utr.height/2,rep(NA,length(utr_start)))#
+					polygon_with_breaks(x=as.vector(poly.x),y=as.vector(poly.y),col=rep(col.genes,length(poly.x)),border=col.genes,lwd=0.5,ranges_x=breaks.info$ranges_x,ranges_y=breaks.info$ranges_y,gap_width_x=breaks.info$gap_width_x,gap_width_y=breaks.info$gap_width_y,is.rectangle=TRUE)#
+				}#
+			}#
+		}#
+	}else{#
+		return(list(ntracks,track.gene))#
+	}#
+}
+?source
+136.81+10.99+72.99
+d<-c(10,10,10,34,33,8,8,10,33,32,28,28,11,12,8,9,2,1,0,40,35)
+table(d)
+dist<-table(d[table(d)>1])
+dist
+dist<-names(table(d[table(d)>1]))
+dist
+dist<-as.numeric(names(table(d[table(d)>1])))
+dist
+?legend
+dist<-runif(500,min=0,max=15)
+reads<-rexp(500,lambda=sqrt(dist))
+?rexp
+reads<-rexp(500,rate=sqrt(dist))
+dat<-cbind(read,dat)
+dat<-cbind(dist,reads)
+dat
+dist<-runif(500,min=0,max=15)
+reads<-rpois(500,lambda=sqrt(dist))
+dat<-cbind(dist,reads)
+dat
+plot(dat)
+table(dat[,1])
+dat<-cbind(as.integer(dist),reads)
+plot(dat)
+table(dat[,1])
+plot(dat[,1],dat[,2],col="red",pch="+")#
+	dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=5])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat[dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu,col="gray",lwd=1)#
+	legend(x="topright",legend=c("mean","median","mean ± sd"),lwd=c(2,1,0.75),lty=c(1,1,2),col=c("black","gray","black"))
+dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=5])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu,col="gray",lwd=1)#
+	legend(x="topright",legend=c("mean","median","mean ± sd"),lwd=c(2,1,0.75),lty=c(1,1,2),col=c("black","gray","black"))
+dat
+plot(dat[,1],dat[,2],col="red",pch="+")#
+	dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=5])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu,col="gray",lwd=1)#
+	legend(x="topright",legend=c("mean","median","mean ± sd"),lwd=c(2,1,0.75),lty=c(1,1,2),col=c("black","gray","black"))
+mean
+mu
+m
+plot(dat[,1],dat[,2],col="red",pch="+")#
+	dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=5])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,m,col="gray",lwd=1)#
+	legend(x="topright",legend=c("mean","median","mean ± sd"),lwd=c(2,1,0.75),lty=c(1,1,2),col=c("black","gray","black"))
+(136.81-14)/2
+i
+i %% 500 == 0
+i %% 500
+i %% 5
+i %% 5 == 0
+?col2rgb
+tt<-rbind(123:2,124:5,122:0,122:0,123:1)
+tt<-rbind("123:2","124:5","122:0","122:0","123:1")
+tt
+unlist(strsplit(tt,split=":"))
+as.integer(unlist(strsplit(tt,split=":")))
+matrix(as.integer(unlist(strsplit(tt,split=":"))),ncol=2,byrow=T)
+plot(matrix(as.integer(unlist(strsplit(tt,split=":"))),ncol=2,byrow=T))
+points(matrix(as.integer(unlist(strsplit(tt,split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=255*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255))
+dat
+dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)
+dat.tmp
+dat.tmp.tab
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")
+points(matrix(as.integer(unlist(strsplit(dat.tmp,split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=255*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255))
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=255*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255))
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=100+155*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255))
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=50+205*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255),pch="+")
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=20+235*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255),pch="+")
+sort(dat.tmp.tab)
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=20+235*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255),pch="+")#
+	dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=min_obs])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	print(length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		if(i %% 500 == 0){print(i)}#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,m,col="gray",lwd=1)
+min_obs<-5
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=20+235*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255),pch="+")#
+	dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=min_obs])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	print(length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		if(i %% 500 == 0){print(i)}#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,m,col="gray",lwd=1)
+dist.tab
+mean
+mu
+cbind(dist,mu,m,sd)
+cbind(dist.tab,mu,m,sd)
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=20+235*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255),pch="+")#
+	dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=min_obs])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	print(length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		if(i %% 500 == 0){print(i)}#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,m,col="gray",lwd=1)
+plot(dat[,1],dat[,2],type="n",xlab="distance",ylab="read count")#
+	dat.tmp<-paste(dat[,1],dat[,2],sep=":")#
+	dat.tmp.tab<-table(dat.tmp)#
+	points(matrix(as.integer(unlist(strsplit(names(dat.tmp.tab),split=":"))),ncol=2,byrow=T),col=rgb(red=255,blue=0,green=0,alpha=20+235*(dat.tmp.tab/max(dat.tmp.tab)),maxColorValue=255),pch="+")#
+	dist.tab<-as.numeric(names(table(dat[,1][table(dat[,1])>=min_obs])))#
+	dist.tab<-sort(dist.tab)#
+	mu<-rep(NA,length(dist.tab))#
+	m<-rep(NA,length(dist.tab))#
+	sd<-rep(NA,length(dist.tab))#
+	print(length(dist.tab))#
+	for(i in 1:length(dist.tab)){#
+		if(i %% 500 == 0){print(i)}#
+		dat.tmp<-dat[dat[,1]==dist.tab[i],2]#
+		mu[i]<-mean(dat.tmp)#
+		m[i]<-median(dat.tmp)#
+		sd[i]<-sd(dat.tmp)#
+	}#
+	lines(dist.tab,mu,col="black",lwd=2)#
+	lines(dist.tab,mu-sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,mu+sd,col="black",lwd=0.75,lty=2)#
+	lines(dist.tab,m,col="gray",lwd=1)#
+	legend(x="topright",legend=c("mean","median","mean ± sd"),lwd=c(2,1,0.75),lty=c(1,1,2),col=c("black","gray","black"))
+cat(paste("\tOf these, I have now processed "i,".\n",sep=""),file=LOGfile,append=T)
+cat(paste("\tOf these, I have now processed ",i,".\n",sep=""),file=LOGfile,append=T)
+tt<-c("11_22_00","33_44_00","55_66_00")
+unlist(strsplt(tt,split="_"))
+unlist(strsplit(tt,split="_"))
+matrix(unlist(strsplit(tt,split="_"))),byrow=T,nrow=length(tt))
+matrix(unlist(strsplit(tt,split="_")),byrow=T,nrow=length(tt))
+tt<-c(11,111,1111)
+chr<-c(0,100,1000)
+matrix(tt,ncol=1)-rbind(chr,chr,chr)
+matrix(tt,ncol=1)
+rbind(chr,chr,chr)
+rbind(chr,chr,chr)+9000
+rbind(chr,chr,chr)+c(3000,6000,9000)
+-rbind(chr,chr,chr)+tt
+tt
+chr
+?rowmin
+?minrow
+matrix(ncol=10,nrow=0)
+rbind(matrix(ncol=10,nrow=0),1:10)
+vector("list",0)
+tt<-vector("list",0)
+tt[[1]]<-3
+tt
+tt[[2]]<-1
+tt
+4==tt
+3==tt
+tt==3
+tt<-vector("list",0)
+tt==3
+if(length(tt==3)>0)
+if(length(tt==3)>0){print("hello")}
+length(tt==3)>0
+c(t1,t2)<-c("hello",5)
+(t1,t2)<-c("hello",5)
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",meta.method," >,\n\tpval.thr = < ",pval.thr," >,\n\tmeta.FDR.thr = < ",meta.FDR.thr," >,\n\tLDblocks.file = < ",LDblocks.file" >,\n\tchrsizes.file = < ",chrsizes.file," >,\n\toutput.prefix = < ",output.prefix," >,\n\tNboot = < ",Nboot," >,\n\theader = < ",header," >,\n\testimate.pi0 = < ",estimate.pi0," >,\n\tremoveNAs = < ",removeNAs," >.\n\n",sep=""),file=paste(output.prefix,"_meta_fdr.log",sep=""))
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",sep="")
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",sep=""))
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",meta.method," >,\n\tpval.thr = < ",sep=""))
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",meta.method," >,\n\tpval.thr = < ",pval.thr," >,\n\tmeta.FDR.thr = < ",sep=""))
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",meta.method," >,\n\tpval.thr = < ",pval.thr," >,\n\tmeta.FDR.thr = < ",meta.FDR.thr," >,\n\tLDblocks.file = < ",sep=""))
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",meta.method," >,\n\tpval.thr = < ",pval.thr," >,\n\tmeta.FDR.thr = < ",meta.FDR.thr," >,\n\tLDblocks.file = < ",LDblocks.file" >,\n\tchrsizes.file = < ",chrsizes.file," >,\n\toutput.prefix = < ",output.prefix," >,\n\tNboot = < ",Nboot," >,\n\theader = < ",header," >,\n\testimate.pi0 = < ",estimate.pi0," >,\n\tremoveNAs = < ",removeNAs," >.\n\n",sep=""))
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",meta.method," >,\n\tpval.thr = < ",pval.thr," >,\n\tmeta.FDR.thr = < ",meta.FDR.thr," >,\n\tLDblocks.file = < ",LDblocks.file" >,\n\tchrsizes.file = < ",sep="")
+cat(paste("Input arguments:\n\tpvals.files = < ",paste(pvals.files, collapse=" ")," >,\n\tpvals.type = < ",pvals.type," >,\n\tmeta.method = < ",meta.method," >,\n\tpval.thr = < ",pval.thr," >,\n\tmeta.FDR.thr = < ",meta.FDR.thr," >,\n\tLDblocks.file = < ",LDblocks.file," >,\n\tchrsizes.file = < ",chrsizes.file," >,\n\toutput.prefix = < ",output.prefix," >,\n\tNboot = < ",Nboot," >,\n\theader = < ",header," >,\n\testimate.pi0 = < ",estimate.pi0," >,\n\tremoveNAs = < ",removeNAs," >.\n\n",sep=""),file=paste(output.prefix,"_meta_fdr.log",sep=""))
+LDblocks.dat<-read.table(LDblocks.file,sep="\t",header=F,colClasses=c(rep(character,3),rep(integer,2)))
+write.table(interaction_groups,file=file=paste(output.prefix,"_meta_fdr_",LDblocks.dat[1],"_",LDblocks.dat[2],".tab",sep=""),quote=F,row.names=F,col.names=F,sep="\t")
+write.table(interaction_groups,file=paste(output.prefix,"_meta_fdr_",LDblocks.dat[1],"_",LDblocks.dat[2],".tab",sep=""),quote=F,row.names=F,col.names=F,sep="\t")
+tt
+tt[[1]]<-0
+tt[[2]]<-111
+tt
+ttt<-vector("list",2)
+ttt[[1]]<-"hello"
+ttt[[2]]<-"hullo"
+tt
+ttt
+ttt[[tt==2]]
+ttt[[tt==111]]
+group<-character(0)
+group<-c(group,"klo")
+group
+tt
+ttt
+ttt[[1:2==1]]
+ttt[[(1:2)[1:2==1]]]
+ttt[[(1:2)[1:2==2]]]
+ttt[[which(1:2==2)]]
+source("Desktop/HiC_Shiny_App/Run_the_app.R",chdir=T)
+?order
+M<-matrix(c(4,2,8,11,11,-2),c(11,53,23,24,-10,100),c(1:6),byrow=F,ncol=3)
+M<-matrix(c(4,2,8,11,11,-2),c(11,53,23,24,-10,100),c(1:6),byrow=F,nrow=6)
+M<-matrix(c(4,2,8,11,11,-2,11,53,23,24,-10,100,1:6),byrow=F,nrow=6)
+M
+order(M)
+MM<-as.list(M)
+MM
+order(MM)
+order(M[,1],M[,2],M[,3])
+M[order(M[,1],M[,2],M[,3]),]
+M[order("M[,1],M[,2],M[,3]"),]
+M
+order("M[,1],M[,2],M[,3]")
+order(M[,1],M[,2],M[,3])
+order(eval("M[,1],M[,2],M[,3]"))
+order(parse("M[,1],M[,2],M[,3]"))
+order(deparse("M[,1],M[,2],M[,3]"))
+?deparse
+depars(M)
+deparse(M)
+order(expression("M[,1],M[,2],M[,3]"))
+order(eval(expression("M[,1],M[,2],M[,3]")))
+?eval
+order(M[,1]:M[,3])
+order(M[,1]..M[,3])
+?get
+order(get("M[,1],M[,2],M[,3]"))
+?order
+get("M[,1]")
+order(as.data.frame(M))
+dat<-M
+M
+M<-cbind(c(1,1,1,1,6),c(100,100,300,400,500),c(150,200,380,425,600))
+M
+minGapSize<-30
+dat<-M
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			while(2<=n{#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,i),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-n-1#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			while(2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,i),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-n-1#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			while(2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-n-1#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			while(2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+dat.tmp
+nrow(dat.tmp)
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			while(!is.null(n) & 2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+!is.null(n)
+2<=n
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			if(is.null(n)){n<-0}#
+			while(2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+n
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+print(n)#
+			if(is.null(n)){n<-0}#
+print(n)#
+			while(2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			if(is.null(n)){n<-0}#
+			while(2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			if(is.null(n)){n<-0}#
+			while(2<=n){#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-0}#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-0}#
+				}#
+			}#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			if(is.null(n)){n<-0}#
+			while(2<=n){#
+print(dat.tmp)#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}#
+			}#
+print(dat.tmp)#
+			dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+		}#
+	}
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			if(is.null(n)){n<-0}#
+			while(2<=n){#
+print(dat.tmp)#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}#
+			}#
+print(dat.tmp)#
+			dat.merged<-rbind(dat.merged,dat.tmp)#
+		}#
+	}
+dat.merged
+dat
+M<-cbind(c(1,1,1,1,6,6),c(100,100,300,400,500,700),c(150,200,380,425,600,800))
+dat<-M
+order the data#
+	dat<-dat[order(dat[,1],dat[,2],dat[,3]),]#
+# merge overlaps#
+	dat.merged<-matrix(ncol=3,nrow=0)#
+	for(chr in unique(dat[,1])){#
+		if(sum(dat[,1]==chr)==1){#
+			dat.merged<-rbind(dat.merged,dat[dat[,1]==chr,])#
+		}else{#
+			dat.tmp<-dat[dat[,1]==chr,]#
+			n<-nrow(dat.tmp)#
+			if(is.null(n)){n<-0}#
+			while(2<=n){#
+print(dat.tmp)#
+				if(dat.tmp[2,2]-minGapSize<=dat.tmp[1,3]){#
+					dat.tmp[1,3]<-max(dat.tmp[c(1,2),3])#
+					dat.tmp<-dat.tmp[-2,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}else{#
+					dat.merged<-rbind(dat.merged,dat.tmp[1,])#
+					dat.tmp<-dat.tmp[-1,]#
+					n<-nrow(dat.tmp)#
+					if(is.null(n)){n<-1}#
+				}#
+			}#
+print(dat.tmp)#
+			dat.merged<-rbind(dat.merged,dat.tmp)#
+		}#
+	}
+dat
+dat.merged
+source("Desktop/HiC_Shiny_App/Run_the_app.R",chdir=T)
+source("Desktop/HiC_Shiny_App_polished/Run_the_app.R")
+source("Desktop/HiC_Shiny_App_polished/Run_the_app.R",chdir=T)
+q()
+setwd("Desktop/visPIG_v1.0/Dev/")
+source("generate.R")
+source("fill_template.R")
+source("generate.load_params.R")

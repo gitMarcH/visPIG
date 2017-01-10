@@ -1,0 +1,102 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+  <link rel="stylesheet" type="text/css" href="../styles/style1.css"/>
+
+  <!-- check for SVG support -->
+  <script>
+  if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+  </script>
+</head>
+
+<body>
+
+<div id='wrapper'>
+	  <div id='top0'>
+	    <div style="height:20px">
+	    </div>
+	    <div style='float:left'>
+	      <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	      <img class="svg" src="../images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	      <img class="png" src="../images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	      </a>
+	    </div>
+	    <div style='float:right'>
+	      Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	    </div>
+	    <div>
+	    </div>
+	  </div>
+	  <div id='top1'>
+		  <h1>visPIG - Visual Plotting Interface for Genetics</h1>
+	  </div>
+
+<div id='help'>
+<h3>1. Upload a regions file</h3>
+The required format of the file is given below. This will get you started.
+<h3>2. Upload other data files</h3>
+Be warned that if you navigate away from the plotting page then the files you've uploaded will require re-uploading the next time you visit the page. There is a 50mb file upload limit. If you have larger files please reduce their size by only including rows that are in the region you are plotting (e.g. by AWK'ing the files).
+<h3>3. Look at all the paramaters available to edit and change some.</h3>
+The parameters are categorized by the track they correspond to, or their nature. You can change which parameters you are viewing by using the radio buttons near the top of the page.
+<h3>4. Save your edited parameters (if you want).</h3> Using the link at the top of the page. Saved parameters can be reapplied by uploading the parameter file from the Files parameter set.
+
+<h3>The required format of the files is demonstrated in these examples:</h3>
+To find out which file corresponds to a certain track you might want to look at the <a href='track-codes.html'>track-codes</a>. <br /><br />
+<div style='padding-left:25px;'><a href='examples/annot.txt'>annot.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/assoc.txt'>assoc.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/bd.txt'>bd.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/chrsizes.txt'>chrsizes.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/dix.txt'>dix.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/feat.txt'>feat.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/gene.txt'>gene.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/gerp.filter.txt'>gerp.filter.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/gerp.txt'>gerp.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/heat.txt'>heat.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/hic.txt'>hic.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/int.txt'>int.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/lines.txt'>lines.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/parameters.default.txt'>parameters.default.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/phast.filter.txt'>phast.filter.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/phast.txt'>phast.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/regions.txt'>regions.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/snap.data.txt'>snap.data.txt</a></div>
+<div style='padding-left:25px;'><a href='examples/snap.rate.txt'>snap.rate.txt</a></div>
+<br /><br />
+
+<table>
+<tr>
+<td>File</td><td>Description</td><td>Example</td>
+</tr>
+<tr>
+<td>Regions</td>
+<td>Specify the extent of your plot. The columns in the file, from left to right, correspond to:<br/>&emsp;Chromosome   <br/>&emsp;Start Point (bp)   <br />&emsp;End Point (bp)</td>
+<td>
+<a href=''>regions.txt</a>
+</td>
+</tr>
+</table>
+
+</div>
+
+	  <div id='disclaimer'>
+	  <br>Disclaimer:<br><br>
+	  1. The Software is provided as a service to the research community. It
+	  is provided with no warranties, express or implied. In particular
+	  all warranties as to satisfactory quality or fitness for a
+	  particular purpose are excluded, and the user accepts that the
+	  Software has not been validated.  The user also accepts that the
+	  Software cannot be used to provide information suitable for
+	  contributing to a medical diagnosis or assessment. ICR makes no
+	  representations that the use of the Software will not infringe any
+	  patent or proprietary rights of third parties.<br><br>
+	  2. The user shall hold ICR harmless and shall indemnify ICR for all
+	  liabilities, demands, damages, expenses and losses arising directly
+	  or indirectly out of the use of the Software.<br>
+	  </div>
+
+</div>
+
+</body>
+
+</html>

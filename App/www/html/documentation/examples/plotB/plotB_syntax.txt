@@ -1,0 +1,1 @@
+R --vanilla < visPIG.R --args pars.file=plotB_pars.txt regions.file=plotB_regions.txt heat.file=plotB_heatmap.txt feat.files=plotB_feature.txt hic.files=plotB_interaction_arches.txt chrsizes.file=chrsizes.file gene.file=gene.file outprefix=plotB plot.type=pdf

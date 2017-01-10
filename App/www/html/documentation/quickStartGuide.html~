@@ -1,0 +1,82 @@
+<html>
+  
+  <head>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    <link rel="stylesheet" type="text/css" href="../../styles/style1.css"/>
+    
+    <!-- check for SVG support -->
+    <script>
+      if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")){document.documentElement.className = "svg";}
+    </script>
+  </head>
+  
+  <body>
+    
+    <div id='wrapper_basic'>
+      <div id='top0'>
+	<div style="height:10px">
+	</div>
+	<div style='float:left'>
+	  <a href="http://www.icr.ac.uk" position: relative; z-index: 1;>
+	    <img class="svg" src="../../images/icr.svg" alt="ICR logo" height="45px" width="223px" />
+	    <img class="png" src="../../images/icr.png" alt="ICR logo" height="45px" width="223px" />
+	  </a>
+	</div>
+	<div style='float:right'>
+	  Making&nbsp;the&nbsp;discoveries&nbsp;that&nbsp;defeat&nbsp;cancer
+	</div>
+	<div>
+	</div>
+      </div>
+      <div id='top1'>
+	<h1>visPIG - Visual Plotting Interface for Genetics</h1>
+      </div>
+      
+      <div style="height:50px"></div>
+
+      <div class="justText">
+
+	<h2>Creating a plot.</h2>
+	Select the files that you wish to plot on the 'Data Files' tab and then click the big, red 'replot' button to generate a PNG preview of your plot.<br>
+	Check that your plot looks ok and, if not, adjust the various graphical and track-specific parameters using the other menu tabs, then click 'replot' again.<br>
+	At the very minimum you will need to provide a regions file, which specifies the region(s) on the genome that you wish to plot.<br>
+	Please refer to the <a href="inputFormats.html">input data formats</a> page for details on the formats required for the various input files.
+
+	<h2>Downloading the plot.</h2>
+	Once you have created a perfect-looking plot, either right-click on the PNG preview image and select 'Save Image As' to save your plot as a PNG image, or click the green 'download the PDF' button in the right top panel to generate and download a PDF version of your plot.<br>The PDF contains a scalable vector graphics version of the plot whereas the PNG is a raster graphics image.<br>Note that clicking the 'download the PDF' button will mean re-running that the code required to produce your plot is re-run. If your plot is very complicated with lots of data points or lines, you might have to be a bit patient before the download box pops up.
+
+	<h2>Recreating or modifying a previously created plot.</h2>
+	Once you are happy with your plot, but think you might want to modify or recreate it at a later date, you can save all the parameters that you have set by clicking the yellow 'save the parameters' button in the top right pane.<br>At a later date you can then recreate the same plot by simply selecting all your upload file and also uploading the saved parameters file (the 'parameter file' in the 'Data files' tab). this will save you the time and trouble to re-set all the parameters you have already set previously.<br>
+	Note that the parameters get loaded as soon as you select the parameters file. So there is no need to hit 'replot' before changing some of the settings.
+
+	<h2>Running visPIG locally on your own computer.</h2>
+	Should you not wish to upload your data to the visPIG server, or if some of your files exceed the 50MB upload file size limit, you can <a href="../download_R.html">download the R code</a> either by clicking the preceding link or by clicking the orange 'download the R code' button in the top right pane on the main visPIG page.<br>Also download either a default parameter file (simply click the 'save the parameters' button without having changed any) or set some parameters and then download your parameter file.<br>Instructions on how to run visPIG locally (from the command line) are contained in the R code download.
+
+	<h2>Examples.</h2>
+	Coming soon.
+
+      </div>
+            
+      <div style="height:50px"></div>    
+      
+      <div id='disclaimer'>
+	<br>Disclaimer:<br><br>
+	1. The Software is provided as a service to the research community. It
+	is provided with no warranties, express or implied. In particular
+	all warranties as to satisfactory quality or fitness for a
+	particular purpose are excluded, and the user accepts that the
+	Software has not been validated.  The user also accepts that the
+	Software cannot be used to provide information suitable for
+	contributing to a medical diagnosis or assessment. ICR makes no
+	representations that the use of the Software will not infringe any
+	patent or proprietary rights of third parties.<br><br>
+	2. The user shall hold ICR harmless and shall indemnify ICR for all
+	liabilities, demands, damages, expenses and losses arising directly
+	or indirectly out of the use of the Software.<br>
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>
