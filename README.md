@@ -17,7 +17,7 @@ To use the App: 'source' the R file 'Run_the_app.R' whilst ensuring that the cur
 		source(your_local_folder_name/Run_the_app.R, chdir=TRUE)
 
 After your R terminal should display a line like this:
-	Listening on http://127.0.0.1:7863
+	`Listening on http://127.0.0.1:7863`
 	
 Just copy this http link into a browser of your choice (Firefox works for sure) and visPIG should be up and running.
 
@@ -32,7 +32,5 @@ install.packages("shiny")
 # b) from the command line #
 ############################
 
-Navigate to the directory
-	visPIG/App/download_R_code/
-and consult the README.txt in that directory.
+Navigate to the directory `visPIG/App/download_R_code/` and consult the README.txt in that directory.
 
