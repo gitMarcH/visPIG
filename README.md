@@ -18,12 +18,11 @@ To use the App: 'source' the R file 'Run_the_app.R' whilst ensuring that the cur
 
 After your R terminal should display a line like this:
 	Listening on http://127.0.0.1:7863
-
+	
 Just copy this http link into a browser of your choice (Firefox works for sure) and visPIG should be up and running.
 
 
 Note:
-
 The R package 'shiny' needs to be installed.
 To do this, run the following command in R:
 install.packages("shiny")
