@@ -4,10 +4,7 @@ There are 2 ways to use visPIG:
 a) through a html GUI
 b) headless from a terminal
 
-
-#################
-# a) from a GUI #
-#################
+## a) from a GUI 
 
 To use the App: 'source' the R file 'Run_the_app.R' whilst ensuring that the current working directory is the directory in which Run_the_app.R lives. For example by:
 
@@ -28,9 +25,7 @@ To do this, run the following command in R:
    `install.packages("shiny")`
 
 
-############################
-# b) from the command line #
-############################
+## b) from the command line #
 
 Navigate to the directory `visPIG/App/download_R_code/` and consult the README.txt in that directory.
 
