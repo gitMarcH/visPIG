@@ -1,3 +1,6 @@
+All scripts and code is released under a GNU General Public License, version 3 (GPL-3.0).
+The full copy of the license agreement can be found in App/download_R_code/GNU_GPLv3_license.txt .
+
 There are 2 ways to use visPIG:
 a) through a html GUI
 b) headless from a terminal
